@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tool="http://schemas.android.com/tools"
+    tool:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <!-- hier werden die Menü-Einträge definiert, Reihenfolge ist entscheidend -->
+
+                <item
+                    android:id="@+id/nav_account"
+                    android:icon="@drawable/ic_account"
+                    android:title="Benutzerkonto" />
+
+                <item
+                    android:id="@+id/nav_recipes"
+                    android:icon="@drawable/ic_browse"
+                    android:title="Rezeptvorschläge" />
+
+                <item
+                    android:id="@+id/nav_start"
+                    android:icon="@drawable/ic_start"
+                    android:title="Rezeptsuche" />
+
+                <item
+                    android:id="@+id/nav_favorites"
+                    android:icon="@drawable/ic_favorites"
+                    android:title="Favoriten" />
+
+            </group>
+
+        </menu>
