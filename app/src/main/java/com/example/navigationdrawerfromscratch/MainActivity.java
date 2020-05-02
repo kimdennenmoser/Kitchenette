@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -25,6 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.w3c.dom.Text;
 
@@ -37,6 +40,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     ListView search_recipes;
     ArrayAdapter<String> adapter;
+    User user;
+    EditText editTextVorname;
+    EditText editTextNachname;
+    EditText editTextUsername;
+    EditText editTextPassword;
+    EditText editTextMail;
+    Button btncreateUser;
+    DatabaseReference databaseReference;
+    FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +77,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new BrowseFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_recipes);
         }
+
+
+        //Datenbank Zugriff
+        editTextVorname = (EditText) findViewById(R.id.editTextVorname);
+        editTextNachname = (EditText) findViewById(R.id.editTextNachname);
+        editTextUsername = (EditText) findViewById(R.id.editTextUserName);
+        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        editTextMail = (EditText) findViewById(R.id.editTextMail);
+        btncreateUser = (Button) findViewById(R.id.buttonCreateUser);
+        user = new User();
+        database = FirebaseDatabase.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("User");
+
+
+
 
     }
 
