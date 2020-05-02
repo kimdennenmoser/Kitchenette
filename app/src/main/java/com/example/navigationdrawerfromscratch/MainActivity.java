@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -55,6 +56,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
+        //Nachricht, dass Firebase Connection erfolgreich war
+        // Toast.makeText(this, "Firebase connection successful", Toast.LENGTH_LONG).show();
 
         //Diese Seite wird beim Starten der App angezeigt, hier: Rezeptvorschläge
         if (savedInstanceState == null) {

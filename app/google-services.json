@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "796092476545",
+    "firebase_url": "https://kitchenettepvc-f118a.firebaseio.com",
+    "project_id": "kitchenettepvc-f118a",
+    "storage_bucket": "kitchenettepvc-f118a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:796092476545:android:278905be343e4000613180",
+        "android_client_info": {
+          "package_name": "com.example.navigationdrawerfromscratch"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "796092476545-798v5bhetliv5i877fbv78pr9dvfiio3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.navigationdrawerfromscratch",
+            "certificate_hash": "dbd415bd620668f7a409126c55e24d4b1d867732"
+          }
+        },
+        {
+          "client_id": "796092476545-lsegkj3gi0ntjs52bbqmsejnjmrv4usl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBC4IUujp6ddmX0dwnQthPSbX-cFdqIZzo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "796092476545-lsegkj3gi0ntjs52bbqmsejnjmrv4usl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
