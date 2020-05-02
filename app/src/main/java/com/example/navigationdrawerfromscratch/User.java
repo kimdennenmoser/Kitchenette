@@ -1,13 +1,31 @@
 package com.example.navigationdrawerfromscratch;
 
 public class User {
+    private String userid;
     private String vname;
     private String nname;
     private String username;
     private String password;
     private String mail;
 
+    public User(String userid, String vname, String nname, String username, String password, String mail) {
+        this.userid = userid;
+        this.vname = vname;
+        this.nname = nname;
+        this.username = username;
+        this.password = password;
+        this.mail = mail;
+    }
+
     public User() {
+    }
+
+    public String getUserid() {
+        return userid;
+    }
+
+    public void setUserid(String userid) {
+        this.userid = userid;
     }
 
     public String getVname(String vname) {

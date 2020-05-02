@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -47,7 +48,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     EditText editTextPassword;
     EditText editTextMail;
     Button btncreateUser;
-    DatabaseReference databaseReference;
+    DatabaseReference databaseUser;
     FirebaseDatabase database;
 
     @Override
@@ -74,27 +75,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //Diese Seite wird beim Starten der App angezeigt, hier: Rezeptvorschläge
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new BrowseFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CreateAccountFragment()).commit();
+           /* getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new BrowseFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_recipes);
+
+            */
         }
 
 
-        //Datenbank Zugriff
-        editTextVorname = (EditText) findViewById(R.id.editTextVorname);
-        editTextNachname = (EditText) findViewById(R.id.editTextNachname);
-        editTextUsername = (EditText) findViewById(R.id.editTextUserName);
-        editTextPassword = (EditText) findViewById(R.id.editTextPassword);
-        editTextMail = (EditText) findViewById(R.id.editTextMail);
-        btncreateUser = (Button) findViewById(R.id.buttonCreateUser);
-        user = new User();
-        database = FirebaseDatabase.getInstance();
-        databaseReference = FirebaseDatabase.getInstance().getReference().child("User");
+
 
 
 
 
     }
-
 
     //Methode, dass das passende Fragment zu dem Menüpunkt angezeigt wird
     @Override
