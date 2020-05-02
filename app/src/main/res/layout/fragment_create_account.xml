@@ -8,41 +8,35 @@
 
     <TextView
         android:id="@+id/textViewAccount3"
-        android:layout_width="225dp"
-        android:layout_height="93dp"
+        android:layout_width="286dp"
+        android:layout_height="45dp"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginTop="50dp"
         android:fontFamily="cursive"
-        android:text="Benutzerkonto erstellen"
+        android:text="Benutzer erstellen"
         android:textSize="40sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/scrollView3"
-        android:layout_width="358dp"
+    <ScrollView
+        android:id="@+id/sv"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
         app:layout_constraintTop_toBottomOf="@+id/textViewAccount3">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintlayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/textViewEnterData"
+                android:id="@+id/textViewAufforderung"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginTop="15dp"
-                android:text="Bitte füllen Sie folgende Fenster aus."
+                android:text="Bitte füllen Sie folgende Felder aus."
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,38 +46,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
                 android:ems="10"
                 android:hint="Vorname"
                 android:inputType="textPersonName"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewEnterData" />
-
-            <EditText
-                android:id="@+id/editTextCreateUsername"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="15dp"
-                android:ems="10"
-                android:hint="Benutzername festlegen"
-                android:inputType="textPersonName"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextNachname" />
-
-            <EditText
-                android:id="@+id/editTextCreatePassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="15dp"
-                android:ems="10"
-                android:hint="Passwort festlegen"
-                android:inputType="textPassword"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextCreateUsername" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewAufforderung" />
 
             <EditText
                 android:id="@+id/editTextNachname"
@@ -98,39 +66,43 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextVorname" />
 
+            <EditText
+                android:id="@+id/editTextUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp"
+                android:ems="10"
+                android:hint="Benutzername festlegen"
+                android:inputType="textPersonName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextMail" />
+
+            <EditText
+                android:id="@+id/editTextPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp"
+                android:ems="10"
+                android:hint="Passwort festlegen"
+                android:inputType="textPassword"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextUserName" />
+
             <TextView
                 android:id="@+id/textViewPreferences"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="30dp"
                 android:text="Präferenzen"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextCreatePassword" />
-
-            <CheckedTextView
-                android:id="@+id/checkedTextViewVegan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="15dp"
-                android:text="vegan"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewPreferences" />
-
-            <CheckedTextView
-                android:id="@+id/checkedTextViewVegetarian"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="15dp"
-                android:text="vegetarisch"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkedTextViewVegan" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
 
             <CheckedTextView
                 android:id="@+id/checkedTextViewLowCarb"
@@ -141,7 +113,40 @@
                 android:layout_marginTop="15dp"
                 android:text="low Carb"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkedTextViewHighProtein" />
+                app:layout_constraintTop_toBottomOf="@+id/checkedTextViewGlutenfree" />
+
+            <CheckedTextView
+                android:id="@+id/checkedTextViewVegetarian"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp"
+                android:text="vegetarisch"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewPreferences" />
+
+            <CheckedTextView
+                android:id="@+id/checkedTextViewGlutenfree"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp"
+                android:text="glutenfrei"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkedTextViewVegan" />
+
+            <CheckedTextView
+                android:id="@+id/checkedTextViewVegan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp"
+                android:text="vegan"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/checkedTextViewVegetarian" />
 
             <CheckedTextView
                 android:id="@+id/checkedTextViewHighProtein"
@@ -152,21 +157,32 @@
                 android:layout_marginTop="15dp"
                 android:text="High Protein"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkedTextViewVegetarian" />
+                app:layout_constraintTop_toBottomOf="@+id/checkedTextViewLowCarb" />
 
             <EditText
-                android:id="@+id/editText11"
+                android:id="@+id/editTextMail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginTop="200dp"
+                android:layout_marginTop="15dp"
                 android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name"
+                android:hint="E-Mail Adresse"
+                android:inputType="textEmailAddress"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/checkedTextViewLowCarb" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextNachname" />
+
+            <TextView
+                android:id="@+id/textViewEnde"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="205dp"
+                android:layout_marginLeft="205dp"
+                android:layout_marginTop="1000dp"
+                android:text="Ende "
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
