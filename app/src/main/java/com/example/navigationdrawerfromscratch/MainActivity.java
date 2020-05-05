@@ -70,23 +70,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
 
-        //Nachricht, dass Firebase Connection erfolgreich war
-        // Toast.makeText(this, "Firebase connection successful", Toast.LENGTH_LONG).show();
-
         //Diese Seite wird beim Starten der App angezeigt, hier: Rezeptvorschläge
         if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CreateAccountFragment()).commit();
-           /* getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new BrowseFragment()).commit();
+            // getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CreateAccountFragment()).commit();
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new BrowseFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_recipes);
-
-            */
         }
-
-
-
-
-
-
 
     }
 
