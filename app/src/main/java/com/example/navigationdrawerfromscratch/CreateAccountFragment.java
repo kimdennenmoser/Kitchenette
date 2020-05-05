@@ -45,7 +45,7 @@ public class CreateAccountFragment extends Fragment {
         editTextMail = (EditText) view.findViewById(R.id.editTextMail);
         btncreateUser = (Button) view.findViewById(R.id.buttonCreateUser);
 
-        databaseUser = FirebaseDatabase.getInstance().getReference().child("User");
+        databaseUser = FirebaseDatabase.getInstance().getReference().child("");
         //databaseUser = FirebaseDatabase.getInstance().getReference("User");
         btncreateUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,11 +67,23 @@ public class CreateAccountFragment extends Fragment {
         String password = editTextPassword.getText().toString().trim();
         String mail = editTextMail.getText().toString().trim();
 
-        user = new User(id, firstName, lastName, username, password, mail);
+
+        if (!TextUtils.isEmpty(firstName)) {
+
+            String ident = databaseUser.push().getKey();
+            User user  = new User(ident, firstName, lastName, username, password, mail);
+            databaseUser.child(ident).setValue(user);
+            //Toast.makeText(this, "User wurde erfolgreich angelegt", Toast.LENGTH_LONG).show();
+
+        } else{
+            //Toast.makeText(this, "Bitte Daten ausfüllen", Toast.LENGTH_LONG).show();
+            System.out.println("keine Daten eingegeben");
+        }
+        /*user = new User(id, firstName, lastName, username, password, mail);
         databaseUser.push().setValue(user);
         //  databaseUser.child(id).setValue(user);
         Context context = getActivity().getApplicationContext();
-        Toast.makeText(context, "Benutzer angelegt", Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Benutzer angelegt", Toast.LENGTH_LONG).show();*/
 
 
     }
