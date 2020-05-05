@@ -60,24 +60,25 @@ public class CreateAccountFragment extends Fragment {
     //Methode, die einen neuen User in die DB hinzufügt
     public void addUser() {
 
-        String id = databaseUser.push().getKey();
         String firstName = editTextVorname.getText().toString().trim();
         String lastName = editTextNachname.getText().toString().trim();
         String username = editTextUsername.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String mail = editTextMail.getText().toString().trim();
-
+        
+        Context context = this.getActivity();
 
         if (!TextUtils.isEmpty(firstName)) {
 
-            String ident = databaseUser.push().getKey();
-            User user  = new User(ident, firstName, lastName, username, password, mail);
-            databaseUser.child(ident).setValue(user);
-            //Toast.makeText(this, "User wurde erfolgreich angelegt", Toast.LENGTH_LONG).show();
+            String id = databaseUser.push().getKey();
+            User user  = new User(id, firstName, lastName, username, password, mail);
+            databaseUser.child(id).setValue(user);
+
+            Toast.makeText(context, "User wurde erfolgreich angelegt", Toast.LENGTH_LONG).show();
 
         } else{
-            //Toast.makeText(this, "Bitte Daten ausfüllen", Toast.LENGTH_LONG).show();
-            System.out.println("keine Daten eingegeben");
+            Toast.makeText(context, "Bitte Daten ausfüllen", Toast.LENGTH_LONG).show();
+            
         }
         /*user = new User(id, firstName, lastName, username, password, mail);
         databaseUser.push().setValue(user);
