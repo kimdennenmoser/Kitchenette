@@ -28,7 +28,7 @@ public class User {
         this.userid = userid;
     }
 
-    public String getVname(String vname) {
+    public String getVname() {
         return vname;
     }
 
@@ -36,7 +36,7 @@ public class User {
         this.vname = vname;
     }
 
-    public String getNname(String nname) {
+    public String getNname() {
         return nname;
     }
 
@@ -44,7 +44,7 @@ public class User {
         this.nname = nname;
     }
 
-    public String getUsername(String username) {
+    public String getUsername() {
         return username;
     }
 
@@ -67,6 +67,4 @@ public class User {
     public void setMail(String mail) {
         this.mail = mail;
     }
-
-
 }

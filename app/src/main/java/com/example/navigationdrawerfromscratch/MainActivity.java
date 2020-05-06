@@ -41,15 +41,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     ListView search_recipes;
     ArrayAdapter<String> adapter;
-    User user;
-    EditText editTextVorname;
-    EditText editTextNachname;
-    EditText editTextUsername;
-    EditText editTextPassword;
-    EditText editTextMail;
-    Button btncreateUser;
-    DatabaseReference databaseUser;
-    FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
 
         //Diese Seite wird beim Starten der App angezeigt, hier: Rezeptvorschläge
         if (savedInstanceState == null) {
