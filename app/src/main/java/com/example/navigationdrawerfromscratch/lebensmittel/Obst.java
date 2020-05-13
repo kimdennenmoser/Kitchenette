@@ -1,37 +1,36 @@
 package com.example.navigationdrawerfromscratch.lebensmittel;
 
-public class Gemüse {
+public class Obst {
 
-    private int id;
-    private String name, status;
+    private int ID;
+    private String Name, status;
     private int image;
 
-
-    public Gemüse() {
-
+    public Obst() {
     }
 
-    public Gemüse(int id, String name, String status, int image) {
-        this.id = id;
-        this.name = name;
+    public Obst(int ID, String name, String status, int image) {
+        this.ID = ID;
+        Name = name;
         this.status = status;
         this.image = image;
     }
 
-    public int getId() {
-        return id;
+
+    public int getID() {
+        return ID;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public String getName() {
-        return name;
+        return Name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        Name = name;
     }
 
     public String getStatus() {
