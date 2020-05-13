@@ -39,6 +39,7 @@
         android:layout_alignLeft="@id/heading_label"
         android:layout_marginTop="20dp"
         android:layout_marginRight="20dp"
+        android:background="@drawable/search_outline"
         android:ems="10"
         android:fontFamily="@font/nunito_semibold"
         android:inputType="textPersonName"
