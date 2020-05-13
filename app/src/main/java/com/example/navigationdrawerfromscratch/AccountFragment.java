@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -63,20 +64,28 @@ public class AccountFragment extends Fragment {
             @Override
             public void onClick(View v) {
 
+
+                //AccountOverviewFragment accountOverviewFragment = new AccountOverviewFragment();
+                //FragmentManager manager = getFragmentManager();
+                //manager.beginTransaction().replace(R.id.fragment_container, accountOverviewFragment, accountOverviewFragment.getTag()).commit();
+
                 //databaseUser.addChildEventListener();
+
+
                 databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                         if (dataSnapshot.exists()) {
                             for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                                User user = userSnapshot.getValue(User.class);
-                                userList.add(user);
+                                String uname = dataSnapshot.child("username").getValue(String.class);
+                                //User user = userSnapshot.getValue(User.class);
+                                //userList.add(user);
 
                                 editTextInsertUsername = (EditText) view.findViewById(R.id.editTextInsertUsername);
                                 editTextInsertUsernameString = editTextInsertUsername.getText().toString().trim();
 
-                                if (user.getUsername() == editTextInsertUsernameString) {
+                                if (uname == editTextInsertUsernameString) {
                                     Toast.makeText(context, "Anmeldung erfolgreich", Toast.LENGTH_LONG).show();
                                 } else {
                                     Toast.makeText(context, "Username existiert nicht", Toast.LENGTH_LONG).show();
@@ -91,11 +100,26 @@ public class AccountFragment extends Fragment {
 
                     }
                 });
+            }
                 /*databaseUser.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         //aufgerufen, jedes Mal, wenn sich etwas in der DB ändert
+  if (dataSnapshot.exists()) {
+                            for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
+                                String uname = dataSnapshot.child("username").getValue(String.class);
+                                //User user = userSnapshot.getValue(User.class);
+                                //userList.add(user);
 
+                                editTextInsertUsername = (EditText) view.findViewById(R.id.editTextInsertUsername);
+                                editTextInsertUsernameString = editTextInsertUsername.getText().toString().trim();
+
+                                if (uname == editTextInsertUsernameString) {
+                                    Toast.makeText(context, "Anmeldung erfolgreich", Toast.LENGTH_LONG).show();
+                                } else {
+                                    Toast.makeText(context, "Username existiert nicht", Toast.LENGTH_LONG).show();
+                                }
+                            }
 
 
 
@@ -109,7 +133,7 @@ public class AccountFragment extends Fragment {
                 });
 
                  */
-            }
+           // }
         });
 
         return view;
