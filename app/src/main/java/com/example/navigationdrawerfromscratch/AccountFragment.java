@@ -92,7 +92,6 @@ public class AccountFragment extends Fragment {
                                 }
                             }
                         }
-
                     }
 
                     @Override
@@ -105,7 +104,7 @@ public class AccountFragment extends Fragment {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         //aufgerufen, jedes Mal, wenn sich etwas in der DB ändert
-  if (dataSnapshot.exists()) {
+                        if (dataSnapshot.exists()) {
                             for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
                                 String uname = dataSnapshot.child("username").getValue(String.class);
                                 //User user = userSnapshot.getValue(User.class);
