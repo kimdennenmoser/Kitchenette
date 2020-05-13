@@ -45,8 +45,8 @@ public class CreateAccountFragment extends Fragment {
         editTextMail = (EditText) view.findViewById(R.id.editTextMail);
         btncreateUser = (Button) view.findViewById(R.id.buttonCreateUser);
 
-        databaseUser = FirebaseDatabase.getInstance().getReference().child("");
-        //databaseUser = FirebaseDatabase.getInstance().getReference("User");
+        //databaseUser = FirebaseDatabase.getInstance().getReference("User"); Möglichkeit 1
+        databaseUser = FirebaseDatabase.getInstance().getReference(); // Möglichkeit 2; Reference lieber erstmal allgemein
         btncreateUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,7 +72,8 @@ public class CreateAccountFragment extends Fragment {
 
             String id = databaseUser.push().getKey();
             User user  = new User(id, firstName, lastName, username, password, mail);
-            databaseUser.child(id).setValue(user);
+            //databaseUser.child(id).setValue(user); Möglichkeit 1
+            databaseUser.child("User").child(id).setValue(user); //Möglichkeit 2; erst hier festlegen an welcher Stelle genau in DB
 
             Toast.makeText(context, "User wurde erfolgreich angelegt", Toast.LENGTH_LONG).show();
 

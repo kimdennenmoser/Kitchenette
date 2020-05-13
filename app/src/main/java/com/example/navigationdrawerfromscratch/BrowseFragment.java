@@ -1,7 +1,5 @@
 package com.example.navigationdrawerfromscratch;
 
-import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,7 +24,7 @@ public class BrowseFragment extends Fragment {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               StartFragment startFragment =  new StartFragment();
+               SearchFragment startFragment =  new SearchFragment();
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.fragment_container, startFragment, startFragment.getTag()).commit();
             }
