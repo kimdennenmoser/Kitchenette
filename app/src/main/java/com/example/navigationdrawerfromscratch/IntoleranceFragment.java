@@ -49,7 +49,7 @@ public class IntoleranceFragment extends Fragment {
                         1,
                         "Gurke",
                         "Eine leckere Gurke",
-                        1
+                        R.drawable.gurke
 
                 )
         );
