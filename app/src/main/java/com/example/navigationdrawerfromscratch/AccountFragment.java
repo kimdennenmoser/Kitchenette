@@ -65,9 +65,9 @@ public class AccountFragment extends Fragment {
             public void onClick(View v) {
 
 
-                //AccountOverviewFragment accountOverviewFragment = new AccountOverviewFragment();
-                //FragmentManager manager = getFragmentManager();
-                //manager.beginTransaction().replace(R.id.fragment_container, accountOverviewFragment, accountOverviewFragment.getTag()).commit();
+                AccountOverviewFragment accountOverviewFragment = new AccountOverviewFragment();
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.fragment_container, accountOverviewFragment, accountOverviewFragment.getTag()).commit();
 
                 //databaseUser.addChildEventListener();
 

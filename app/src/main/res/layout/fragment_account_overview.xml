@@ -21,7 +21,7 @@
 
     <ScrollView
         android:layout_width="358dp"
-        android:layout_height="wrap_content"
+        android:layout_height="600dp"
         android:layout_marginStart="1dp"
         android:layout_marginLeft="1dp"
         android:layout_marginTop="10dp"
@@ -29,11 +29,33 @@
         android:layout_marginRight="1dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWelcome" >
+        app:layout_constraintTop_toBottomOf="@+id/textViewWelcome">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imageViewIntolerance"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewSettings"
+                android:src="@drawable/ic_sentiment_very_dissatisfied_black_24dp" />
+
+            <TextView
+                android:id="@+id/textViewIntolerance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="40dp"
+                android:text="Lebensmittelunverträglichkeiten"
+                app:layout_constraintStart_toEndOf="@+id/imageViewIntolerance"
+                app:layout_constraintTop_toBottomOf="@+id/textViewSettings" />
 
             <TextView
                 android:id="@+id/textViewSettings"
@@ -54,10 +76,10 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginEnd="13dp"
                 android:layout_marginRight="13dp"
+                android:src="@drawable/ic_settings"
                 app:layout_constraintEnd_toStartOf="@+id/textViewSettings"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:src="@drawable/ic_settings" />
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
