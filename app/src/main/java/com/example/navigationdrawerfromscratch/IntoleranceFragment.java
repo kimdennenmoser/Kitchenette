@@ -26,7 +26,7 @@ public class IntoleranceFragment extends Fragment {
 
     @Nullable
 
-    private SearchView mSearchField;
+    private EditText mSearchField;
     private RecyclerView mResultList;
     ProductAdapter adapter;
 
@@ -34,11 +34,11 @@ public class IntoleranceFragment extends Fragment {
 
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_create_account, container, false);
+        View view = inflater.inflate(R.layout.fragment_intolerance, container, false);
 
         productList = new ArrayList<>();
 
-        mSearchField = (SearchView) view.findViewById(R.id.search_field);
+        mSearchField = (EditText) view.findViewById(R.id.search_field);
         mResultList = (RecyclerView) view.findViewById(R.id.intolerance_list);
         mResultList.setHasFixedSize(true);
 
@@ -49,8 +49,18 @@ public class IntoleranceFragment extends Fragment {
                         1,
                         "Gurke",
                         "Eine leckere Gurke",
-                        R.drawable.gurke
+                        R.drawable.ic_favorites
 
+                )
+
+        );
+
+        productList.add(
+                new Gemüse(
+                        2,
+                        "Tomate",
+                        "Eine saftige Tomate",
+                        R.drawable.ic_sentiment_very_dissatisfied_black_24dp
                 )
         );
 
