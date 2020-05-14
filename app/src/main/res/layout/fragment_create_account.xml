@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
-        android:id="@+id/sv"
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -42,7 +42,7 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <EditText
-                android:id="@+id/editTextVorname"
+                android:id="@+id/editTextFirstName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
@@ -55,7 +55,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textViewAufforderung" />
 
             <EditText
-                android:id="@+id/editTextNachname"
+                android:id="@+id/editTextLastName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
@@ -65,10 +65,10 @@
                 android:hint="Nachname"
                 android:inputType="textPersonName"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextVorname" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextFirstName" />
 
             <EditText
-                android:id="@+id/editTextUserName"
+                android:id="@+id/editTextCreateUsername"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
@@ -81,19 +81,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/editTextMail" />
 
             <EditText
-                android:id="@+id/editTextPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="15dp"
-                android:ems="10"
-                android:hint="Passwort festlegen"
-                android:inputType="textPassword"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextUserName" />
-
-            <EditText
                 android:id="@+id/editTextMail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -104,7 +91,20 @@
                 android:hint="E-Mail Adresse"
                 android:inputType="textEmailAddress"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextNachname" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextLastName" />
+
+            <EditText
+                android:id="@+id/editTextCreatePassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp"
+                android:ems="10"
+                android:hint="Passwort festlegen"
+                android:inputType="textPassword"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextCreateUsername" />
 
             <Button
                 android:id="@+id/buttonCreateUser"
@@ -114,12 +114,13 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="20dp"
                 android:background="#DDDDDD"
-                android:textColor="#567A70"
-                android:text="Erstellen"
                 android:clickable="true"
                 android:onClick="addUser"
+                android:text="Erstellen"
+                android:textColor="#567A70"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextCreatePassword" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

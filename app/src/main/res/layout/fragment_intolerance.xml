@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#CCECE3">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/intolerance_list"
@@ -22,13 +22,13 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="37dp"
-        android:layout_marginLeft="37dp"
-        android:layout_marginTop="80dp"
-        android:fontFamily="@font/nunito_bold"
+        android:layout_marginStart="31dp"
+        android:layout_marginLeft="31dp"
+        android:layout_marginTop="49dp"
+        android:fontFamily="cursive"
         android:text="Food Search"
         android:textColor="#555555"
-        android:textSize="24sp" />
+        android:textSize="40sp" />
 
     <EditText
         android:id="@+id/search_field"

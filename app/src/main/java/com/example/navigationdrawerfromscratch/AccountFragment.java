@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -31,18 +32,25 @@ public class AccountFragment extends Fragment {
     TextView textView;
     Button anmeldenBtn;
     EditText editTextInsertUsername;
-    String editTextInsertUsernameString;
+    EditText editTextPassword;
     DatabaseReference databaseUser;
     Context context;
-
-    List<User> userList;
-
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        //Aufruf des dazugehörigen Layouts
         view = inflater.inflate(R.layout.fragment_account, container, false);
+
+        //Initialisieren der Elemente
+        context = this.getActivity();
+        databaseUser = FirebaseDatabase.getInstance().getReference("User");
+        editTextInsertUsername = (EditText) view.findViewById(R.id.editTextInsertUsername);
+        editTextPassword = (EditText) view.findViewById(R.id.editTextPassword);
+        anmeldenBtn = (Button) view.findViewById(R.id.buttonLogIn);
+        
+        //Wechsel zur Seite "Account erstellen"
         textView = (TextView) view.findViewById(R.id.textViewCreateAccount);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,89 +61,47 @@ public class AccountFragment extends Fragment {
             }
         });
 
-        context = this.getActivity();
-
-        databaseUser = FirebaseDatabase.getInstance().getReference();
-
-        userList = new ArrayList<>();
-
-        anmeldenBtn = (Button) view.findViewById(R.id.buttonLogIn);
         anmeldenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-                AccountOverviewFragment accountOverviewFragment = new AccountOverviewFragment();
-                FragmentManager manager = getFragmentManager();
-                manager.beginTransaction().replace(R.id.fragment_container, accountOverviewFragment, accountOverviewFragment.getTag()).commit();
-
-                //databaseUser.addChildEventListener();
-
-
-                databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                        if (dataSnapshot.exists()) {
-                            for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                                String uname = dataSnapshot.child("username").getValue(String.class);
-                                //User user = userSnapshot.getValue(User.class);
-                                //userList.add(user);
-
-                                editTextInsertUsername = (EditText) view.findViewById(R.id.editTextInsertUsername);
-                                editTextInsertUsernameString = editTextInsertUsername.getText().toString().trim();
-
-                                if (uname == editTextInsertUsernameString) {
-                                    Toast.makeText(context, "Anmeldung erfolgreich", Toast.LENGTH_LONG).show();
-                                } else {
-                                    Toast.makeText(context, "Username existiert nicht", Toast.LENGTH_LONG).show();
-                                }
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-
-                    }
-                });
+                signIn(editTextInsertUsername.getText().toString(), editTextPassword.getText().toString());
             }
-                /*databaseUser.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        //aufgerufen, jedes Mal, wenn sich etwas in der DB ändert
-                        if (dataSnapshot.exists()) {
-                            for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                                String uname = dataSnapshot.child("username").getValue(String.class);
-                                //User user = userSnapshot.getValue(User.class);
-                                //userList.add(user);
-
-                                editTextInsertUsername = (EditText) view.findViewById(R.id.editTextInsertUsername);
-                                editTextInsertUsernameString = editTextInsertUsername.getText().toString().trim();
-
-                                if (uname == editTextInsertUsernameString) {
-                                    Toast.makeText(context, "Anmeldung erfolgreich", Toast.LENGTH_LONG).show();
-                                } else {
-                                    Toast.makeText(context, "Username existiert nicht", Toast.LENGTH_LONG).show();
-                                }
-                            }
-
-
-
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError error) {
-                        // Failed to read value
-                        //String tag;
-                        //Log.w(tag, "Failed to read value.", error.toException());
-                    }
-                });
-
-                 */
-           // }
         });
 
         return view;
+    }
+
+    public void signIn(final String username, final String password) {
+        databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                if (dataSnapshot.child(username).exists()){
+                    if (!username.isEmpty()){
+                        User login = dataSnapshot.child(username).getValue(User.class);
+                        if (login.getPassword().equals(password)){
+                            Toast.makeText(context, "Anmeldung erfolgreich", Toast.LENGTH_LONG).show();
+
+                            //Wenn Anmeldung erfolgreich, Switch zur Kontoübersicht
+                            AccountOverviewFragment accountOverviewFragment = new AccountOverviewFragment();
+                            FragmentManager manager = getFragmentManager();
+                            manager.beginTransaction().replace(R.id.fragment_container, accountOverviewFragment, accountOverviewFragment.getTag()).commit();
+
+                        } else {
+                            Toast.makeText(context, "inkorrektes Passwort", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                    else {
+                        Toast.makeText(context, "User existiert nicht", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
 }
