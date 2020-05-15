@@ -49,22 +49,20 @@
             <TextView
                 android:id="@+id/textViewIntolerance"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="45dp"
-                android:text="Unverträglichkeiten"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:text="   Unverträglichkeiten"
                 app:layout_constraintStart_toEndOf="@+id/imageViewIntolerance"
                 app:layout_constraintTop_toBottomOf="@+id/textViewSettings" />
 
             <TextView
                 android:id="@+id/textViewSettings"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="45dp"
-                android:text="Kontoeinstellungen"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:text="   Kontoeinstellungen"
                 app:layout_constraintStart_toEndOf="@+id/imageViewSettings"
                 app:layout_constraintTop_toBottomOf="@+id/textViewMyRecipes" />
 
@@ -82,11 +80,10 @@
             <TextView
                 android:id="@+id/textViewMyRecipes"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="25dp"
-                android:text="Meine Rezepte"
+                android:layout_height="45dp"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:text="   Meine Rezepte"
                 app:layout_constraintStart_toEndOf="@+id/imageViewMyRecipes"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -104,11 +101,10 @@
             <TextView
                 android:id="@+id/textViewCommunity"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="45dp"
-                android:text="Community"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:text="   Community"
                 app:layout_constraintStart_toEndOf="@+id/imageViewCommunity"
                 app:layout_constraintTop_toBottomOf="@+id/textViewFavorites" />
 
@@ -126,11 +122,10 @@
             <TextView
                 android:id="@+id/textViewFavorites"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="45dp"
-                android:text="Favoriten"
+                android:layout_height="45dp"
+                android:layout_marginTop="20dp"
+                android:padding="10dp"
+                android:text="   Favoriten"
                 app:layout_constraintStart_toEndOf="@+id/imageViewFavorites"
                 app:layout_constraintTop_toBottomOf="@+id/textViewIntolerance" />
 

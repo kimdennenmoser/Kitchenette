@@ -33,6 +33,7 @@ import java.util.List;
 
 public class AccountFragment extends Fragment {
 
+
     View view;
     TextView textView;
     Button anmeldenBtn;
@@ -40,7 +41,6 @@ public class AccountFragment extends Fragment {
     EditText editTextPassword;
     DatabaseReference databaseUser;
     Context context;
-
     private DrawerLayout drawer;
 
     @Nullable
@@ -49,25 +49,22 @@ public class AccountFragment extends Fragment {
 
         //Aufruf des dazugehörigen Layouts
         view = inflater.inflate(R.layout.fragment_account, container, false);
-
         context = this.getActivity();
 
         //Initialisieren der Elemente
-
-
         databaseUser = FirebaseDatabase.getInstance().getReference("User");
         editTextInsertUsername = (EditText) view.findViewById(R.id.editTextInsertUsername);
         editTextPassword = (EditText) view.findViewById(R.id.editTextPassword);
         anmeldenBtn = (Button) view.findViewById(R.id.buttonLogIn);
-        
+
         //Wechsel zur Seite "Account erstellen"
         textView = (TextView) view.findViewById(R.id.textViewCreateAccount);
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                CreateAccountFragment createAccountFragment =  new CreateAccountFragment();
+                CreateAccountFragment createAccountFragment = new CreateAccountFragment();
                 FragmentManager manager = getFragmentManager();
-                manager.beginTransaction().replace(R.id.fragment_container, createAccountFragment, createAccountFragment.getTag()).commit();
+                manager.beginTransaction().replace(R.id.fragment_container, createAccountFragment, createAccountFragment.getTag()).addToBackStack(null).commit();
             }
         });
 
@@ -81,27 +78,27 @@ public class AccountFragment extends Fragment {
         return view;
     }
 
+    //Methode zum LogIn
     public void signIn(final String username, final String password) {
         databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                if (dataSnapshot.child(username).exists()){
-                    if (!username.isEmpty()){
+                if (dataSnapshot.child(username).exists()) {
+                    if (!username.isEmpty()) {
                         User login = dataSnapshot.child(username).getValue(User.class);
-                        if (login.getPassword().equals(password)){
+                        if (login.getPassword().equals(password)) {
                             Toast.makeText(context, "Anmeldung erfolgreich", Toast.LENGTH_LONG).show();
 
                             //Wenn Anmeldung erfolgreich, Switch zur Kontoübersicht
                             AccountOverviewFragment accountOverviewFragment = new AccountOverviewFragment();
                             FragmentManager manager = getFragmentManager();
-                            manager.beginTransaction().replace(R.id.fragment_container, accountOverviewFragment, accountOverviewFragment.getTag()).commit();
+                            manager.beginTransaction().replace(R.id.fragment_container, accountOverviewFragment, accountOverviewFragment.getTag()).addToBackStack(null).commit();
 
                         } else {
                             Toast.makeText(context, "inkorrektes Passwort", Toast.LENGTH_LONG).show();
                         }
-                    }
-                    else {
+                    } else {
                         Toast.makeText(context, "User existiert nicht", Toast.LENGTH_LONG).show();
                     }
                 }

@@ -113,16 +113,16 @@ public class AccountOverviewFragment extends Fragment {
         });
 
         //Wechsel zu Community
-        textViewIntolerance.setOnClickListener(new View.OnClickListener() {
+        textViewCommunity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchToFavorites();
+                switchToCommunity();
             }
         });
-        imageViewIntolerance.setOnClickListener(new View.OnClickListener() {
+        imageViewCommunity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                switchToFavorites();
+                switchToCommunity();
             }
         });
 
@@ -133,34 +133,34 @@ public class AccountOverviewFragment extends Fragment {
     public void switchToMyRecipes() {
         MyRecipesFragment myRecipesFragment = new MyRecipesFragment();
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, myRecipesFragment, myRecipesFragment.getTag()).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, myRecipesFragment, myRecipesFragment.getTag()).addToBackStack(null).commit();
     }
 
     //Wechsel zu Kontoeinstellungen
     public void switchToSettings() {
         SettingsFragment settingsFragment = new SettingsFragment();
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, settingsFragment, settingsFragment.getTag()).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, settingsFragment, settingsFragment.getTag()).addToBackStack(null).commit();
     }
 
     //Wechsel zu Unverträglichkeiten
     public void switchToIntolerance() {
         IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
     }
 
     //Wechsel zu Favoriten
     public void switchToFavorites() {
         FavoritesFragment favoritesFragment = new FavoritesFragment();
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, favoritesFragment, favoritesFragment.getTag()).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, favoritesFragment, favoritesFragment.getTag()).addToBackStack(null).commit();
     }
 
     //Wechsel zu Community
     public void switchToCommunity() {
         CommunityFragment communityFragment = new CommunityFragment();
         FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fragment_container, communityFragment, communityFragment.getTag()).commit();
+        fragmentManager.beginTransaction().replace(R.id.fragment_container, communityFragment, communityFragment.getTag()).addToBackStack(null).commit();
     }
 }
