@@ -41,10 +41,10 @@
                 android:layout_height="45dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_sentiment_very_dissatisfied_black_24dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageViewSettings"
-                android:src="@drawable/ic_sentiment_very_dissatisfied_black_24dp" />
+                app:layout_constraintTop_toBottomOf="@+id/imageViewSettings" />
 
             <TextView
                 android:id="@+id/textViewIntolerance"
@@ -52,8 +52,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="40dp"
-                android:text="Lebensmittelunverträglichkeiten"
+                android:layout_marginTop="45dp"
+                android:text="Unverträglichkeiten"
                 app:layout_constraintStart_toEndOf="@+id/imageViewIntolerance"
                 app:layout_constraintTop_toBottomOf="@+id/textViewSettings" />
 
@@ -63,10 +63,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="45dp"
                 android:text="Kontoeinstellungen"
                 app:layout_constraintStart_toEndOf="@+id/imageViewSettings"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewMyRecipes" />
 
             <ImageView
                 android:id="@+id/imageViewSettings"
@@ -74,12 +74,76 @@
                 android:layout_height="45dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginEnd="13dp"
-                android:layout_marginRight="13dp"
+                android:layout_marginTop="20dp"
                 android:src="@drawable/ic_settings"
-                app:layout_constraintEnd_toStartOf="@+id/textViewSettings"
                 app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewMyRecipes" />
+
+            <TextView
+                android:id="@+id/textViewMyRecipes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="25dp"
+                android:text="Meine Rezepte"
+                app:layout_constraintStart_toEndOf="@+id/imageViewMyRecipes"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/imageViewMyRecipes"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_my_recipes" />
+
+            <TextView
+                android:id="@+id/textViewCommunity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="45dp"
+                android:text="Community"
+                app:layout_constraintStart_toEndOf="@+id/imageViewCommunity"
+                app:layout_constraintTop_toBottomOf="@+id/textViewFavorites" />
+
+            <ImageView
+                android:id="@+id/imageViewCommunity"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/ic_community"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewFavorites" />
+
+            <TextView
+                android:id="@+id/textViewFavorites"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="45dp"
+                android:text="Favoriten"
+                app:layout_constraintStart_toEndOf="@+id/imageViewFavorites"
+                app:layout_constraintTop_toBottomOf="@+id/textViewIntolerance" />
+
+            <ImageView
+                android:id="@+id/imageViewFavorites"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageViewIntolerance"
+                android:src="@drawable/ic_favorites" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 

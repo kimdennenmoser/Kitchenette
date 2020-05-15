@@ -21,10 +21,10 @@
                     android:icon="@drawable/ic_start"
                     android:title="Rezeptsuche" />
 
-                <item
-                    android:id="@+id/nav_favorites"
-                    android:icon="@drawable/ic_favorites"
-                    android:title="Favoriten" />
+        <item
+            android:id="@+id/nav_shoppinglist"
+            android:icon="@drawable/ic_shopping_basket"
+            android:title="Einkaufsliste" />
 
             </group>
 

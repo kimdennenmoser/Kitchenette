@@ -13,10 +13,15 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +41,8 @@ public class AccountFragment extends Fragment {
     DatabaseReference databaseUser;
     Context context;
 
+    private DrawerLayout drawer;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,8 +50,11 @@ public class AccountFragment extends Fragment {
         //Aufruf des dazugehörigen Layouts
         view = inflater.inflate(R.layout.fragment_account, container, false);
 
-        //Initialisieren der Elemente
         context = this.getActivity();
+
+        //Initialisieren der Elemente
+
+
         databaseUser = FirebaseDatabase.getInstance().getReference("User");
         editTextInsertUsername = (EditText) view.findViewById(R.id.editTextInsertUsername);
         editTextPassword = (EditText) view.findViewById(R.id.editTextPassword);
