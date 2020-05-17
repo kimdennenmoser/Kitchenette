@@ -38,6 +38,8 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         holder.foodName.setText(product.getName());
         holder.foodInfo.setText(product.getStatus());
+
+        holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(product.getImage()));
     }
 
     @Override

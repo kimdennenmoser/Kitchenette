@@ -49,7 +49,7 @@ public class IntoleranceFragment extends Fragment {
                         1,
                         "Gurke",
                         "Eine leckere Gurke",
-                        R.drawable.ic_favorites
+                        R.drawable.gurke
 
                 )
 
@@ -60,7 +60,7 @@ public class IntoleranceFragment extends Fragment {
                         2,
                         "Tomate",
                         "Eine saftige Tomate",
-                        R.drawable.ic_sentiment_very_dissatisfied_black_24dp
+                        R.drawable.tomate
                 )
         );
 
