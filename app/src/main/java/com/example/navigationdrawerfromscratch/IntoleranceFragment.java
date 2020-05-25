@@ -6,6 +6,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
 
@@ -13,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,19 +30,32 @@ public class IntoleranceFragment extends Fragment {
 
     private EditText mSearchField;
     private RecyclerView mResultList;
+    private Button addIntolerance;
     ProductAdapter adapter;
+
 
     List<Gemüse> productList;
 
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_intolerance, container, false);
+               View view = inflater.inflate(R.layout.fragment_intolerance, container, false);
 
         productList = new ArrayList<>();
 
         mSearchField = (EditText) view.findViewById(R.id.search_field);
         mResultList = (RecyclerView) view.findViewById(R.id.intolerance_list);
         mResultList.setHasFixedSize(true);
+        addIntolerance = (Button) view.findViewById(R.id.addIntolerance);
+
+        addIntolerance.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FoodCategory foodCategory = new FoodCategory();
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.fragment_container, foodCategory, foodCategory.getTag()).addToBackStack(null).commit();
+
+            }
+        });
 
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
