@@ -1,29 +1,24 @@
 package com.example.navigationdrawerfromscratch.lebensmittel;
 
+import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
+
+import com.example.navigationdrawerfromscratch.R;
+
 public class Gemüse {
 
-    private int id;
-    private String name, status;
-    private int image;
+
+    private String name, info, id, image;
 
 
     public Gemüse() {
-
     }
 
-    public Gemüse(int id, String name, String status, int image) {
-        this.id = id;
+    public Gemüse(String name, String info, String id, String image) {
         this.name = name;
-        this.status = status;
-        this.image = image;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+        this.info = info;
         this.id = id;
+        this.image = image;
     }
 
     public String getName() {
@@ -34,19 +29,27 @@ public class Gemüse {
         this.name = name;
     }
 
-    public String getStatus() {
-        return status;
+    public String getInfo() {
+        return info;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setInfo(String info) {
+        this.info = info;
     }
 
-    public int getImage() {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 }

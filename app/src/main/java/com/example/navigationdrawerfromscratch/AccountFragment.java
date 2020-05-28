@@ -1,6 +1,5 @@
 package com.example.navigationdrawerfromscratch;
 
-import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -90,10 +89,12 @@ public class AccountFragment extends Fragment {
                         User login = dataSnapshot.child(username).getValue(User.class);
                         if (login.getPassword().equals(password)) {
                             Toast.makeText(context, "Anmeldung erfolgreich", Toast.LENGTH_LONG).show();
+
                             //Wenn Anmeldung erfolgreich, Switch zur Kontoübersicht
                             AccountOverviewFragment accountOverviewFragment = new AccountOverviewFragment();
                             FragmentManager manager = getFragmentManager();
                             manager.beginTransaction().replace(R.id.fragment_container, accountOverviewFragment, accountOverviewFragment.getTag()).addToBackStack(null).commit();
+
                         } else {
                             Toast.makeText(context, "inkorrektes Passwort", Toast.LENGTH_LONG).show();
                         }

@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private DrawerLayout drawer;
     ListView search_recipes;
     ArrayAdapter<String> adapter;
+    public static boolean isAngemeldet=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +54,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.nav_account:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AccountFragment()).commit();
+                if(isAngemeldet==false){
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AccountFragment()).commit();
+                }
+                else{
+                    getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AccountOverviewFragment()).commit();
+                }
+
                 break;
             case R.id.nav_start:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchFragment()).commit();

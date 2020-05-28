@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.lebensmittel.Gemüse;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -37,9 +38,10 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Gemüse product = productList.get(position);
 
         holder.foodName.setText(product.getName());
-        holder.foodInfo.setText(product.getStatus());
+        holder.foodInfo.setText(product.getInfo());
+        //holder.imageView.setImageDrawable(product.getImage());
+        Picasso.get().load(product.getImage()).into(holder.imageView);
 
-        holder.imageView.setImageDrawable(mCtx.getResources().getDrawable(product.getImage()));
     }
 
     @Override
@@ -57,9 +59,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             super(itemView);
 
 
-            imageView = itemView.findViewById(R.id.imageView);
-            foodName = itemView.findViewById(R.id.foodName);
-            foodInfo = itemView.findViewById(R.id.foodInfo);
+            imageView = (ImageView) itemView.findViewById(R.id.imageView);
+            foodName = (TextView) itemView.findViewById(R.id.foodName);
+            foodInfo = (TextView) itemView.findViewById(R.id.foodInfo);
         }
     }
 
