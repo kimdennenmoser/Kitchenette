@@ -42,6 +42,7 @@ public class AccountFragment extends Fragment {
     DatabaseReference databaseUser;
     Context context;
     private DrawerLayout drawer;
+    public static boolean isAngemeldet;
 
     @Nullable
     @Override
@@ -89,6 +90,8 @@ public class AccountFragment extends Fragment {
                         User login = dataSnapshot.child(username).getValue(User.class);
                         if (login.getPassword().equals(password)) {
                             Toast.makeText(context, "Anmeldung erfolgreich", Toast.LENGTH_LONG).show();
+                            MainActivity.isAngemeldet=true;
+
 
                             //Wenn Anmeldung erfolgreich, Switch zur Kontoübersicht
                             AccountOverviewFragment accountOverviewFragment = new AccountOverviewFragment();
