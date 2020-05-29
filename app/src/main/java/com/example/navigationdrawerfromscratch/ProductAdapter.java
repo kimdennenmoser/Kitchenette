@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.navigationdrawerfromscratch.lebensmittel.Gemüse;
+import com.example.navigationdrawerfromscratch.lebensmittel.Food;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -18,9 +18,9 @@ import java.util.List;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
 
     private Context mCtx;
-    private List<Gemüse> productList;
+    private List<Food> productList;
 
-    public ProductAdapter(Context mCtx, List<Gemüse> productList) {
+    public ProductAdapter(Context mCtx, List<Food> productList) {
         this.mCtx = mCtx;
         this.productList = productList;
     }
@@ -35,7 +35,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     @Override
     public void onBindViewHolder(@NonNull ProductViewHolder holder, int position) {
-        Gemüse product = productList.get(position);
+        Food product = productList.get(position);
 
         holder.foodName.setText(product.getName());
         holder.foodInfo.setText(product.getInfo());
