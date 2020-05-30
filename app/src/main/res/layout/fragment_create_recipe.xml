@@ -119,10 +119,10 @@
                 android:hint="Anleitung"
                 android:inputType="textMultiLine"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/IngredientsList" />
+                app:layout_constraintTop_toBottomOf="@+id/ingredientsList" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/IngredientsList"
+                android:id="@+id/ingredientsList"
                 android:layout_width="108dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"

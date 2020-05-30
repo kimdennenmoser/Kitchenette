@@ -16,6 +16,8 @@ import androidx.annotation.Nullable;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -32,6 +34,9 @@ public class CreateRecipeFragment extends Fragment {
 
     View view;
     ArrayList<Zutat> ingredientsList;
+    RecyclerView ingredients;
+    RecyclerView.Adapter adapter;
+    Context context;
 
 
     @Nullable
@@ -40,7 +45,17 @@ public class CreateRecipeFragment extends Fragment {
 
         //Aufruf des dazugehörigen Layouts
         view = inflater.inflate(R.layout.fragment_create_recipe, container, false);
-        ;
+
+        context = this.getActivity();
+
+        ArrayList<Zutat> ingredientsList = ingredientsList();
+
+        ingredients = (RecyclerView) view.findViewById(R.id.ingredientsList);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+        this.ingredients.setLayoutManager(layoutManager);
+
+        adapter = new IngredientsAdapter(context, ingredientsList);
+        this.ingredients.setAdapter(adapter);
 
         //Initalisieren aller Elemente
 /*
