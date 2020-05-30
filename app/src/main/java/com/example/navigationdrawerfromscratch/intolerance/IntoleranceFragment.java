@@ -1,24 +1,22 @@
-package com.example.navigationdrawerfromscratch;
+package com.example.navigationdrawerfromscratch.intolerance;
 
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.navigationdrawerfromscratch.lebensmittel.Gemüse;
+import com.example.navigationdrawerfromscratch.ProductAdapter;
+import com.example.navigationdrawerfromscratch.R;
+import com.example.navigationdrawerfromscratch.lebensmittel.Food;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,7 +38,7 @@ public class IntoleranceFragment extends Fragment {
     DatabaseReference databaseFood;
 
 
-    List<Gemüse> productList;
+    List<Food> productList;
 
 
 
@@ -114,7 +112,7 @@ public class IntoleranceFragment extends Fragment {
                 productList.clear();
 
                 for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
-                    Gemüse gemüse = productSnapshot.getValue(Gemüse.class);
+                    Food gemüse = productSnapshot.getValue(Food.class);
 
                     productList.add(gemüse);
                 }

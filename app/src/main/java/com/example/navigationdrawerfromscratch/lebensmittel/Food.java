@@ -5,16 +5,15 @@ import android.widget.ImageView;
 
 import com.example.navigationdrawerfromscratch.R;
 
-public class Gemüse {
+public class Food {
 
 
     private String name, info, id, image;
 
-
-    public Gemüse() {
+    public Food() {
     }
 
-    public Gemüse(String name, String info, String id, String image) {
+    public Food(String name, String info, String id, String image) {
         this.name = name;
         this.info = info;
         this.id = id;
