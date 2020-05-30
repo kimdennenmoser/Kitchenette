@@ -1,11 +1,10 @@
-package com.example.navigationdrawerfromscratch.intolerance;
+package com.example.navigationdrawerfromscratch.account.intolerance;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,52 +24,48 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+public class Obst extends Fragment {
 
-public class Gemuese extends Fragment {
-
-    private TextView ueSchrift;
-    List<Food> gemueseList;
-    DatabaseReference databaseGemuese;
+    private TextView ueObst;
+    List<Food> obstList;
+    DatabaseReference databaseObst;
     ProductAdapter adapter;
     private RecyclerView mResultList;
-
-
-
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_gemuese, container, false);
+        View view = inflater.inflate(R.layout.fragment_obst, container, false);
 
-        ueSchrift = (TextView) view.findViewById(R.id.ueGemuese);
-        gemueseList = new ArrayList<>();
-        databaseGemuese = FirebaseDatabase.getInstance().getReference("Gemüse");
-        mResultList = (RecyclerView) view.findViewById(R.id.gemueseView);
+        ueObst = (TextView) view.findViewById(R.id.ueObst);
+        obstList = new ArrayList<>();
+        databaseObst = FirebaseDatabase.getInstance().getReference("Obst");
+        mResultList = (RecyclerView) view.findViewById(R.id.obstView);
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        return view;
 
+        return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
 
-        databaseGemuese.addValueEventListener(new ValueEventListener() {
+        databaseObst.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                gemueseList.clear();
+                obstList.clear();
 
                 for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
-                    Food gemüse = productSnapshot.getValue(Food.class);
+                    Food obst = productSnapshot.getValue(Food.class);
 
-                    gemueseList.add(gemüse);
+                    obstList.add(obst);
                 }
 
-                adapter = new ProductAdapter(getView().getContext(),gemueseList);
+                adapter = new ProductAdapter(getView().getContext(),obstList);
                 mResultList.setAdapter(adapter);
 
 
@@ -84,6 +79,7 @@ public class Gemuese extends Fragment {
 
 
     }
+
 
     //View Holder Class
 
@@ -100,5 +96,6 @@ public class Gemuese extends Fragment {
 
 
     }
+
 
 }

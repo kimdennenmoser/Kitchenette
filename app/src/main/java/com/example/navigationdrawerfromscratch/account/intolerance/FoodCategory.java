@@ -1,4 +1,4 @@
-package com.example.navigationdrawerfromscratch.intolerance;
+package com.example.navigationdrawerfromscratch.account.intolerance;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

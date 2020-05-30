@@ -1,4 +1,4 @@
-package com.example.navigationdrawerfromscratch;
+package com.example.navigationdrawerfromscratch.account.recipes;
 
 public class Zutat {
 

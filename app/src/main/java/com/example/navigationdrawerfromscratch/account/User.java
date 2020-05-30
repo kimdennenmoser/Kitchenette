@@ -1,4 +1,4 @@
-package com.example.navigationdrawerfromscratch;
+package com.example.navigationdrawerfromscratch.account;
 
 public class User {
     private String firstname;

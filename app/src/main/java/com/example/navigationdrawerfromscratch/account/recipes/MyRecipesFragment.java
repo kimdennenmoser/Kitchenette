@@ -1,4 +1,4 @@
-package com.example.navigationdrawerfromscratch;
+package com.example.navigationdrawerfromscratch.account.recipes;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.navigationdrawerfromscratch.R;
 import com.google.firebase.database.DatabaseReference;
 
 public class MyRecipesFragment extends Fragment {

@@ -1,19 +1,21 @@
-package com.example.navigationdrawerfromscratch;
+package com.example.navigationdrawerfromscratch.account.recipes;
 
 import java.util.HashMap;
 
-public class Rezept {
+public class Recipe {
 
     private String recipeId;
-    private HashMap<String, String> ingredientsList;
-    private int preparationTime;
+    private String recipeName;
+    private String ingredientsList; //private HashMap<String, String> ingredientsList;
+    private String preparationTime;
     private String category;
     //private String bewertung; //nice-to-have
 
-    public Rezept(String recipeId, HashMap<String, String> ingredientsList, int preparationTime, String category, String bewertung) {
+    public Recipe(String recipeId, String recipeName, String preparationTime, String ingredientsList, String category, String bewertung) {
         this.recipeId = recipeId;
-        this.ingredientsList = ingredientsList;
+        this.recipeName = recipeName;
         this.preparationTime = preparationTime;
+        this.ingredientsList = ingredientsList;
         this.category = category;
         //this.bewertung = bewertung;
     }
@@ -26,19 +28,27 @@ public class Rezept {
         this.recipeId = recipeId;
     }
 
-    public HashMap<String, String> getIngredientsList() {
+    public String getRecipeName() {
+        return recipeName;
+    }
+
+    public void setRecipeName(String recipeName) {
+        this.recipeName = recipeName;
+    }
+
+    public String getIngredientsList() {
         return ingredientsList;
     }
 
-    public void setIngredientsList(HashMap<String, String> ingredientsList) {
+    public void setIngredientsList(String ingredientsList) {
         this.ingredientsList = ingredientsList;
     }
 
-    public int getPreparationTime() {
+    public String getPreparationTime() {
         return preparationTime;
     }
 
-    public void setPreparationTime(int preparationTime) {
+    public void setPreparationTime(String preparationTime) {
         this.preparationTime = preparationTime;
     }
 

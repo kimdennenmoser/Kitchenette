@@ -1,4 +1,4 @@
-package com.example.navigationdrawerfromscratch;
+package com.example.navigationdrawerfromscratch.account;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.navigationdrawerfromscratch.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

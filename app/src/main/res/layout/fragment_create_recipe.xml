@@ -19,9 +19,22 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/buttonCreateRecipe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="57dp"
+        android:text="Speichern"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintStart_toEndOf="@+id/textViewCreateRecipeHeadline"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <ScrollView
+        android:id="@+id/ScrollViewNewRecipe"
         android:layout_width="355dp"
-        android:layout_height="500dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +42,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/textViewAufforderung2"
@@ -42,70 +55,30 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
-                android:id="@+id/editTextPreparationTime"
+            <TextView
+                android:id="@+id/textViewMinuten"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="Zubereitungszeit"
-                android:inputType="textPersonName"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewAufforderung2" />
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="30dp"
+                android:text="Minuten"
+                android:textSize="18sp"
+                app:layout_constraintStart_toEndOf="@+id/editTextPreparationTime"
+                app:layout_constraintTop_toBottomOf="@+id/editTextRecipeName" />
 
             <Spinner
                 android:id="@+id/spinnerCategory"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="180dp"
+                android:layout_height="45dp"
                 android:layout_marginStart="40dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="20dp"
-                android:layout_marginEnd="40dp"
-                android:layout_marginRight="40dp"
                 android:entries="@array/category_arrays"
                 android:prompt="@string/category_prompt"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:spinnerMode="dropdown"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/editTextPreparationTime" />
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="30dp"
-                app:layout_constraintStart_toEndOf="@+id/editText3"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerCategory"
-                android:src="@drawable/ic_add" />
-
-            <EditText
-                android:id="@+id/editText3"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="Zutat"
-                android:inputType="textPersonName"
-                app:layout_constraintStart_toEndOf="@+id/editText4"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerCategory" />
-
-            <EditText
-                android:id="@+id/editText4"
-                android:layout_width="70dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="40dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginTop="20dp"
-                android:ems="10"
-                android:hint="Menge"
-                android:inputType="textPersonName"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/spinnerCategory" />
 
             <EditText
                 android:id="@+id/editTextInstruction"
@@ -119,17 +92,57 @@
                 android:hint="Anleitung"
                 android:inputType="textMultiLine"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ingredientsList" />
+                app:layout_constraintTop_toBottomOf="@+id/editTextIngredients" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/ingredientsList"
-                android:layout_width="108dp"
+            <EditText
+                android:id="@+id/editTextIngredients"
+                android:layout_width="220dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="20dp"
+                android:ems="10"
+                android:gravity="start|top"
+                android:hint="Menge, Maßeinheit, Zutat"
+                android:inputType="textMultiLine"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/editText3" />
+                app:layout_constraintTop_toBottomOf="@+id/spinnerCategory" />
+
+            <EditText
+                android:id="@+id/editTextRecipeName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="15dp"
+                android:ems="10"
+                android:hint="Name"
+                android:inputType="textPersonName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textViewAufforderung2" />
+
+            <EditText
+                android:id="@+id/editTextPreparationTime"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:hint="Zubereitungszeit"
+                android:inputType="textPersonName"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextRecipeName" />
+
+            <TextView
+                android:id="@+id/textViewEnde"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="40dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginTop="500dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/editTextInstruction" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
