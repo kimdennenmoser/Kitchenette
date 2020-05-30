@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
+
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -56,6 +56,16 @@ public class FoodCategory extends Fragment {
 
 
         buttonGewuerze = (Button) view.findViewById(R.id.buttonGewuerze);
+
+        buttonGewuerze.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Gewuerze gewuerze = new Gewuerze();
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.fragment_container, gewuerze,gewuerze.getTag()).addToBackStack(null).commit();
+            }
+        });
+
         buttonMilchprod = (Button) view.findViewById(R.id.buttonMilchprod);
 
 
