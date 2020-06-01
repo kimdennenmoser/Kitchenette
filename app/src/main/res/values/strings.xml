@@ -4,4 +4,13 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="category_prompt">Kategorie</string>
+    <string-array name="category_arrays">
+        <item>Vorspeise</item>
+        <item>Hauptgericht</item>
+        <item>Dessert</item>
+        <item>Getränk</item>
+
+    </string-array>
+
 </resources>

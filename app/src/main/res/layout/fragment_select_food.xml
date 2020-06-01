@@ -7,15 +7,14 @@
     android:background="#CCECE3">
 
     <TextView
-        android:id="@+id/textViewMyRecipesHeadline"
+        android:id="@+id/textViewFruit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="50dp"
-        android:fontFamily="cursive"
-        android:text="Meine Rezepte"
-        android:textSize="40sp"
+        android:layout_marginStart="40dp"
+        android:layout_marginLeft="40dp"
+        android:text="Obst"
+        android:textColor="#567A70"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        tools:layout_editor_absoluteY="76dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

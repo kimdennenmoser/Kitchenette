@@ -1,4 +1,4 @@
-package com.example.navigationdrawerfromscratch;
+package com.example.navigationdrawerfromscratch.account;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.example.navigationdrawerfromscratch.intolerance.IntoleranceFragment;
+import com.example.navigationdrawerfromscratch.R;
+import com.example.navigationdrawerfromscratch.account.intolerance.IntoleranceFragment;
+import com.example.navigationdrawerfromscratch.account.recipes.MyRecipesFragment;
 
 public class AccountOverviewFragment extends Fragment {
 

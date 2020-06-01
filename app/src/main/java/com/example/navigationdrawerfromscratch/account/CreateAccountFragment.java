@@ -1,8 +1,7 @@
-package com.example.navigationdrawerfromscratch;
+package com.example.navigationdrawerfromscratch.account;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.navigationdrawerfromscratch.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,8 +36,10 @@ public class CreateAccountFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        //Aufruf des dazugehörigen Layouts
         View view = inflater.inflate(R.layout.fragment_create_account, container, false);
 
+        //Initalisieren aller Elemente
         editTextFirstName = (EditText) view.findViewById(R.id.editTextFirstName);
         editTextLastName = (EditText) view.findViewById(R.id.editTextLastName);
         editTextUsername = (EditText) view.findViewById(R.id.editTextCreateUsername);
@@ -59,6 +61,7 @@ public class CreateAccountFragment extends Fragment {
     //Methode, die einen neuen User in die DB hinzufügt
     public void addUser() {
 
+        //Initalisieren aller Elemente
         String firstName = editTextFirstName.getText().toString().trim();
         String lastName = editTextLastName.getText().toString().trim();
         String username = editTextUsername.getText().toString().trim();

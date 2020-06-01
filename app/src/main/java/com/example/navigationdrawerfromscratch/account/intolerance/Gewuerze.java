@@ -1,4 +1,4 @@
-package com.example.navigationdrawerfromscratch.intolerance;
+package com.example.navigationdrawerfromscratch.account.intolerance;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -24,11 +24,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Obst extends Fragment implements ProductAdapter.OnNoteListener{
+public class Gewuerze extends Fragment implements ProductAdapter.OnNoteListener {
 
-    private TextView ueObst;
-    List<Food> obstList;
-    DatabaseReference databaseObst;
+
+    private TextView ueGewuerze;
+    List<Food> gewuerzeList;
+    DatabaseReference databaseGewuerze;
     ProductAdapter adapter;
     private RecyclerView mResultList;
 
@@ -36,14 +37,15 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_obst, container, false);
+        View view = inflater.inflate(R.layout.fragment_gewuerze, container, false);
 
-        ueObst = (TextView) view.findViewById(R.id.ueObst);
-        obstList = new ArrayList<>();
-        databaseObst = FirebaseDatabase.getInstance().getReference("Obst");
-        mResultList = (RecyclerView) view.findViewById(R.id.obstView);
+        databaseGewuerze = FirebaseDatabase.getInstance().getReference("Gewürze");
+        ueGewuerze = (TextView) view.findViewById(R.id.ueGewuerze);
+        gewuerzeList = new ArrayList<>();
+        mResultList = (RecyclerView) view.findViewById(R.id.gewuerzeView);
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
 
 
         return view;
@@ -53,18 +55,18 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener{
     public void onStart() {
         super.onStart();
 
-        databaseObst.addValueEventListener(new ValueEventListener() {
+        databaseGewuerze.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                obstList.clear();
+                gewuerzeList.clear();
 
                 for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
-                    Food obst = productSnapshot.getValue(Food.class);
+                    Food gewuerze = productSnapshot.getValue(Food.class);
 
-                    obstList.add(obst);
+                    gewuerzeList.add(gewuerze);
 
-                    adapter = new ProductAdapter(getView().getContext(),obstList,null);
+                    adapter = new ProductAdapter(getView().getContext(),gewuerzeList, null);
                     mResultList.setAdapter(adapter);
                 }
 
@@ -87,7 +89,6 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener{
 
     }
 
-
     //View Holder Class
 
     public class FoodViewHolder extends RecyclerView.ViewHolder {
@@ -100,7 +101,6 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener{
             mView = itemView;
 
         }
-
 
     }
 
