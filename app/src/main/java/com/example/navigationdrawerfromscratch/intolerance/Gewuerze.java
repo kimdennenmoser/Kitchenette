@@ -24,7 +24,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Gewuerze extends Fragment {
+public class Gewuerze extends Fragment implements ProductAdapter.OnNoteListener {
+
 
     private TextView ueGewuerze;
     List<Food> gewuerzeList;
@@ -45,6 +46,8 @@ public class Gewuerze extends Fragment {
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
+
+
         return view;
     }
 
@@ -62,10 +65,12 @@ public class Gewuerze extends Fragment {
                     Food gewuerze = productSnapshot.getValue(Food.class);
 
                     gewuerzeList.add(gewuerze);
+
+                    adapter = new ProductAdapter(getView().getContext(),gewuerzeList, null);
+                    mResultList.setAdapter(adapter);
                 }
 
-                adapter = new ProductAdapter(getView().getContext(),gewuerzeList);
-                mResultList.setAdapter(adapter);
+
 
 
             }
@@ -76,6 +81,11 @@ public class Gewuerze extends Fragment {
             }
         });
 
+
+    }
+
+    @Override
+    public void onNoteClick(int position) {
 
     }
 

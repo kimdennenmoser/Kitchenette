@@ -70,7 +70,7 @@ public class Gemuese extends Fragment {
                     gemueseList.add(gemüse);
                 }
 
-                adapter = new ProductAdapter(getView().getContext(),gemueseList);
+                adapter = new ProductAdapter(getView().getContext(),gemueseList,null);
                 mResultList.setAdapter(adapter);
 
 
@@ -84,21 +84,4 @@ public class Gemuese extends Fragment {
 
 
     }
-
-    //View Holder Class
-
-    public class FoodViewHolder extends RecyclerView.ViewHolder {
-
-        View mView;
-
-        public FoodViewHolder(@NonNull View itemView) {
-            super(itemView);
-
-            mView = itemView;
-
-        }
-
-
-    }
-
 }

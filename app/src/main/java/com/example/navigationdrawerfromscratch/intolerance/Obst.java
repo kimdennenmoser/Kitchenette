@@ -24,7 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Obst extends Fragment {
+public class Obst extends Fragment implements ProductAdapter.OnNoteListener{
 
     private TextView ueObst;
     List<Food> obstList;
@@ -63,10 +63,12 @@ public class Obst extends Fragment {
                     Food obst = productSnapshot.getValue(Food.class);
 
                     obstList.add(obst);
+
+                    adapter = new ProductAdapter(getView().getContext(),obstList,null);
+                    mResultList.setAdapter(adapter);
                 }
 
-                adapter = new ProductAdapter(getView().getContext(),obstList);
-                mResultList.setAdapter(adapter);
+
 
 
             }
@@ -77,6 +79,11 @@ public class Obst extends Fragment {
             }
         });
 
+
+    }
+
+    @Override
+    public void onNoteClick(int position) {
 
     }
 

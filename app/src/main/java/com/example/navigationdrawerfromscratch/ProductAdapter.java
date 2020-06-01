@@ -19,10 +19,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
     private Context mCtx;
     private List<Food> productList;
+    private OnNoteListener mOnNoteListener;
 
-    public ProductAdapter(Context mCtx, List<Food> productList) {
+    public ProductAdapter(Context mCtx, List<Food> productList, OnNoteListener onNoteListener) {
         this.mCtx = mCtx;
         this.productList = productList;
+        this.mOnNoteListener = onNoteListener;
     }
 
     @NonNull
@@ -30,7 +32,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     public ProductViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(mCtx);
         View view = inflater.inflate(R.layout.list_layout, null);
-        return new ProductViewHolder(view);
+        return new ProductViewHolder(view, mOnNoteListener);
     }
 
     @Override
@@ -49,20 +51,34 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         return productList.size();
     }
 
-    class ProductViewHolder extends  RecyclerView.ViewHolder {
+    class ProductViewHolder extends  RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView imageView;
         TextView foodName, foodInfo;
+        OnNoteListener onNoteListener;
 
 
-        public ProductViewHolder(@NonNull View itemView) {
+        public ProductViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
             super(itemView);
 
 
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
             foodName = (TextView) itemView.findViewById(R.id.foodName);
             foodInfo = (TextView) itemView.findViewById(R.id.foodInfo);
+            this.onNoteListener = onNoteListener;
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            onNoteListener.onNoteClick(getAdapterPosition());
+        }
+    }
+
+    public interface OnNoteListener{
+
+        void onNoteClick(int position);
     }
 
 

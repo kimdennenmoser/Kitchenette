@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,7 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class IntoleranceFragment extends Fragment {
+public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNoteListener {
 
 
     @Nullable
@@ -66,6 +67,7 @@ public class IntoleranceFragment extends Fragment {
         });
 
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
 
 
 
@@ -115,10 +117,13 @@ public class IntoleranceFragment extends Fragment {
                     Food gemüse = productSnapshot.getValue(Food.class);
 
                     productList.add(gemüse);
+
+                    adapter = new ProductAdapter(getView().getContext(), productList, null);
+                    mResultList.setAdapter(adapter);
+
                 }
 
-                adapter = new ProductAdapter(getView().getContext(), productList);
-                mResultList.setAdapter(adapter);
+
 
 
             }
@@ -129,6 +134,12 @@ public class IntoleranceFragment extends Fragment {
             }
         });
 
+
+    }
+
+    @Override
+    public void onNoteClick(int position) {
+        Toast.makeText(getView().getContext(), "Wurde geklickt!", Toast.LENGTH_LONG).show();
 
     }
 
