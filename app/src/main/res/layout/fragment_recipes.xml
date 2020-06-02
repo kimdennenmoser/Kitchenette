@@ -36,4 +36,11 @@
         app:srcCompat="@drawable/ic_start"
         tools:ignore="VectorDrawableCompat" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RecyclerViewBrowseRecipes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/textViewRecipes" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
