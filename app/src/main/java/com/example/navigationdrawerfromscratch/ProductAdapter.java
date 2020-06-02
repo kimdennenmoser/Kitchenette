@@ -41,7 +41,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         holder.foodName.setText(product.getName());
         holder.foodInfo.setText(product.getInfo());
-        //holder.imageView.setImageDrawable(product.getImage());
         Picasso.get().load(product.getImage()).into(holder.imageView);
 
     }

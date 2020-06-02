@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Gemuese extends Fragment {
+public class Gemuese extends Fragment implements ProductAdapter.OnNoteListener {
 
     private TextView ueSchrift;
     List<Food> gemueseList;
@@ -57,7 +57,7 @@ public class Gemuese extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-
+        adapter = new ProductAdapter(getView().getContext(),gemueseList,this);
         databaseGemuese.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -70,7 +70,7 @@ public class Gemuese extends Fragment {
                     gemueseList.add(gemüse);
                 }
 
-                adapter = new ProductAdapter(getView().getContext(),gemueseList,null);
+
                 mResultList.setAdapter(adapter);
 
 
@@ -82,6 +82,11 @@ public class Gemuese extends Fragment {
             }
         });
 
+
+    }
+
+    @Override
+    public void onNoteClick(int position) {
 
     }
 }

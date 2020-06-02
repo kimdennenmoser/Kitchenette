@@ -52,7 +52,7 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener{
     @Override
     public void onStart() {
         super.onStart();
-
+        adapter = new ProductAdapter(getView().getContext(),obstList,this);
         databaseObst.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -64,7 +64,7 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener{
 
                     obstList.add(obst);
 
-                    adapter = new ProductAdapter(getView().getContext(),obstList,null);
+
                     mResultList.setAdapter(adapter);
                 }
 

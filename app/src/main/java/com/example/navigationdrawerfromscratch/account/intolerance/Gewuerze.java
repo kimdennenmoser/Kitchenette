@@ -54,7 +54,7 @@ public class Gewuerze extends Fragment implements ProductAdapter.OnNoteListener 
     @Override
     public void onStart() {
         super.onStart();
-
+        adapter = new ProductAdapter(getView().getContext(),gewuerzeList, this);
         databaseGewuerze.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -66,7 +66,7 @@ public class Gewuerze extends Fragment implements ProductAdapter.OnNoteListener 
 
                     gewuerzeList.add(gewuerze);
 
-                    adapter = new ProductAdapter(getView().getContext(),gewuerzeList, null);
+
                     mResultList.setAdapter(adapter);
                 }
 

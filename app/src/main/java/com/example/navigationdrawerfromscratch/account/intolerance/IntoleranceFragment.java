@@ -106,7 +106,7 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
     @Override
     public void onStart() {
         super.onStart();
-
+        adapter = new ProductAdapter(getView().getContext(), productList, this);
         databaseFood.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -118,7 +118,7 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
 
                     productList.add(gemüse);
 
-                    adapter = new ProductAdapter(getView().getContext(), productList, null);
+
                     mResultList.setAdapter(adapter);
 
                 }
