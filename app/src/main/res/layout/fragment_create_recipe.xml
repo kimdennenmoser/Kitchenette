@@ -33,7 +33,7 @@
 
     <ScrollView
         android:id="@+id/ScrollViewNewRecipe"
-        android:layout_width="355dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"

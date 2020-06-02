@@ -1,4 +1,4 @@
-package com.example.navigationdrawerfromscratch;
+package com.example.navigationdrawerfromscratch.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.lebensmittel.Food;
 import com.squareup.picasso.Picasso;
 
@@ -77,7 +78,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     }
 
     public interface OnNoteListener{
-
         void onNoteClick(int position);
     }
 

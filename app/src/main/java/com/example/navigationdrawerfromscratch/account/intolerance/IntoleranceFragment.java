@@ -15,7 +15,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.navigationdrawerfromscratch.ProductAdapter;
+import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.lebensmittel.Food;
 import com.google.firebase.database.DataSnapshot;
@@ -37,7 +37,6 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
     private Button addIntolerance;
     ProductAdapter adapter;
     DatabaseReference databaseFood;
-
 
     List<Food> productList;
 
@@ -106,7 +105,7 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
     @Override
     public void onStart() {
         super.onStart();
-
+        adapter = new ProductAdapter(getView().getContext(), productList, this);
         databaseFood.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -115,16 +114,10 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
 
                 for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
                     Food gemüse = productSnapshot.getValue(Food.class);
-
                     productList.add(gemüse);
-
-                    adapter = new ProductAdapter(getView().getContext(), productList, null);
                     mResultList.setAdapter(adapter);
 
                 }
-
-
-
 
             }
 
@@ -154,9 +147,7 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
             super(itemView);
 
             mView = itemView;
-
         }
-
 
     }
 
