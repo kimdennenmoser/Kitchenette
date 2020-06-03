@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/TextViewAllergiesHeadline"
+        android:padding="180dp"
 
 
         android:layout_marginTop="80dp"
@@ -26,7 +27,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="30dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:fontFamily="cursive"
         android:text="Unverträglichkeiten"
         android:textColor="#555555"
@@ -38,12 +39,12 @@
         android:id="@+id/ButtonAddIntolerance"
         android:layout_width="62dp"
         android:layout_height="58dp"
-        android:layout_marginStart="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginStart="140dp"
+        android:layout_marginLeft="140dp"
+        android:layout_marginTop="10dp"
         android:background="@android:drawable/ic_menu_add"
-        app:layout_constraintStart_toEndOf="@+id/TextViewAllergiesHeadline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintStart_toEndOf="@+id/ButtonSaveAllergies"
+        app:layout_constraintTop_toBottomOf="@+id/TextViewAllergiesHeadline" />
 
     <Button
         android:id="@+id/ButtonSaveAllergies"
