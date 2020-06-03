@@ -1,20 +1,22 @@
 package com.example.navigationdrawerfromscratch;
 
+import java.util.List;
+
 public class Test {
 
-    private String[] IDs;
+    private List<String> IDs;
     private String name;
 
-    public Test(String[] IDs, String name) {
+    public Test(List<String> IDs, String name) {
         this.IDs = IDs;
         this.name = name;
     }
 
-    public String[] getIDs() {
+    public List<String> getIDs() {
         return IDs;
     }
 
-    public void setIDs(String[] IDs) {
+    public void setIDs(List<String> IDs) {
         this.IDs = IDs;
     }
 

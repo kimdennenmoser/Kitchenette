@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -39,14 +40,12 @@ public class Gewuerze extends Fragment implements ProductAdapter.OnNoteListener 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_gewuerze, container, false);
 
-        databaseGewuerze = FirebaseDatabase.getInstance().getReference("Gewürze");
         ueGewuerze = (TextView) view.findViewById(R.id.ueGewuerze);
         gewuerzeList = new ArrayList<>();
+        databaseGewuerze = FirebaseDatabase.getInstance().getReference("Gewürze");
         mResultList = (RecyclerView) view.findViewById(R.id.gewuerzeView);
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
-
-
 
         return view;
     }
@@ -54,19 +53,14 @@ public class Gewuerze extends Fragment implements ProductAdapter.OnNoteListener 
     @Override
     public void onStart() {
         super.onStart();
-
+        adapter = new ProductAdapter(getView().getContext(),gewuerzeList, this);
         databaseGewuerze.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 gewuerzeList.clear();
-
                 for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
                     Food gewuerze = productSnapshot.getValue(Food.class);
-
                     gewuerzeList.add(gewuerze);
-
-                    adapter = new ProductAdapter(getView().getContext(),gewuerzeList, null);
                     mResultList.setAdapter(adapter);
                 }
 
@@ -85,7 +79,17 @@ public class Gewuerze extends Fragment implements ProductAdapter.OnNoteListener 
     }
 
     @Override
-    public void onNoteClick(int position) {
+    public void onFoodClick(int position) {
+        String foodID = gewuerzeList.get(position).getId();
+        String foodName = gewuerzeList.get(position).getName();
+        String foodInfo = gewuerzeList.get(position).getInfo();
+        String foodImage = gewuerzeList.get(position).getImage();
+        Food food = new Food(foodName, foodID, foodInfo, foodImage);
+        IntoleranceFragment.productList.add(food);
+
+        IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
+        FragmentManager manager = getFragmentManager();
+        manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
 
     }
 

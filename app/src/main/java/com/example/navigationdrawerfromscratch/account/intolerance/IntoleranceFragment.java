@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -18,11 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.lebensmittel.Food;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +28,13 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
 
     @Nullable
 
-    private EditText mSearchField;
     private RecyclerView mResultList;
     private Button addIntolerance;
+    private Button saveAllergies;
     ProductAdapter adapter;
     DatabaseReference databaseFood;
 
-    List<Food> productList;
+    static List<Food> productList = new ArrayList<>();
 
 
 
@@ -46,15 +42,18 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
                View view = inflater.inflate(R.layout.fragment_intolerance, container, false);
 
-        productList = new ArrayList<>();
+        //productList = new ArrayList<>();
 
+        //Initialisieren der Elemente
         databaseFood = FirebaseDatabase.getInstance().getReference("Gemüse");
 
-        mSearchField = (EditText) view.findViewById(R.id.search_field);
         mResultList = (RecyclerView) view.findViewById(R.id.intolerance_list);
         mResultList.setHasFixedSize(true);
-        addIntolerance = (Button) view.findViewById(R.id.addIntolerance);
+        addIntolerance = (Button) view.findViewById(R.id.ButtonAddIntolerance);
+        saveAllergies = (Button) view.findViewById(R.id.ButtonSaveAllergies);
+        mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
+        //Wechsel zur Auswahl der "Zutaten"
         addIntolerance.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,56 +64,33 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
             }
         });
 
-        mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        //Abspeichern der Unverträglichkeiten in das Benutzerprofil des Users
+        saveAllergies.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-
-
-
-
-
-
-        /*productList.add(
-                new Gemüse(
-                        1,
-                        "Gurke",
-                        "Eine leckere Gurke",
-                        R.drawable.gurke
-
-                )
-
-        );
-
-        productList.add(
-                new Gemüse(
-                        2,
-                        "Tomate",
-                        "Eine saftige Tomate",
-                        R.drawable.tomate
-                )
-        ); */
-
-        //adapter = new ProductAdapter(view.getContext(),productList);
-        //mResultList.setAdapter(adapter);
-
-
+            }
+        });
 
         return view;
     }
-
 
     @Override
     public void onStart() {
         super.onStart();
         adapter = new ProductAdapter(getView().getContext(), productList, this);
-        databaseFood.addValueEventListener(new ValueEventListener() {
+        mResultList.setAdapter(adapter);
+
+
+       /* databaseFood.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                productList.clear();
+                //productList.clear();
 
                 for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
-                    Food gemüse = productSnapshot.getValue(Food.class);
-                    productList.add(gemüse);
+                    //Food gemüse = productSnapshot.getValue(Food.class);
+                    //productList.add(gemüse);
                     mResultList.setAdapter(adapter);
 
                 }
@@ -127,11 +103,11 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
             }
         });
 
-
+        */
     }
 
     @Override
-    public void onNoteClick(int position) {
+    public void onFoodClick(int position) {
         Toast.makeText(getView().getContext(), "Wurde geklickt!", Toast.LENGTH_LONG).show();
 
     }

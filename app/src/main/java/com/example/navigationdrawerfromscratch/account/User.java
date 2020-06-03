@@ -1,18 +1,22 @@
 package com.example.navigationdrawerfromscratch.account;
 
+import java.util.List;
+
 public class User {
     private String firstname;
     private String lastname;
     private String username;
     private String password;
     private String mail;
+    private List<String> allergies;
 
-    public User(String firstname, String lastname, String username, String password, String mail) {
+    public User(String firstname, String lastname, String username, String password, String mail, List<String> allergies) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
         this.password = password;
         this.mail = mail;
+        this.allergies = allergies;
     }
 
     public User() {
@@ -56,5 +60,13 @@ public class User {
 
     public void setMail(String mail) {
         this.mail = mail;
+    }
+
+    public List<String> getAllergies() {
+        return allergies;
+    }
+
+    public void setAllergies(List<String> allergies) {
+        this.allergies = allergies;
     }
 }
