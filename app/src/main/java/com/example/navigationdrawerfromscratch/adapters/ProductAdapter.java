@@ -72,12 +72,12 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
         @Override
         public void onClick(View v) {
-            onNoteListener.onNoteClick(getAdapterPosition());
+            onNoteListener.onFoodClick(getAdapterPosition());
         }
     }
 
     public interface OnNoteListener{
-        void onNoteClick(int position);
+        void onFoodClick(int position);
     }
 
 

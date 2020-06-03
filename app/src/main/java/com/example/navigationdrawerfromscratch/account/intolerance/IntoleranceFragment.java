@@ -139,7 +139,7 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
     }
 
     @Override
-    public void onNoteClick(int position) {
+    public void onFoodClick(int position) {
         Toast.makeText(getView().getContext(), "Wurde geklickt!", Toast.LENGTH_LONG).show();
 
     }

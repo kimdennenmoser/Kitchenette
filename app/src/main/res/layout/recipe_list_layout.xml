@@ -12,7 +12,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="409dp"
-        android:layout_height="150dp"
+        android:layout_height="135dp"
         android:layout_marginStart="2dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
@@ -28,36 +28,56 @@
             android:layout_height="878dp">
 
             <TextView
-                android:id="@+id/textViewRecipeNameLayout"
+                android:id="@+id/txtRecipeHeader"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="25dp"
-                android:text="TextView"
-                app:layout_constraintStart_toEndOf="@+id/imageViewRecipeLayout"
+                android:layout_height="20dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="35dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imgRecipe"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imageViewRecipeLayout"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:id="@+id/imgRecipe"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="5dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textViewPreparationTimeLayout"
+                android:id="@+id/txtTime"
+                android:layout_width="32dp"
+                android:layout_height="19dp"
+                android:layout_marginStart="52dp"
+                android:layout_marginLeft="52dp"
+                android:layout_marginTop="20dp"
+                android:text="TextView"
+                app:layout_constraintStart_toEndOf="@+id/imgRecipe"
+                app:layout_constraintTop_toBottomOf="@+id/txtRecipeHeader" />
+
+            <TextView
+                android:id="@+id/txtRating"
+                android:layout_width="69dp"
+                android:layout_height="21dp"
+                android:layout_marginTop="20dp"
+                app:layout_constraintStart_toEndOf="@+id/txtTime"
+                app:layout_constraintTop_toBottomOf="@+id/txtRecipeHeader" />
+
+            <ImageView
+                android:id="@+id/imgTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="10dp"
-                android:text="TextView"
-                app:layout_constraintStart_toEndOf="@+id/imageViewRecipeLayout"
-                app:layout_constraintTop_toBottomOf="@+id/textViewRecipeNameLayout" />
+                android:layout_marginStart="21dp"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toEndOf="@+id/imgRecipe"
+                app:layout_constraintTop_toBottomOf="@+id/txtRecipeHeader"
+                card_view:srcCompat="@android:drawable/ic_menu_recent_history" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

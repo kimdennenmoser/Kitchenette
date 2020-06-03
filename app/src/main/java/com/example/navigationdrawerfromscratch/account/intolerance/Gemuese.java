@@ -86,7 +86,7 @@ public class Gemuese extends Fragment implements ProductAdapter.OnNoteListener {
     }
 
     @Override
-    public void onNoteClick(int position) {
+    public void onFoodClick(int position) {
 
     }
 }
