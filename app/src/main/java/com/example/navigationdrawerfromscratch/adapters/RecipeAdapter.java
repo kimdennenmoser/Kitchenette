@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -41,7 +42,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         Recipe recipe = recipeList.get(position);
         holder.recipeName.setText(recipe.getRecipeName());
         holder.preparationTime.setText(recipe.getPreparationTime());
-        holder.recipeRating.setText(recipe.getRecipeRating());
+        holder.recipeRating.setNumStars(recipe.getRecipeRating());
         Picasso.get().load(recipe.getRecipeImage()).into(holder.recipeImageView);
 
     }
@@ -54,8 +55,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView recipeImageView;
-        TextView recipeName, preparationTime, recipeRating;
+        TextView recipeName, preparationTime;
         OnRecipeListener onRecipeListener;
+        RatingBar recipeRating;
 
         public RecipeViewHolder(@NonNull View itemView, OnRecipeListener onRecipeListener) {
             super(itemView);
@@ -63,7 +65,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             recipeImageView = (ImageView) itemView.findViewById(R.id.imgRecipe);
             recipeName = (TextView) itemView.findViewById(R.id.txtRecipeHeader);
             preparationTime = (TextView) itemView.findViewById(R.id.txtTime);
-            recipeRating = (TextView) itemView.findViewById(R.id.txtRating);
+            recipeRating = (RatingBar) itemView.findViewById(R.id.recipeRating);
 
             this.onRecipeListener = onRecipeListener;
 

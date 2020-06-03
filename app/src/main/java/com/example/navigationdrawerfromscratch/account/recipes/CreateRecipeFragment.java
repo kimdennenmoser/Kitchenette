@@ -136,9 +136,10 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
         String preparationTime = editTextPreparationTime.getText().toString().trim();
         String ingredients = editTextIngredients.getText().toString().trim();
         String instruction = editTextInstruction.getText().toString().trim();
-        String recipeRating = rating.getText().toString().trim();
 
-        final Recipe recipe = new Recipe(rId, rName, preparationTime, ingredients, instruction, categoryString, recipeRating);
+
+
+        final Recipe recipe = new Recipe(rId, rName, preparationTime, ingredients, instruction, categoryString, 0);
         final Context context = this.getActivity();
 
         databaseRecipe.addListenerForSingleValueEvent(new ValueEventListener() {

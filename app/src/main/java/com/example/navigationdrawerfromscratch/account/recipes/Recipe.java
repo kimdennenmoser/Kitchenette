@@ -1,5 +1,8 @@
 package com.example.navigationdrawerfromscratch.account.recipes;
 
+import android.media.Rating;
+import android.widget.RatingBar;
+
 import java.util.HashMap;
 
 public class Recipe {
@@ -10,11 +13,11 @@ public class Recipe {
     private String preparationTime;
     private String category;
     private String recipeImage;
-    private String recipeRating;
+    private int recipeRating;
     //private String bewertung; //nice-to-have
 
 
-    public Recipe(String recipeId, String recipeName, String ingredientsList, String preparationTime, String category, String recipeImage, String recipeRating) {
+    public Recipe(String recipeId, String recipeName, String ingredientsList, String preparationTime, String category, String recipeImage, int recipeRating) {
         this.recipeId = recipeId;
         this.recipeName = recipeName;
         this.ingredientsList = ingredientsList;
@@ -76,11 +79,11 @@ public class Recipe {
         this.recipeImage = recipeImage;
     }
 
-    public String getRecipeRating() {
+    public int getRecipeRating() {
         return recipeRating;
     }
 
-    public void setRecipeRating(String recipeRating) {
+    public void setRecipeRating(int recipeRating) {
         this.recipeRating = recipeRating;
     }
 
