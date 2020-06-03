@@ -14,16 +14,21 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.navigationdrawerfromscratch.R;
+import com.example.navigationdrawerfromscratch.Test;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CreateAccountFragment extends Fragment {
 
     @Nullable
 
+    List<String> test;
 
     EditText editTextFirstName;
     EditText editTextLastName;
@@ -32,7 +37,9 @@ public class CreateAccountFragment extends Fragment {
     EditText editTextMail;
     Button btncreateUser;
     DatabaseReference databaseUser;
+    DatabaseReference databaseTest;
     User user;
+    List<String> allergies;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -47,6 +54,7 @@ public class CreateAccountFragment extends Fragment {
         editTextMail = (EditText) view.findViewById(R.id.editTextMail);
         btncreateUser = (Button) view.findViewById(R.id.buttonCreateUser);
         databaseUser = FirebaseDatabase.getInstance().getReference("User");
+        databaseTest = FirebaseDatabase.getInstance().getReference("Test");
 
         btncreateUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +63,7 @@ public class CreateAccountFragment extends Fragment {
             }
         });
 
+        test = new ArrayList<>();
         return view;
     }
 
@@ -67,8 +76,10 @@ public class CreateAccountFragment extends Fragment {
         String username = editTextUsername.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String mail = editTextMail.getText().toString().trim();
+
         final Context context = this.getActivity();
-        final User user = new User (firstName, lastName, username, password, mail);
+        final User user = new User (firstName, lastName, username, password, mail, allergies);
+
 
         databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -79,6 +90,7 @@ public class CreateAccountFragment extends Fragment {
                 else{
                     databaseUser.child(user.getUsername()).setValue(user); //wird als Kind des Knoten "User" angelegt
                     Toast.makeText(context, "User wurde erfolgreich angelegt", Toast.LENGTH_LONG).show();
+
                 }
             }
             @Override

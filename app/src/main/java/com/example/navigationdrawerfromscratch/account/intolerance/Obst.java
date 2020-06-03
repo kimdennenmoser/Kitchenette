@@ -10,6 +10,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -46,14 +47,13 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener{
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-
         return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        adapter = new ProductAdapter(getView().getContext(),obstList,this);
+        adapter = new ProductAdapter(getView().getContext(), obstList,this);
         databaseObst.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -62,16 +62,9 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener{
 
                 for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
                     Food obst = productSnapshot.getValue(Food.class);
-
                     obstList.add(obst);
-
-
                     mResultList.setAdapter(adapter);
                 }
-
-
-
-
             }
 
             @Override
@@ -85,9 +78,17 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener{
 
     @Override
     public void onFoodClick(int position) {
-        String name = obstList.get(position).getName();
-        Toast.makeText(getView().getContext(), name+" Wurde geklickt!", Toast.LENGTH_LONG).show();
 
+        String foodID = obstList.get(position).getId();
+        String foodName = obstList.get(position).getName();
+        String foodInfo = obstList.get(position).getInfo();
+        String foodImage = obstList.get(position).getImage();
+        Food food = new Food(foodName, foodID, foodInfo, foodImage);
+        IntoleranceFragment.productList.add(food);
+
+        IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
+        FragmentManager manager = getFragmentManager();
+        manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
     }
 
 
