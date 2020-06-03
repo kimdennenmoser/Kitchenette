@@ -12,7 +12,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="409dp"
-        android:layout_height="150dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="2dp"
         android:layout_marginLeft="2dp"
         android:layout_marginTop="2dp"
@@ -40,8 +40,8 @@
 
             <ImageView
                 android:id="@+id/imageViewRecipeLayout"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
+                android:layout_width="125dp"
+                android:layout_height="100dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="20dp"
