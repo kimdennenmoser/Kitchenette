@@ -83,7 +83,7 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener{
         String foodName = obstList.get(position).getName();
         String foodInfo = obstList.get(position).getInfo();
         String foodImage = obstList.get(position).getImage();
-        Food food = new Food(foodName, foodID, foodInfo, foodImage);
+        Food food = new Food(foodName, foodInfo, foodID , foodImage);
         IntoleranceFragment.productList.add(food);
 
         IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
