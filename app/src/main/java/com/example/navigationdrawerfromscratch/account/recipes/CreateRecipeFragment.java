@@ -43,6 +43,7 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
     Button btncreateRecipe;
     DatabaseReference databaseRecipe;
     String categoryString;
+    EditText rating;
     Recipe recipe;
 
 
@@ -70,6 +71,7 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
         editTextName = (EditText) view.findViewById(R.id.editTextRecipeName);
         editTextPreparationTime = (EditText) view.findViewById(R.id.editTextPreparationTime);
         editTextIngredients = (EditText) view.findViewById(R.id.editTextIngredients);
+        rating = (EditText) view.findViewById(R.id.editRating);
         category = (Spinner) view.findViewById(R.id.spinnerCategory);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.category_arrays, android.R.layout.simple_spinner_dropdown_item);
         category.setAdapter(adapter);
@@ -134,8 +136,9 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
         String preparationTime = editTextPreparationTime.getText().toString().trim();
         String ingredients = editTextIngredients.getText().toString().trim();
         String instruction = editTextInstruction.getText().toString().trim();
+        String recipeRating = rating.getText().toString().trim();
 
-        final Recipe recipe = new Recipe(rId, rName, preparationTime, ingredients, instruction, categoryString);
+        final Recipe recipe = new Recipe(rId, rName, preparationTime, ingredients, instruction, categoryString, recipeRating);
         final Context context = this.getActivity();
 
         databaseRecipe.addListenerForSingleValueEvent(new ValueEventListener() {

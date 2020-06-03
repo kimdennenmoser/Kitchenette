@@ -98,7 +98,9 @@ public class BrowseFragment extends Fragment implements RecipeAdapter.OnRecipeLi
 
     @Override
     public void onRecipeClick(int position) {
-        Toast.makeText(getView().getContext(), "Wurde geklickt!", Toast.LENGTH_LONG).show();
+        Toast.makeText(getView().getContext(), position+" Wurde geklickt!", Toast.LENGTH_LONG).show();
+        String id = recipeList.get(position).getRecipeId();
+        System.out.println(id);
 
     }
 

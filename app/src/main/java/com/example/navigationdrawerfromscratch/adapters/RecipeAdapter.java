@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.account.recipes.Recipe;
-import com.example.navigationdrawerfromscratch.lebensmittel.Food;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -42,6 +41,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         Recipe recipe = recipeList.get(position);
         holder.recipeName.setText(recipe.getRecipeName());
         holder.preparationTime.setText(recipe.getPreparationTime());
+        holder.recipeRating.setText(recipe.getRecipeRating());
         Picasso.get().load(recipe.getRecipeImage()).into(holder.recipeImageView);
 
     }
@@ -54,15 +54,17 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView recipeImageView;
-        TextView recipeName, preparationTime;
+        TextView recipeName, preparationTime, recipeRating;
         OnRecipeListener onRecipeListener;
 
         public RecipeViewHolder(@NonNull View itemView, OnRecipeListener onRecipeListener) {
             super(itemView);
 
-            recipeImageView = (ImageView) itemView.findViewById(R.id.imageViewRecipeLayout);
-            recipeName = (TextView) itemView.findViewById(R.id.textViewRecipeNameLayout);
-            preparationTime = (TextView) itemView.findViewById(R.id.textViewPreparationTimeLayout);
+            recipeImageView = (ImageView) itemView.findViewById(R.id.imgRecipe);
+            recipeName = (TextView) itemView.findViewById(R.id.txtRecipeHeader);
+            preparationTime = (TextView) itemView.findViewById(R.id.txtTime);
+            recipeRating = (TextView) itemView.findViewById(R.id.txtRating);
+
             this.onRecipeListener = onRecipeListener;
 
             itemView.setOnClickListener(this);

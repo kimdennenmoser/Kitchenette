@@ -10,16 +10,18 @@ public class Recipe {
     private String preparationTime;
     private String category;
     private String recipeImage;
+    private String recipeRating;
     //private String bewertung; //nice-to-have
 
 
-    public Recipe(String recipeId, String recipeName, String ingredientsList, String preparationTime, String category, String recipeImage) {
+    public Recipe(String recipeId, String recipeName, String ingredientsList, String preparationTime, String category, String recipeImage, String recipeRating) {
         this.recipeId = recipeId;
         this.recipeName = recipeName;
         this.ingredientsList = ingredientsList;
         this.preparationTime = preparationTime;
         this.category = category;
         this.recipeImage = recipeImage;
+        this.recipeRating = recipeRating;
     }
 
     public Recipe() {
@@ -72,6 +74,14 @@ public class Recipe {
 
     public void setRecipeImage(String recipeImage) {
         this.recipeImage = recipeImage;
+    }
+
+    public String getRecipeRating() {
+        return recipeRating;
+    }
+
+    public void setRecipeRating(String recipeRating) {
+        this.recipeRating = recipeRating;
     }
 
     /*
