@@ -1,25 +1,26 @@
 package com.example.navigationdrawerfromscratch.account.recipes;
 
+import android.media.Rating;
+import android.widget.RatingBar;
+
 import java.util.HashMap;
 
 public class Recipe {
 
     private String recipeId;
     private String recipeName;
-    private String preparationTime;
     private String ingredientsList; //private HashMap<String, String> ingredientsList;
-   private  String instructions;
+    private String preparationTime;
     private String category;
     private String recipeImage;
-    private String recipeRating;
+    private int recipeRating;
     //private String bewertung; //nice-to-have
 
 
-    public Recipe(String recipeId, String recipeName, String preparationTime, String ingredientsList, String instructions, String category, String recipeImage, String recipeRating) {
+    public Recipe(String recipeId, String recipeName, String ingredientsList, String preparationTime, String category, String recipeImage, int recipeRating) {
         this.recipeId = recipeId;
         this.recipeName = recipeName;
         this.ingredientsList = ingredientsList;
-        this.instructions = instructions;
         this.preparationTime = preparationTime;
         this.category = category;
         this.recipeImage = recipeImage;
@@ -46,14 +47,6 @@ public class Recipe {
         this.recipeName = recipeName;
     }
 
-    public String getPreparationTime() {
-        return preparationTime;
-    }
-
-    public void setPreparationTime(String preparationTime) {
-        this.preparationTime = preparationTime;
-    }
-
     public String getIngredientsList() {
         return ingredientsList;
     }
@@ -62,12 +55,12 @@ public class Recipe {
         this.ingredientsList = ingredientsList;
     }
 
-    public String getInstructions() {
-        return instructions;
+    public String getPreparationTime() {
+        return preparationTime;
     }
 
-    public void setInstructions(String instructions) {
-        this.instructions = instructions;
+    public void setPreparationTime(String preparationTime) {
+        this.preparationTime = preparationTime;
     }
 
     public String getCategory() {
@@ -86,11 +79,21 @@ public class Recipe {
         this.recipeImage = recipeImage;
     }
 
-    public String getRecipeRating() {
+    public int getRecipeRating() {
         return recipeRating;
     }
 
-    public void setRecipeRating(String recipeRating) {
+    public void setRecipeRating(int recipeRating) {
         this.recipeRating = recipeRating;
     }
+
+    /*
+    public String getBewertung() {
+        return bewertung;
+    }
+
+    public void setBewertung(String bewertung) {
+        this.bewertung = bewertung;
+    }
+     */
 }

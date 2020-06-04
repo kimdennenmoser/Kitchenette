@@ -24,7 +24,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -137,19 +136,17 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
         String preparationTime = editTextPreparationTime.getText().toString().trim();
         String ingredients = editTextIngredients.getText().toString().trim();
         String instruction = editTextInstruction.getText().toString().trim();
-        String recipeRating = rating.getText().toString().trim();
-        String rImage = null;
 
 
 
-            final Recipe recipe = new Recipe(rId, rName, ingredients, preparationTime,  categoryString, instruction,  rImage ,recipeRating);
+        final Recipe recipe = new Recipe(rId, rName, preparationTime, ingredients, instruction, categoryString, 0);
         final Context context = this.getActivity();
 
         databaseRecipe.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 databaseRecipe.child(recipe.getRecipeId()).setValue(recipe); //wird als Kind des Knoten "User" angelegt
-                Toast.makeText(context, "Rezept wurde erfolgreich angelegt", Toast.LENGTH_LONG).show();
+                Toast.makeText(context, "User wurde erfolgreich angelegt", Toast.LENGTH_LONG).show();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

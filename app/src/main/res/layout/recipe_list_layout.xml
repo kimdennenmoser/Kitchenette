@@ -8,74 +8,82 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <FrameLayout
-        android:layout_width="427dp"
-        android:layout_height="153dp"
-        android:background="#000000"
-        app:layout_constraintBottom_toBottomOf="@id/cardView"
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="409dp"
+        android:layout_height="135dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginRight="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardView"
-            android:layout_width="409dp"
-            android:layout_height="150dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginLeft="2dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="2dp"
-            android:layout_marginRight="2dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent">
 
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="878dp"
-                android:background="#CCECE3">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="878dp"
+            android:background="#CCECE3">
 
-                <TextView
-                    android:id="@+id/textViewRecipeNameLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="25dp"
-                    android:text="TextView"
-                    app:layout_constraintStart_toEndOf="@+id/imageViewRecipeLayout"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/txtRecipeHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="35dp"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/imgRecipe"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/imageViewRecipeLayout"
-                    android:layout_width="125dp"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="20dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/imgRecipe"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="5dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TextView
-                    android:id="@+id/textViewRating"
-                    android:layout_width="69dp"
-                    android:layout_height="21dp"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    app:layout_constraintStart_toEndOf="@+id/imageViewRecipeLayout"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewPreparationTimeLayout" />
+            <TextView
+                android:id="@+id/txtTime"
+                android:layout_width="32dp"
+                android:layout_height="19dp"
+                android:layout_marginStart="52dp"
+                android:layout_marginLeft="52dp"
+                android:layout_marginTop="20dp"
+                android:text="TextView"
+                app:layout_constraintStart_toEndOf="@+id/imgRecipe"
+                app:layout_constraintTop_toBottomOf="@+id/txtRecipeHeader" />
 
-                <TextView
-                    android:id="@+id/textViewPreparationTimeLayout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:text="TextView"
-                    app:layout_constraintStart_toEndOf="@+id/imageViewRecipeLayout"
-                    app:layout_constraintTop_toBottomOf="@+id/textViewRecipeNameLayout" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-        </androidx.cardview.widget.CardView>
+            <ImageView
+                android:id="@+id/imgTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:layout_marginLeft="21dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintStart_toEndOf="@+id/imgRecipe"
+                app:layout_constraintTop_toBottomOf="@+id/txtRecipeHeader"
+                card_view:srcCompat="@android:drawable/ic_menu_recent_history" />
+
+            <RatingBar
+                android:id="@+id/recipeRating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:layout_marginTop="76dp"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:progressBackgroundTint="#ffea00"
+                android:stepSize="1"
+                app:layout_constraintStart_toEndOf="@+id/txtTime"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>
