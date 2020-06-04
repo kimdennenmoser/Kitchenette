@@ -70,7 +70,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         public ProductViewHolder(@NonNull View itemView, OnNoteListener onNoteListener) {
             super(itemView);
 
-
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
             foodName = (TextView) itemView.findViewById(R.id.foodName);
             foodInfo = (TextView) itemView.findViewById(R.id.foodInfo);

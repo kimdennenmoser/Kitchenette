@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.navigationdrawerfromscratch.MainActivity;
 import com.example.navigationdrawerfromscratch.R;
+import com.example.navigationdrawerfromscratch.account.intolerance.IntoleranceFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,7 +36,6 @@ public class AccountFragment extends Fragment {
     DatabaseReference databaseUser;
     Context context;
     private DrawerLayout drawer;
-
 
     @Nullable
     @Override
@@ -84,6 +84,7 @@ public class AccountFragment extends Fragment {
                         if (login.getPassword().equals(password)) {
                             Toast.makeText(context, "Anmeldung erfolgreich", Toast.LENGTH_LONG).show();
                             MainActivity.isAngemeldet=true;
+                            IntoleranceFragment.usernameString = username;
 
                             //Wenn Anmeldung erfolgreich, Switch zur Kontoübersicht
                             AccountOverviewFragment accountOverviewFragment = new AccountOverviewFragment();

@@ -14,11 +14,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.navigationdrawerfromscratch.account.AccountFragment;
+import com.example.navigationdrawerfromscratch.account.User;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.lebensmittel.Food;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,9 +38,11 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
     private Button saveAllergies;
     ProductAdapter adapter;
     DatabaseReference databaseFood;
+    DatabaseReference databaseUser;
+    List<String> allergies = new ArrayList<>();
+    public static String usernameString = null;
 
     static List<Food> productList = new ArrayList<>();
-
 
 
     @Nullable
@@ -45,7 +52,7 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
         //productList = new ArrayList<>();
 
         //Initialisieren der Elemente
-        databaseFood = FirebaseDatabase.getInstance().getReference("Gemüse");
+        databaseUser = FirebaseDatabase.getInstance().getReference("User").child(usernameString);
 
         mResultList = (RecyclerView) view.findViewById(R.id.intolerance_list);
         mResultList.setHasFixedSize(true);
@@ -68,11 +75,35 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
         saveAllergies.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                saveAllergiesToUser();
 
             }
         });
 
         return view;
+    }
+
+    private void saveAllergiesToUser() {
+        databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (int i = 0; i < productList.size(); i++) {
+
+                    String foodName = productList.get(i).getName();
+                    allergies.add(foodName);
+
+                }
+                User user = dataSnapshot.getValue(User.class);
+                user.setAllergies(allergies);
+                databaseUser.setValue(user);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
+
+
     }
 
     @Override
