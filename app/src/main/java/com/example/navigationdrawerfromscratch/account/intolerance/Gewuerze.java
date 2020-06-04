@@ -84,7 +84,7 @@ public class Gewuerze extends Fragment implements ProductAdapter.OnNoteListener 
         String foodName = gewuerzeList.get(position).getName();
         String foodInfo = gewuerzeList.get(position).getInfo();
         String foodImage = gewuerzeList.get(position).getImage();
-        Food food = new Food(foodName, foodID, foodInfo, foodImage);
+        Food food = new Food(foodName, foodID, foodID, foodImage);
         IntoleranceFragment.productList.add(food);
 
         IntoleranceFragment intoleranceFragment = new IntoleranceFragment();

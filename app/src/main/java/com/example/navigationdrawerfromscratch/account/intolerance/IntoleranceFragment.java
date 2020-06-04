@@ -40,7 +40,7 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
 
     @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-               View view = inflater.inflate(R.layout.fragment_intolerance, container, false);
+        View view = inflater.inflate(R.layout.fragment_intolerance, container, false);
 
         //productList = new ArrayList<>();
 
@@ -85,24 +85,17 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
        /* databaseFood.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
                 //productList.clear();
-
                 for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
                     //Food gemüse = productSnapshot.getValue(Food.class);
                     //productList.add(gemüse);
                     mResultList.setAdapter(adapter);
-
                 }
-
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
-
         */
     }
 

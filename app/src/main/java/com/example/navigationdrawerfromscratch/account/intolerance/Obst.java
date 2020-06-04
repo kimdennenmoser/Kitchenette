@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,9 +25,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Obst extends Fragment implements ProductAdapter.OnNoteListener{
+public class Obst extends Fragment implements ProductAdapter.OnNoteListener {
 
-    private TextView ueObst;
     List<Food> obstList;
     DatabaseReference databaseObst;
     ProductAdapter adapter;
@@ -40,7 +38,6 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener{
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_obst, container, false);
 
-        ueObst = (TextView) view.findViewById(R.id.ueObst);
         obstList = new ArrayList<>();
         databaseObst = FirebaseDatabase.getInstance().getReference("Obst");
         mResultList = (RecyclerView) view.findViewById(R.id.obstView);
@@ -53,7 +50,7 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener{
     @Override
     public void onStart() {
         super.onStart();
-        adapter = new ProductAdapter(getView().getContext(), obstList,this);
+        adapter = new ProductAdapter(getView().getContext(), obstList, this);
         databaseObst.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -83,7 +80,8 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener{
         String foodName = obstList.get(position).getName();
         String foodInfo = obstList.get(position).getInfo();
         String foodImage = obstList.get(position).getImage();
-        Food food = new Food(foodName, foodInfo, foodID , foodImage);
+        Food food = new Food(foodName, foodInfo, foodID, foodImage);
+
         IntoleranceFragment.productList.add(food);
 
         IntoleranceFragment intoleranceFragment = new IntoleranceFragment();

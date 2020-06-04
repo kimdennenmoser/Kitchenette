@@ -6,18 +6,20 @@ public class Recipe {
 
     private String recipeId;
     private String recipeName;
-    private String ingredientsList; //private HashMap<String, String> ingredientsList;
     private String preparationTime;
+    private String ingredientsList; //private HashMap<String, String> ingredientsList;
+   private  String instructions;
     private String category;
     private String recipeImage;
     private String recipeRating;
     //private String bewertung; //nice-to-have
 
 
-    public Recipe(String recipeId, String recipeName, String ingredientsList, String preparationTime, String category, String recipeImage, String recipeRating) {
+    public Recipe(String recipeId, String recipeName, String preparationTime, String ingredientsList, String instructions, String category, String recipeImage, String recipeRating) {
         this.recipeId = recipeId;
         this.recipeName = recipeName;
         this.ingredientsList = ingredientsList;
+        this.instructions = instructions;
         this.preparationTime = preparationTime;
         this.category = category;
         this.recipeImage = recipeImage;
@@ -44,6 +46,14 @@ public class Recipe {
         this.recipeName = recipeName;
     }
 
+    public String getPreparationTime() {
+        return preparationTime;
+    }
+
+    public void setPreparationTime(String preparationTime) {
+        this.preparationTime = preparationTime;
+    }
+
     public String getIngredientsList() {
         return ingredientsList;
     }
@@ -52,12 +62,12 @@ public class Recipe {
         this.ingredientsList = ingredientsList;
     }
 
-    public String getPreparationTime() {
-        return preparationTime;
+    public String getInstructions() {
+        return instructions;
     }
 
-    public void setPreparationTime(String preparationTime) {
-        this.preparationTime = preparationTime;
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
     }
 
     public String getCategory() {
@@ -83,14 +93,4 @@ public class Recipe {
     public void setRecipeRating(String recipeRating) {
         this.recipeRating = recipeRating;
     }
-
-    /*
-    public String getBewertung() {
-        return bewertung;
-    }
-
-    public void setBewertung(String bewertung) {
-        this.bewertung = bewertung;
-    }
-     */
 }

@@ -60,10 +60,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         public RecipeViewHolder(@NonNull View itemView, OnRecipeListener onRecipeListener) {
             super(itemView);
 
-            recipeImageView = (ImageView) itemView.findViewById(R.id.imgRecipe);
-            recipeName = (TextView) itemView.findViewById(R.id.txtRecipeHeader);
-            preparationTime = (TextView) itemView.findViewById(R.id.txtTime);
-            recipeRating = (TextView) itemView.findViewById(R.id.txtRating);
+            recipeImageView = (ImageView) itemView.findViewById(R.id.imageViewRecipeLayout);
+            recipeName = (TextView) itemView.findViewById(R.id.textViewRecipeNameLayout);
+            preparationTime = (TextView) itemView.findViewById(R.id.textViewPreparationTimeLayout);
+            recipeRating = (TextView) itemView.findViewById(R.id.textViewRating);
 
             this.onRecipeListener = onRecipeListener;
 

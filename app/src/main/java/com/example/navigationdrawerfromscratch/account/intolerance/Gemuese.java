@@ -87,7 +87,7 @@ public class Gemuese extends Fragment implements ProductAdapter.OnNoteListener{
         String foodName = gemueseList.get(position).getName();
         String foodInfo = gemueseList.get(position).getInfo();
         String foodImage = gemueseList.get(position).getImage();
-        Food food = new Food(foodName, foodID, foodInfo, foodImage);
+        Food food = new Food(foodName,  foodInfo, foodID, foodImage);
         IntoleranceFragment.productList.add(food);
 
         IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
