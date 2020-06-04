@@ -25,7 +25,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="878dp">
+            android:layout_height="878dp"
+            android:background="#CCECE3">
 
             <TextView
                 android:id="@+id/txtRecipeHeader"
@@ -73,13 +74,14 @@
 
             <RatingBar
                 android:id="@+id/recipeRating"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginTop="70dp"
-                android:numStars="5"
-                android:stepSize="1"
-                android:progressTint="#ffff00"
                 style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="17dp"
+                android:layout_marginTop="76dp"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:progressBackgroundTint="#ffea00"
+                android:stepSize="1"
                 app:layout_constraintStart_toEndOf="@+id/txtTime"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
