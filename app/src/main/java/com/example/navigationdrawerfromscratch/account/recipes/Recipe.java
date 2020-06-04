@@ -9,19 +9,21 @@ public class Recipe {
 
     private String recipeId;
     private String recipeName;
-    private String ingredientsList; //private HashMap<String, String> ingredientsList;
     private String preparationTime;
+    private String ingredientsList; //private HashMap<String, String> ingredientsList;
+    private String instructions;
     private String category;
     private String recipeImage;
     private int recipeRating;
     //private String bewertung; //nice-to-have
 
 
-    public Recipe(String recipeId, String recipeName, String ingredientsList, String preparationTime, String category, String recipeImage, int recipeRating) {
+    public Recipe(String recipeId, String recipeName, String preparationTime, String ingredientsList, String instructions, String category, String recipeImage, int recipeRating) {
         this.recipeId = recipeId;
         this.recipeName = recipeName;
-        this.ingredientsList = ingredientsList;
         this.preparationTime = preparationTime;
+        this.ingredientsList = ingredientsList;
+        this.instructions = instructions;
         this.category = category;
         this.recipeImage = recipeImage;
         this.recipeRating = recipeRating;
@@ -29,6 +31,14 @@ public class Recipe {
 
     public Recipe() {
 
+    }
+
+    public String getInstructions() {
+        return instructions;
+    }
+
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
     }
 
     public String getRecipeId() {

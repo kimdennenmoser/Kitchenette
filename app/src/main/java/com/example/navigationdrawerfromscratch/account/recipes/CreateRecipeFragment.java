@@ -136,10 +136,10 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
         String preparationTime = editTextPreparationTime.getText().toString().trim();
         String ingredients = editTextIngredients.getText().toString().trim();
         String instruction = editTextInstruction.getText().toString().trim();
+        String image = null;
 
 
-
-        final Recipe recipe = new Recipe(rId, rName, preparationTime, ingredients, instruction, categoryString, 0);
+        final Recipe recipe = new Recipe(rId, rName, preparationTime, ingredients, instruction, categoryString, image, 0);
         final Context context = this.getActivity();
 
         databaseRecipe.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -148,6 +148,7 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
                 databaseRecipe.child(recipe.getRecipeId()).setValue(recipe); //wird als Kind des Knoten "User" angelegt
                 Toast.makeText(context, "User wurde erfolgreich angelegt", Toast.LENGTH_LONG).show();
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
