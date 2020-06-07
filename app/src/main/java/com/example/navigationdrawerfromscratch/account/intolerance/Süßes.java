@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,8 +12,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.R;
+import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.lebensmittel.Food;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,47 +24,42 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+public class Süßes extends Fragment implements ProductAdapter.OnNoteListener {
 
-public class Gemuese extends Fragment implements ProductAdapter.OnNoteListener{
-
-    List<Food> gemueseList;
-    DatabaseReference databaseGemuese;
+    List<Food> süßList;
+    DatabaseReference databaseSüßes;
     ProductAdapter adapter;
     private RecyclerView mResultList;
-
-
-
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_gemuese, container, false);
+        View view = inflater.inflate(R.layout.fragment_sweetener, container, false);
 
-        gemueseList = new ArrayList<>();
-        databaseGemuese = FirebaseDatabase.getInstance().getReference("Lebensmittel");
-        mResultList = (RecyclerView) view.findViewById(R.id.gemueseView);
+        süßList = new ArrayList<>();
+        databaseSüßes = FirebaseDatabase.getInstance().getReference("Lebensmittel"); //"Lebensmittel"
+        mResultList = (RecyclerView) view.findViewById(R.id.sweetsView);
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         return view;
-
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        adapter = new ProductAdapter(getView().getContext(),gemueseList,this);
-        databaseGemuese.addValueEventListener(new ValueEventListener() {
+        adapter = new ProductAdapter(getView().getContext(), süßList, this);
+        databaseSüßes.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                gemueseList.clear();
+                süßList.clear();
 
                 for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
-                    Food gemüse = productSnapshot.getValue(Food.class);
-                    if (gemüse.getCategory().equals("Gemüse")){
-                        gemueseList.add(gemüse);
+                    Food obst = productSnapshot.getValue(Food.class);
+                    if (obst.getCategory().equals("Süßes")){
+                        süßList.add(obst);
                     }
                     mResultList.setAdapter(adapter);
                 }
@@ -80,19 +73,40 @@ public class Gemuese extends Fragment implements ProductAdapter.OnNoteListener{
 
 
     }
+
     @Override
     public void onFoodClick(int position) {
 
-        String foodID = gemueseList.get(position).getId();
-        String foodName = gemueseList.get(position).getName();
-        String foodInfo = gemueseList.get(position).getInfo();
-        String foodImage = gemueseList.get(position).getImage();
-        String foodCategory = gemueseList.get(position).getCategory();
+        String foodID = süßList.get(position).getId();
+        String foodName = süßList.get(position).getName();
+        String foodInfo = süßList.get(position).getInfo();
+        String foodImage = süßList.get(position).getImage();
+        String foodCategory = süßList.get(position).getCategory();
         Food food = new Food(foodName, foodInfo, foodID, foodImage, foodCategory);
+
         IntoleranceFragment.productList.add(food);
 
         IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
         FragmentManager manager = getFragmentManager();
         manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
     }
+
+
+    //View Holder Class
+
+    public class FoodViewHolder extends RecyclerView.ViewHolder {
+
+        View mView;
+
+        public FoodViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            mView = itemView;
+
+        }
+
+
+    }
+
+
 }

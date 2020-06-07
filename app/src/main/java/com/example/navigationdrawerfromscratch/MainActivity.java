@@ -8,6 +8,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -15,6 +16,12 @@ import android.widget.ListView;
 import com.example.navigationdrawerfromscratch.account.AccountFragment;
 import com.example.navigationdrawerfromscratch.account.AccountOverviewFragment;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.FirebaseError;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -48,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         }
 
     }
+
 
     //Methode, dass das passende Fragment zu dem Menüpunkt anzeigt
     @Override

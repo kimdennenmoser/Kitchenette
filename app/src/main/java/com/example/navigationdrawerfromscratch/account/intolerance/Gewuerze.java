@@ -40,9 +40,8 @@ public class Gewuerze extends Fragment implements ProductAdapter.OnNoteListener 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_gewuerze, container, false);
 
-        ueGewuerze = (TextView) view.findViewById(R.id.ueGewuerze);
         gewuerzeList = new ArrayList<>();
-        databaseGewuerze = FirebaseDatabase.getInstance().getReference("Gewürze");
+        databaseGewuerze = FirebaseDatabase.getInstance().getReference("Lebensmittel"); //"Gewürze"
         mResultList = (RecyclerView) view.findViewById(R.id.gewuerzeView);
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -60,7 +59,9 @@ public class Gewuerze extends Fragment implements ProductAdapter.OnNoteListener 
                 gewuerzeList.clear();
                 for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
                     Food gewuerze = productSnapshot.getValue(Food.class);
-                    gewuerzeList.add(gewuerze);
+                    if (gewuerze.getCategory().equals("Gewürz")){
+                        gewuerzeList.add(gewuerze);
+                    }
                     mResultList.setAdapter(adapter);
                 }
 
@@ -84,7 +85,8 @@ public class Gewuerze extends Fragment implements ProductAdapter.OnNoteListener 
         String foodName = gewuerzeList.get(position).getName();
         String foodInfo = gewuerzeList.get(position).getInfo();
         String foodImage = gewuerzeList.get(position).getImage();
-        Food food = new Food(foodName, foodID, foodID, foodImage);
+        String foodCategory = gewuerzeList.get(position).getCategory();
+        Food food = new Food(foodName, foodInfo, foodID, foodImage, foodCategory);
         IntoleranceFragment.productList.add(food);
 
         IntoleranceFragment intoleranceFragment = new IntoleranceFragment();

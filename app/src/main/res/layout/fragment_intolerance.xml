@@ -55,5 +55,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TextViewAllergiesHeadline" />
 
+    <Button
+        android:id="@+id/buttonRefresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="21dp"
+        android:layout_marginLeft="21dp"
+        android:layout_marginTop="20dp"
+        android:text="aktualisieren"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="8sp"
+        app:layout_constraintStart_toEndOf="@+id/ButtonSaveAllergies"
+        app:layout_constraintTop_toBottomOf="@+id/TextViewAllergiesHeadline" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

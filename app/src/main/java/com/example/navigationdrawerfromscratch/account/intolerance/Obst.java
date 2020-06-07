@@ -39,7 +39,7 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener {
         View view = inflater.inflate(R.layout.fragment_obst, container, false);
 
         obstList = new ArrayList<>();
-        databaseObst = FirebaseDatabase.getInstance().getReference("Obst");
+        databaseObst = FirebaseDatabase.getInstance().getReference("Lebensmittel"); //"Lebensmittel"
         mResultList = (RecyclerView) view.findViewById(R.id.obstView);
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -59,7 +59,9 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener {
 
                 for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
                     Food obst = productSnapshot.getValue(Food.class);
-                    obstList.add(obst);
+                    if (obst.getCategory().equals("Obst")){
+                        obstList.add(obst);
+                    }
                     mResultList.setAdapter(adapter);
                 }
             }
@@ -80,7 +82,8 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener {
         String foodName = obstList.get(position).getName();
         String foodInfo = obstList.get(position).getInfo();
         String foodImage = obstList.get(position).getImage();
-        Food food = new Food(foodName, foodInfo, foodID, foodImage);
+        String foodCategory = obstList.get(position).getCategory();
+        Food food = new Food(foodName, foodInfo, foodID, foodImage, foodCategory);
 
         IntoleranceFragment.productList.add(food);
 
