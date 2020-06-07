@@ -1,4 +1,4 @@
-package com.example.navigationdrawerfromscratch.account.intolerance;
+package com.example.navigationdrawerfromscratch.lebensmittel;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +20,8 @@ public class FoodCategory extends Fragment {
     private Button buttonGemuese;
     private Button buttonGewuerze;
     private Button buttonMilchprod;
+    private Button buttonGetreide;
+    private Button buttonSüßes;
 
 
 
@@ -68,6 +70,37 @@ public class FoodCategory extends Fragment {
 
         buttonMilchprod = (Button) view.findViewById(R.id.buttonMilchprod);
 
+        buttonMilchprod.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Milchprodukte dairy = new Milchprodukte();
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.fragment_container, dairy, dairy.getTag()).addToBackStack(null).commit();
+            }
+        });
+
+        buttonGetreide = (Button) view.findViewById(R.id.buttonGetreide);
+
+        buttonGetreide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Getreideprodukte getreideprodukte = new Getreideprodukte();
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.fragment_container, getreideprodukte, getreideprodukte.getTag()).addToBackStack(null).commit();
+            }
+        });
+
+
+        buttonSüßes = (Button) view.findViewById(R.id.buttonSweetener);
+
+        buttonSüßes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Süßes süßes = new Süßes();
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.fragment_container, süßes, süßes.getTag()).addToBackStack(null).commit();
+            }
+        });
 
         return view;
     }

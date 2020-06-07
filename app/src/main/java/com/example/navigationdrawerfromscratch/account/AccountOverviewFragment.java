@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.navigationdrawerfromscratch.R;
-import com.example.navigationdrawerfromscratch.account.intolerance.IntoleranceFragment;
 import com.example.navigationdrawerfromscratch.account.recipes.MyRecipesFragment;
 
 public class AccountOverviewFragment extends Fragment {

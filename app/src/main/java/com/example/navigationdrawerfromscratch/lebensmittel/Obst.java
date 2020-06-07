@@ -1,10 +1,9 @@
-package com.example.navigationdrawerfromscratch.account.intolerance;
+package com.example.navigationdrawerfromscratch.lebensmittel;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,9 +12,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.navigationdrawerfromscratch.account.IntoleranceFragment;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.R;
-import com.example.navigationdrawerfromscratch.lebensmittel.Food;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +38,7 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener {
         View view = inflater.inflate(R.layout.fragment_obst, container, false);
 
         obstList = new ArrayList<>();
-        databaseObst = FirebaseDatabase.getInstance().getReference("Obst");
+        databaseObst = FirebaseDatabase.getInstance().getReference("Lebensmittel"); //"Lebensmittel"
         mResultList = (RecyclerView) view.findViewById(R.id.obstView);
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -59,7 +58,9 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener {
 
                 for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
                     Food obst = productSnapshot.getValue(Food.class);
-                    obstList.add(obst);
+                    if (obst.getCategory().equals("Obst")){
+                        obstList.add(obst);
+                    }
                     mResultList.setAdapter(adapter);
                 }
             }
@@ -78,9 +79,10 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener {
 
         String foodID = obstList.get(position).getId();
         String foodName = obstList.get(position).getName();
-        String foodInfo = obstList.get(position).getInfo();
+        //String foodInfo = obstList.get(position).getInfo();
         String foodImage = obstList.get(position).getImage();
-        Food food = new Food(foodName, foodInfo, foodID, foodImage);
+        String foodCategory = obstList.get(position).getCategory();
+        Food food = new Food(foodName, foodID, foodImage, foodCategory);
 
         IntoleranceFragment.productList.add(food);
 

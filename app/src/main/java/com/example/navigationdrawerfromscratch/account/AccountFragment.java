@@ -18,7 +18,6 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.navigationdrawerfromscratch.MainActivity;
 import com.example.navigationdrawerfromscratch.R;
-import com.example.navigationdrawerfromscratch.account.intolerance.IntoleranceFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
