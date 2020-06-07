@@ -62,7 +62,6 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
         saveAllergies = (Button) view.findViewById(R.id.ButtonSaveAllergies);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-
         //Wechsel zur Auswahl der "Zutaten"
         addIntolerance.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,9 +96,10 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                     User user = dataSnapshot.child(usernameString).getValue(User.class);
+
                     if (user.getAllergies() != null) {
                         allergiesList = user.getAllergies();
-                        productList.clear();
+                        //productList.clear();
                         for (i = 0; i < allergiesList.size(); i++) {
                             final String allergieName = allergiesList.get(i);
                             databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -107,19 +107,32 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                                     for (DataSnapshot intoleranceSnapshot : dataSnapshot.getChildren()) {
                                         Food food = intoleranceSnapshot.getValue(Food.class);
+                                        // for (i = 0; i < productList.size(); i++) {
                                         if (allergieName.equals(food.getName())) {
+                                            //for (i = 0; i < productList.size(); i++){
+                                            //if (productList.get(i).equals(food)) {
                                             productList.add(food);
+                                            // }
+                                            //else {
+
+                                            // }
                                         }
                                     }
+                                    //}
+                                    //}
                                     mResultList.setAdapter(adapter);
                                 }
+
                                 @Override
                                 public void onCancelled(@NonNull DatabaseError databaseError) {
                                 }
                             });
+
                         }
                     }
+                    mResultList.setAdapter(adapter);
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError databaseError) {
                 }
@@ -135,9 +148,9 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
                     String foodName = productList.get(i).getName();
                     allergies.add(foodName);
                 }
-                user = dataSnapshot.getValue(User.class);
+                user = dataSnapshot.child(usernameString).getValue(User.class);
                 user.setAllergies(allergies);
-                databaseUser.setValue(user);
+                databaseUser.child(usernameString).setValue(user);
             }
 
             @Override
@@ -158,6 +171,7 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
                         }
                 }
             }
+
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
@@ -170,9 +184,10 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
         Toast.makeText(getView().getContext(), "Wurde geklickt!", Toast.LENGTH_LONG).show();
     }
 
-//View Holder Class
+    //View Holder Class
     public class FoodViewHolder extends RecyclerView.ViewHolder {
         View mView;
+
         public FoodViewHolder(@NonNull View itemView) {
             super(itemView);
             mView = itemView;
