@@ -1,28 +1,19 @@
 package com.example.navigationdrawerfromscratch.adapters;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.lebensmittel.Food;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
@@ -50,7 +41,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Food product = productList.get(position);
 
         holder.foodName.setText(product.getName());
-        holder.foodInfo.setText(product.getInfo());
+        //holder.foodInfo.setText(product.getInfo());
         Picasso.get().load(product.getImage()).into(holder.imageView);
 
     }
@@ -72,7 +63,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
             foodName = (TextView) itemView.findViewById(R.id.foodName);
-            foodInfo = (TextView) itemView.findViewById(R.id.foodInfo);
+            //foodInfo = (TextView) itemView.findViewById(R.id.foodInfo);
             this.onNoteListener = onNoteListener;
 
             itemView.setOnClickListener(this);

@@ -1,4 +1,4 @@
-package com.example.navigationdrawerfromscratch.account.intolerance;
+package com.example.navigationdrawerfromscratch.lebensmittel;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,9 +13,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.navigationdrawerfromscratch.account.IntoleranceFragment;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.R;
-import com.example.navigationdrawerfromscratch.lebensmittel.Food;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,10 +25,12 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Obst extends Fragment implements ProductAdapter.OnNoteListener {
+public class Gewuerze extends Fragment implements ProductAdapter.OnNoteListener {
 
-    List<Food> obstList;
-    DatabaseReference databaseObst;
+
+    private TextView ueGewuerze;
+    List<Food> gewuerzeList;
+    DatabaseReference databaseGewuerze;
     ProductAdapter adapter;
     private RecyclerView mResultList;
 
@@ -36,11 +38,11 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_obst, container, false);
+        View view = inflater.inflate(R.layout.fragment_gewuerze, container, false);
 
-        obstList = new ArrayList<>();
-        databaseObst = FirebaseDatabase.getInstance().getReference("Lebensmittel"); //"Lebensmittel"
-        mResultList = (RecyclerView) view.findViewById(R.id.obstView);
+        gewuerzeList = new ArrayList<>();
+        databaseGewuerze = FirebaseDatabase.getInstance().getReference("Lebensmittel"); //"Gewürze"
+        mResultList = (RecyclerView) view.findViewById(R.id.gewuerzeView);
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
@@ -50,20 +52,22 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener {
     @Override
     public void onStart() {
         super.onStart();
-        adapter = new ProductAdapter(getView().getContext(), obstList, this);
-        databaseObst.addValueEventListener(new ValueEventListener() {
+        adapter = new ProductAdapter(getView().getContext(),gewuerzeList, this);
+        databaseGewuerze.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                obstList.clear();
-
+                gewuerzeList.clear();
                 for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
-                    Food obst = productSnapshot.getValue(Food.class);
-                    if (obst.getCategory().equals("Obst")){
-                        obstList.add(obst);
+                    Food gewuerze = productSnapshot.getValue(Food.class);
+                    if (gewuerze.getCategory().equals("Gewürz")){
+                        gewuerzeList.add(gewuerze);
                     }
                     mResultList.setAdapter(adapter);
                 }
+
+
+
+
             }
 
             @Override
@@ -77,21 +81,19 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener {
 
     @Override
     public void onFoodClick(int position) {
-
-        String foodID = obstList.get(position).getId();
-        String foodName = obstList.get(position).getName();
-        String foodInfo = obstList.get(position).getInfo();
-        String foodImage = obstList.get(position).getImage();
-        String foodCategory = obstList.get(position).getCategory();
-        Food food = new Food(foodName, foodInfo, foodID, foodImage, foodCategory);
-
+        String foodID = gewuerzeList.get(position).getId();
+        String foodName = gewuerzeList.get(position).getName();
+        //String foodInfo = gewuerzeList.get(position).getInfo();
+        String foodImage = gewuerzeList.get(position).getImage();
+        String foodCategory = gewuerzeList.get(position).getCategory();
+        Food food = new Food(foodName, foodID, foodImage, foodCategory);
         IntoleranceFragment.productList.add(food);
 
         IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
         FragmentManager manager = getFragmentManager();
         manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
-    }
 
+    }
 
     //View Holder Class
 
@@ -105,7 +107,6 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener {
             mView = itemView;
 
         }
-
 
     }
 

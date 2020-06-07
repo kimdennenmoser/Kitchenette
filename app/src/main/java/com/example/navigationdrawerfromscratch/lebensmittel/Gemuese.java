@@ -1,10 +1,9 @@
-package com.example.navigationdrawerfromscratch.account.intolerance;
+package com.example.navigationdrawerfromscratch.lebensmittel;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 
 import androidx.annotation.NonNull;
@@ -14,9 +13,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.navigationdrawerfromscratch.account.IntoleranceFragment;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.R;
-import com.example.navigationdrawerfromscratch.lebensmittel.Food;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -85,10 +84,10 @@ public class Gemuese extends Fragment implements ProductAdapter.OnNoteListener{
 
         String foodID = gemueseList.get(position).getId();
         String foodName = gemueseList.get(position).getName();
-        String foodInfo = gemueseList.get(position).getInfo();
+        //String foodInfo = gemueseList.get(position).getInfo();
         String foodImage = gemueseList.get(position).getImage();
         String foodCategory = gemueseList.get(position).getCategory();
-        Food food = new Food(foodName, foodInfo, foodID, foodImage, foodCategory);
+        Food food = new Food(foodName, foodID, foodImage, foodCategory);
         IntoleranceFragment.productList.add(food);
 
         IntoleranceFragment intoleranceFragment = new IntoleranceFragment();

@@ -13,9 +13,10 @@ public class Food {
     public Food() {
     }
 
-    public Food(String name, String info, String id, String image, String category) {
+    public Food(String name,  String id, String image, String category) { //    public Food(String name,  String id, String image, String category) { //
+
         this.name = name;
-        this.info = info;
+      //  this.info = info;
         this.id = id;
         this.image = image;
         this.category = category;
@@ -29,13 +30,14 @@ public class Food {
         this.name = name;
     }
 
-    public String getInfo() {
+    /*public String getInfo() {
         return info;
     }
 
     public void setInfo(String info) {
         this.info = info;
     }
+     */
 
     public String getId() {
         return id;

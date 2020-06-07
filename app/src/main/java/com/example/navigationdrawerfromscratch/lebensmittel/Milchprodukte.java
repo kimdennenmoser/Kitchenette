@@ -1,10 +1,9 @@
-package com.example.navigationdrawerfromscratch.account.intolerance;
+package com.example.navigationdrawerfromscratch.lebensmittel;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,9 +12,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.R;
-import com.example.navigationdrawerfromscratch.lebensmittel.Food;
+import com.example.navigationdrawerfromscratch.account.IntoleranceFragment;
+import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,12 +24,11 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Gewuerze extends Fragment implements ProductAdapter.OnNoteListener {
+public class Milchprodukte extends Fragment implements ProductAdapter.OnNoteListener {
 
 
-    private TextView ueGewuerze;
-    List<Food> gewuerzeList;
-    DatabaseReference databaseGewuerze;
+    List<Food> milchList;
+    DatabaseReference databaseMilch;
     ProductAdapter adapter;
     private RecyclerView mResultList;
 
@@ -38,11 +36,11 @@ public class Gewuerze extends Fragment implements ProductAdapter.OnNoteListener 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_gewuerze, container, false);
+        View view = inflater.inflate(R.layout.fragment_dairy, container, false);
 
-        gewuerzeList = new ArrayList<>();
-        databaseGewuerze = FirebaseDatabase.getInstance().getReference("Lebensmittel"); //"Gewürze"
-        mResultList = (RecyclerView) view.findViewById(R.id.gewuerzeView);
+        milchList = new ArrayList<>();
+        databaseMilch = FirebaseDatabase.getInstance().getReference("Lebensmittel");
+        mResultList = (RecyclerView) view.findViewById(R.id.dairyView);
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
@@ -52,21 +50,18 @@ public class Gewuerze extends Fragment implements ProductAdapter.OnNoteListener 
     @Override
     public void onStart() {
         super.onStart();
-        adapter = new ProductAdapter(getView().getContext(),gewuerzeList, this);
-        databaseGewuerze.addValueEventListener(new ValueEventListener() {
+        adapter = new ProductAdapter(getView().getContext(),milchList, this);
+        databaseMilch.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                gewuerzeList.clear();
+                milchList.clear();
                 for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
                     Food gewuerze = productSnapshot.getValue(Food.class);
-                    if (gewuerze.getCategory().equals("Gewürz")){
-                        gewuerzeList.add(gewuerze);
+                    if (gewuerze.getCategory().equals("Milchprodukt")){
+                        milchList.add(gewuerze);
                     }
                     mResultList.setAdapter(adapter);
                 }
-
-
-
 
             }
 
@@ -81,12 +76,12 @@ public class Gewuerze extends Fragment implements ProductAdapter.OnNoteListener 
 
     @Override
     public void onFoodClick(int position) {
-        String foodID = gewuerzeList.get(position).getId();
-        String foodName = gewuerzeList.get(position).getName();
-        String foodInfo = gewuerzeList.get(position).getInfo();
-        String foodImage = gewuerzeList.get(position).getImage();
-        String foodCategory = gewuerzeList.get(position).getCategory();
-        Food food = new Food(foodName, foodInfo, foodID, foodImage, foodCategory);
+        String foodID = milchList.get(position).getId();
+        String foodName = milchList.get(position).getName();
+        //String foodInfo = milchList.get(position).getInfo();
+        String foodImage = milchList.get(position).getImage();
+        String foodCategory = milchList.get(position).getCategory();
+        Food food = new Food(foodName, foodID, foodImage, foodCategory);
         IntoleranceFragment.productList.add(food);
 
         IntoleranceFragment intoleranceFragment = new IntoleranceFragment();

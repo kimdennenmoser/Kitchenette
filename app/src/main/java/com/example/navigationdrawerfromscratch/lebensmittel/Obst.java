@@ -1,10 +1,9 @@
-package com.example.navigationdrawerfromscratch.account.intolerance;
+package com.example.navigationdrawerfromscratch.lebensmittel;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,9 +12,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.navigationdrawerfromscratch.R;
+import com.example.navigationdrawerfromscratch.account.IntoleranceFragment;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
-import com.example.navigationdrawerfromscratch.lebensmittel.Food;
+import com.example.navigationdrawerfromscratch.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,11 +24,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Milchprodukte extends Fragment implements ProductAdapter.OnNoteListener {
+public class Obst extends Fragment implements ProductAdapter.OnNoteListener {
 
-
-    List<Food> milchList;
-    DatabaseReference databaseMilch;
+    List<Food> obstList;
+    DatabaseReference databaseObst;
     ProductAdapter adapter;
     private RecyclerView mResultList;
 
@@ -37,11 +35,11 @@ public class Milchprodukte extends Fragment implements ProductAdapter.OnNoteList
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_dairy, container, false);
+        View view = inflater.inflate(R.layout.fragment_obst, container, false);
 
-        milchList = new ArrayList<>();
-        databaseMilch = FirebaseDatabase.getInstance().getReference("Lebensmittel");
-        mResultList = (RecyclerView) view.findViewById(R.id.dairyView);
+        obstList = new ArrayList<>();
+        databaseObst = FirebaseDatabase.getInstance().getReference("Lebensmittel"); //"Lebensmittel"
+        mResultList = (RecyclerView) view.findViewById(R.id.obstView);
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
@@ -51,19 +49,20 @@ public class Milchprodukte extends Fragment implements ProductAdapter.OnNoteList
     @Override
     public void onStart() {
         super.onStart();
-        adapter = new ProductAdapter(getView().getContext(),milchList, this);
-        databaseMilch.addValueEventListener(new ValueEventListener() {
+        adapter = new ProductAdapter(getView().getContext(), obstList, this);
+        databaseObst.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                milchList.clear();
+
+                obstList.clear();
+
                 for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
-                    Food gewuerze = productSnapshot.getValue(Food.class);
-                    if (gewuerze.getCategory().equals("Milchprodukt")){
-                        milchList.add(gewuerze);
+                    Food obst = productSnapshot.getValue(Food.class);
+                    if (obst.getCategory().equals("Obst")){
+                        obstList.add(obst);
                     }
                     mResultList.setAdapter(adapter);
                 }
-
             }
 
             @Override
@@ -77,19 +76,21 @@ public class Milchprodukte extends Fragment implements ProductAdapter.OnNoteList
 
     @Override
     public void onFoodClick(int position) {
-        String foodID = milchList.get(position).getId();
-        String foodName = milchList.get(position).getName();
-        String foodInfo = milchList.get(position).getInfo();
-        String foodImage = milchList.get(position).getImage();
-        String foodCategory = milchList.get(position).getCategory();
-        Food food = new Food(foodName, foodInfo, foodID, foodImage, foodCategory);
+
+        String foodID = obstList.get(position).getId();
+        String foodName = obstList.get(position).getName();
+        //String foodInfo = obstList.get(position).getInfo();
+        String foodImage = obstList.get(position).getImage();
+        String foodCategory = obstList.get(position).getCategory();
+        Food food = new Food(foodName, foodID, foodImage, foodCategory);
+
         IntoleranceFragment.productList.add(food);
 
         IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
         FragmentManager manager = getFragmentManager();
         manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
-
     }
+
 
     //View Holder Class
 
@@ -103,6 +104,7 @@ public class Milchprodukte extends Fragment implements ProductAdapter.OnNoteList
             mView = itemView;
 
         }
+
 
     }
 
