@@ -1,6 +1,7 @@
 package com.example.navigationdrawerfromscratch.account.recipes;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,7 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
     RecyclerView recyclerViewIngredient;
     ProductAdapter adapter;
     DatabaseReference databaseFood;
-    static List<Food> productList = new ArrayList<>();
+    public static List<Food> productList = new ArrayList<>();
 
 
     @Nullable
@@ -48,10 +49,11 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
         btnAddIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getView().getContext(),"Wurde geklickt!", Toast.LENGTH_LONG).show();
-                FoodCategory foodCategory = new FoodCategory();
+                Log.i("myTag", "Button was pressed");
+                IngredientCategory ingredientCategory = new IngredientCategory();
                 FragmentManager manager = getFragmentManager();
-                manager.beginTransaction().replace(R.id.fragment_container, foodCategory, foodCategory.getTag()).addToBackStack(null).commit();
+                manager.beginTransaction().replace(R.id.fragment_container, ingredientCategory, ingredientCategory.getTag()).addToBackStack(null).commit();
+
             }
         });
 

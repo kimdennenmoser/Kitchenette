@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.account.recipes.Recipe;
+import com.example.navigationdrawerfromscratch.account.recipes.RecipeGenerate;
 import com.example.navigationdrawerfromscratch.adapters.RecipeAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -53,9 +54,9 @@ public class BrowseFragment extends Fragment implements RecipeAdapter.OnRecipeLi
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SearchFragment startFragment = new SearchFragment();
+                RecipeGenerate recipeGenerate = new RecipeGenerate();
                 FragmentManager manager = getFragmentManager();
-                manager.beginTransaction().replace(R.id.fragment_container, startFragment, startFragment.getTag()).commit();
+                manager.beginTransaction().replace(R.id.fragment_container, recipeGenerate, recipeGenerate.getTag()).commit();
             }
         });
 
