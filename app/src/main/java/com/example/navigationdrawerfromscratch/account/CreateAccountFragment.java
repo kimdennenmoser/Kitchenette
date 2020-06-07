@@ -12,9 +12,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.Test;
+import com.example.navigationdrawerfromscratch.lebensmittel.FoodCategory;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -83,6 +85,12 @@ public class CreateAccountFragment extends Fragment {
                 } else {
                     databaseUser.child(user.getUsername()).setValue(user); //wird als Kind des Knoten "User" angelegt
                     Toast.makeText(context, "User wurde erfolgreich angelegt", Toast.LENGTH_LONG).show();
+
+                    //nach erfolgreicher Anlage, Aufruf des Account Overview Fragments
+                    AccountOverviewFragment accountOverviewFragment = new AccountOverviewFragment();
+                    FragmentManager manager = getFragmentManager();
+                    manager.beginTransaction().replace(R.id.fragment_container, accountOverviewFragment, accountOverviewFragment.getTag()).addToBackStack(null).commit();
+
 
                 }
             }
