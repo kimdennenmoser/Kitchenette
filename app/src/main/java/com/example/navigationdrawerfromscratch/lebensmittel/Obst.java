@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.account.IntoleranceFragment;
+import com.example.navigationdrawerfromscratch.account.recipes.CreateRecipeFragment;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.R;
 import com.google.firebase.database.DataSnapshot;
@@ -30,6 +31,7 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener {
     DatabaseReference databaseObst;
     ProductAdapter adapter;
     private RecyclerView mResultList;
+    public static String vonWoher = null;
 
 
     @Nullable
@@ -50,15 +52,16 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener {
     public void onStart() {
         super.onStart();
         adapter = new ProductAdapter(getView().getContext(), obstList, this);
+        System.out.println("vonWoher: " + vonWoher);
         databaseObst.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 obstList.clear();
-
-                for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
+                for (DataSnapshot productSnapshot : dataSnapshot.getChildren()) {
                     Food obst = productSnapshot.getValue(Food.class);
-                    if (obst.getCategory().equals("Obst")){
+
+                    if (obst.getCategory().equals("Obst")) {
                         obstList.add(obst);
                     }
                     mResultList.setAdapter(adapter);
@@ -84,11 +87,23 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener {
         String foodCategory = obstList.get(position).getCategory();
         Food food = new Food(foodName, foodID, foodImage, foodCategory);
 
-        IntoleranceFragment.productList.add(food);
+        if (vonWoher == "Intolerance") {
+            IntoleranceFragment.newAllergies.add(food);
+            IntoleranceFragment.newObst = true;
+            IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
+            FragmentManager manager = getFragmentManager();
+            manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
+        }
 
-        IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
-        FragmentManager manager = getFragmentManager();
-        manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
+        if (vonWoher == "CreateRecipe") {
+            CreateRecipeFragment.zutatenList.add(food);
+            CreateRecipeFragment.foodName = food.getName();
+
+            CreateRecipeFragment createRecipeFragment = new CreateRecipeFragment();
+            FragmentManager manager = getFragmentManager();
+            manager.beginTransaction().replace(R.id.fragment_container, createRecipeFragment, createRecipeFragment.getTag()).addToBackStack(null).commit();
+
+        }
     }
 
 

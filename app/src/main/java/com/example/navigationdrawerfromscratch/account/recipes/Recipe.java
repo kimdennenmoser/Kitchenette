@@ -15,10 +15,11 @@ public class Recipe {
     private String category;
     private String recipeImage;
     private int recipeRating;
+    private String portions;
     //private String bewertung; //nice-to-have
 
 
-    public Recipe(String recipeId, String recipeName, String preparationTime, String ingredientsList, String instructions, String category, String recipeImage, int recipeRating) {
+    public Recipe(String recipeId, String recipeName, String preparationTime, String ingredientsList, String instructions, String category, String recipeImage, int recipeRating, String portions) {
         this.recipeId = recipeId;
         this.recipeName = recipeName;
         this.preparationTime = preparationTime;
@@ -27,6 +28,7 @@ public class Recipe {
         this.category = category;
         this.recipeImage = recipeImage;
         this.recipeRating = recipeRating;
+        this.portions = portions;
     }
 
     public Recipe() {
@@ -97,13 +99,12 @@ public class Recipe {
         this.recipeRating = recipeRating;
     }
 
-    /*
-    public String getBewertung() {
-        return bewertung;
+    public String getPortions() {
+        return portions;
     }
 
-    public void setBewertung(String bewertung) {
-        this.bewertung = bewertung;
+    public void setPortions(String portions) {
+        this.portions = portions;
     }
-     */
+
 }

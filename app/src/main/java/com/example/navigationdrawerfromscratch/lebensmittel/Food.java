@@ -8,18 +8,27 @@ import com.example.navigationdrawerfromscratch.R;
 public class Food {
 
 
-    private String name, info, id, image, category;
+    private String name, id, image, category; //info,
+
+    public Food(String name, String id, String image, String category) { //    public Food(String name,  String id, String image, String category) { //
+        this.name = name;
+        this.id = id;
+        this.image = image;
+        this.category = category;
+    }
 
     public Food() {
     }
 
-    public Food(String name,  String id, String image, String category) { //    public Food(String name,  String id, String image, String category) { //
 
-        this.name = name;
-      //  this.info = info;
-        this.id = id;
-        this.image = image;
-        this.category = category;
+    @Override
+    public String toString() {
+        return "Food{" +
+                "name='" + name + '\'' +
+                ", id='" + id + '\'' +
+                ", image='" + image + '\'' +
+                ", category='" + category + '\'' +
+                '}';
     }
 
     public String getName() {

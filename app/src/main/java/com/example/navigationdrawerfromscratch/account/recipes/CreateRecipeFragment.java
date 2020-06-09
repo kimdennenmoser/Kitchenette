@@ -1,9 +1,9 @@
 package com.example.navigationdrawerfromscratch.account.recipes;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -11,14 +11,19 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.R;
+import com.example.navigationdrawerfromscratch.lebensmittel.Food;
+import com.example.navigationdrawerfromscratch.lebensmittel.FoodCategory;
+import com.example.navigationdrawerfromscratch.lebensmittel.Obst;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CreateRecipeFragment extends Fragment implements AdapterView.OnItemSelectedListener {
 
@@ -44,6 +50,12 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
     DatabaseReference databaseRecipe;
     String categoryString;
     EditText rating;
+    EditText EditTextPortions;
+    EditText EditTextAmount;
+    TextView TextViewSwitchToFoodSelection;
+    TextView TextViewChangeIngredient;
+    public static List<Food> zutatenList = new ArrayList<>();
+    public static String foodName = "Zutat";
     Recipe recipe;
 
 
@@ -52,7 +64,7 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         //Aufruf des dazugehörigen Layouts
-        view = inflater.inflate(R.layout.fragment_create_recipe, container, false);
+        view = inflater.inflate(R.layout.fragment_create_recipe_, container, false);
 
         context = this.getActivity();
 
@@ -68,16 +80,20 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
          */
 
         //Initalisieren aller Elemente
-        editTextName = (EditText) view.findViewById(R.id.editTextRecipeName);
-        editTextPreparationTime = (EditText) view.findViewById(R.id.editTextPreparationTime);
-        editTextIngredients = (EditText) view.findViewById(R.id.editTextIngredients);
-        rating = (EditText) view.findViewById(R.id.editRating);
-        category = (Spinner) view.findViewById(R.id.spinnerCategory);
+        editTextName = (EditText) view.findViewById(R.id.editTextRecipeName_);
+        editTextPreparationTime = (EditText) view.findViewById(R.id.editTextPreparationTime_);
+        //editTextIngredients = (EditText) view.findViewById(R.id.editTextIngredients_);
+        rating = (EditText) view.findViewById(R.id.editRating_);
+        category = (Spinner) view.findViewById(R.id.spinnerCategory_);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.category_arrays, android.R.layout.simple_spinner_dropdown_item);
         category.setAdapter(adapter);
         category.setOnItemSelectedListener(this);
-        editTextInstruction = (EditText) view.findViewById(R.id.editTextInstruction);
-        btncreateRecipe = (Button) view.findViewById(R.id.buttonCreateRecipe);
+        editTextInstruction = (EditText) view.findViewById(R.id.editTextInstruction_);
+        btncreateRecipe = (Button) view.findViewById(R.id.buttonCreateRecipe_);
+        EditTextPortions = (EditText) view.findViewById(R.id.editTextPortionen);
+        EditTextAmount = (EditText) view.findViewById(R.id.editTextAmount);
+        TextViewSwitchToFoodSelection = (TextView) view.findViewById(R.id.textViewFoodSelection);
+        TextViewChangeIngredient = (TextView) view.findViewById(R.id.textViewChangeIngredient);
         databaseRecipe = FirebaseDatabase.getInstance().getReference("Rezepte");
 
         btncreateRecipe.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +102,18 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
                 addRecipe();
             }
         });
+        TextViewSwitchToFoodSelection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Obst.vonWoher = "CreateRecipe";
+                FoodCategory foodCategory = new FoodCategory();
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.fragment_container, foodCategory, foodCategory.getTag()).addToBackStack(null).commit();
+            }
+        });
+
+        TextViewChangeIngredient.setText(foodName);
+
 
         return view;
     }
@@ -136,10 +164,11 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
         String preparationTime = editTextPreparationTime.getText().toString().trim();
         String ingredients = editTextIngredients.getText().toString().trim();
         String instruction = editTextInstruction.getText().toString().trim();
+        String rPortions = EditTextPortions.getText().toString().trim();
         String image = null;
 
 
-        final Recipe recipe = new Recipe(rId, rName, preparationTime, ingredients, instruction, categoryString, image, 0);
+        final Recipe recipe = new Recipe(rId, rName, preparationTime, ingredients, instruction, categoryString, image, 0, rPortions);
         final Context context = this.getActivity();
 
         databaseRecipe.addListenerForSingleValueEvent(new ValueEventListener() {
