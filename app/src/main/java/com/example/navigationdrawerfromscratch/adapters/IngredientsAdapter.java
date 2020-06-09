@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.account.recipes.Zutat;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.IngredientViewHolder> {
@@ -19,7 +20,7 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
     private Context context;
     private List<Zutat> ingredientsList;
 
-    public IngredientsAdapter(Context context, List<Zutat> ingredientsList) {
+    public IngredientsAdapter(Context context,  List<Zutat> ingredientsList) {
         this.context = context;
         this.ingredientsList = ingredientsList;
     }
@@ -37,7 +38,6 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         Zutat zutat = ingredientsList.get(position);
 
         holder.ingredientAmount.setText(zutat.getAmount());
-        holder.ingredientUnit.setText(zutat.getUnit());
         holder.ingredientName.setText(zutat.getName());
     }
 
@@ -56,7 +56,6 @@ public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.
         public IngredientViewHolder(@NonNull View itemView) {
             super(itemView);
             ingredientAmount = itemView.findViewById(R.id.textViewIngredientAmount);
-            ingredientUnit = itemView.findViewById(R.id.textViewIngredientUnit);
             ingredientName = itemView.findViewById(R.id.textViewIngredientName);
         }
     }

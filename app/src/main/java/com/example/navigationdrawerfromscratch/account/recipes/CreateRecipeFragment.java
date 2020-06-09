@@ -3,13 +3,13 @@ package com.example.navigationdrawerfromscratch.account.recipes;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.TextureView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,6 +21,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.R;
+import com.example.navigationdrawerfromscratch.adapters.RecipesAdapter;
 import com.example.navigationdrawerfromscratch.lebensmittel.Food;
 import com.example.navigationdrawerfromscratch.lebensmittel.FoodCategory;
 import com.example.navigationdrawerfromscratch.lebensmittel.Gemuese;
@@ -36,6 +37,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class CreateRecipeFragment extends Fragment implements AdapterView.OnItemSelectedListener {
@@ -48,20 +50,25 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
     Context context;
     EditText editTextName;
     EditText editTextPreparationTime;
-    EditText editTextIngredients;
-    Spinner category;
+    Spinner spinnerCategory;
     EditText editTextInstruction;
     Button btncreateRecipe;
+    ImageView addIngredient;
     DatabaseReference databaseRecipe;
     String categoryString;
-    EditText rating;
-    EditText EditTextPortions;
-    EditText EditTextAmount;
+    EditText editTextRating;
+    EditText editTextPortions;
+    EditText editTextAmount;
     TextView TextViewSwitchToFoodSelection;
-    TextView TextViewChangeIngredient;
-    public static List<Food> zutatenList = new ArrayList<>();
-    public static String foodName = "Zutat";
+    TextView textViewChangeIngredient;
+    TextView showAllIngredients;
     Recipe recipe;
+
+    public static List<Food> zutatenList = new ArrayList<>();
+    public static HashMap<String, String> ingredientsMap = new HashMap<>();
+
+    public static String foodName = "Zutat";
+    public static String usernameString = null;
 
 
     @Nullable
@@ -69,7 +76,7 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         //Aufruf des dazugehörigen Layouts
-        view = inflater.inflate(R.layout.fragment_create_recipe_, container, false);
+        view = inflater.inflate(R.layout.fragment_create_recipe, container, false);
 
         context = this.getActivity();
 
@@ -85,20 +92,25 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
          */
 
         //Initalisieren aller Elemente
-        editTextName = (EditText) view.findViewById(R.id.editTextRecipeName_);
-        editTextPreparationTime = (EditText) view.findViewById(R.id.editTextPreparationTime_);
-        //editTextIngredients = (EditText) view.findViewById(R.id.editTextIngredients_);
-        rating = (EditText) view.findViewById(R.id.editRating_);
-        category = (Spinner) view.findViewById(R.id.spinnerCategory_);
+        editTextName = (EditText) view.findViewById(R.id.editTextRecipeName);
+        editTextPreparationTime = (EditText) view.findViewById(R.id.editTextPreparationTime);
+        editTextInstruction = (EditText) view.findViewById(R.id.editTextInstruction);
+        editTextPortions = (EditText) view.findViewById(R.id.editTextPortionen);
+        editTextAmount = (EditText) view.findViewById(R.id.editTextAmount);
+
+        spinnerCategory = (Spinner) view.findViewById(R.id.spinnerCategory);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(context, R.array.category_arrays, android.R.layout.simple_spinner_dropdown_item);
-        category.setAdapter(adapter);
-        category.setOnItemSelectedListener(this);
-        editTextInstruction = (EditText) view.findViewById(R.id.editTextInstruction_);
-        btncreateRecipe = (Button) view.findViewById(R.id.buttonCreateRecipe_);
-        EditTextPortions = (EditText) view.findViewById(R.id.editTextPortionen);
-        EditTextAmount = (EditText) view.findViewById(R.id.editTextAmount);
+        spinnerCategory.setAdapter(adapter);
+        spinnerCategory.setOnItemSelectedListener(this);
+
+        btncreateRecipe = (Button) view.findViewById(R.id.buttonCreateRecipe);
+
         TextViewSwitchToFoodSelection = (TextView) view.findViewById(R.id.textViewFoodSelection);
-        TextViewChangeIngredient = (TextView) view.findViewById(R.id.textViewChangeIngredient);
+        textViewChangeIngredient = (TextView) view.findViewById(R.id.textViewChangeIngredient);
+        showAllIngredients = (TextView) view.findViewById(R.id.editTextIngredientsMap);
+
+        addIngredient = (ImageView) view.findViewById(R.id.ImageViewAddIngredient);
+
         databaseRecipe = FirebaseDatabase.getInstance().getReference("Rezepte");
 
         btncreateRecipe.setOnClickListener(new View.OnClickListener() {
@@ -107,6 +119,7 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
                 addRecipe();
             }
         });
+
         TextViewSwitchToFoodSelection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,27 +135,31 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
             }
         });
 
-        TextViewChangeIngredient.setText(foodName);
+        textViewChangeIngredient.setText(foodName);
 
+        addIngredient.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addIngredient();
+            }
+        });
 
         return view;
     }
 
-   /* private ArrayList<Zutat> ingredientsList() {
-        ArrayList<Zutat> list = new ArrayList<>();
-
-        list.add(new Zutat("200", "g", "Rote Bete"));
-        list.add(new Zutat("100", "g", "Feta"));
-        list.add(new Zutat("50", "g", "Walnüsse"));
-
-        return list;
+    public void addIngredient() {
+        ingredientsMap.put(editTextAmount.getText().toString().trim(), textViewChangeIngredient.getText().toString().trim());
+        System.out.println(ingredientsMap.toString());
+        for (int i = 0; i < ingredientsMap.size(); i++){
+            showAllIngredients.setText(ingredientsMap.toString());
+        }
+        System.out.println(showAllIngredients.getText().toString().trim());
     }
 
-    */
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        switch (category.getItemAtPosition(position).toString()) {
+        switch (spinnerCategory.getItemAtPosition(position).toString()) {
             case ("Vorspeise"):
                 categoryString = "Vorspeise";
                 break;
@@ -156,36 +173,31 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
                 categoryString = "Dessert";
                 break;
         }
-
-
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
-
     }
 
     //Methode, die ein neues Rezept in die DB hinzufügt
     public void addRecipe() {
-
         //Initalisieren aller Elemente
         String rId = databaseRecipe.push().getKey();
         String rName = editTextName.getText().toString().trim();
         String preparationTime = editTextPreparationTime.getText().toString().trim();
-        String ingredients = editTextIngredients.getText().toString().trim();
         String instruction = editTextInstruction.getText().toString().trim();
-        String rPortions = EditTextPortions.getText().toString().trim();
-        String image = null;
+        String rPortions = editTextPortions.getText().toString().trim();
+        String creator = usernameString;
 
 
-        final Recipe recipe = new Recipe(rId, rName, preparationTime, ingredients, instruction, categoryString, image, 0, rPortions);
+        final Recipe recipe = new Recipe(rId, rName, preparationTime, ingredientsMap, instruction, categoryString, null, 0, rPortions, creator);
         final Context context = this.getActivity();
 
         databaseRecipe.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                databaseRecipe.child(recipe.getRecipeId()).setValue(recipe); //wird als Kind des Knoten "User" angelegt
-                Toast.makeText(context, "User wurde erfolgreich angelegt", Toast.LENGTH_LONG).show();
+                databaseRecipe.child(recipe.getRecipeId()).setValue(recipe);
+                Toast.makeText(context, "Rezept wurde erfolgreich angelegt", Toast.LENGTH_LONG).show();
             }
 
             @Override

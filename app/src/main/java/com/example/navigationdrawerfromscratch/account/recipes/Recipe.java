@@ -10,25 +10,27 @@ public class Recipe {
     private String recipeId;
     private String recipeName;
     private String preparationTime;
-    private String ingredientsList; //private HashMap<String, String> ingredientsList;
+    private HashMap<String, String> ingredientsMap;
     private String instructions;
     private String category;
     private String recipeImage;
     private int recipeRating;
     private String portions;
+    private String creator;
     //private String bewertung; //nice-to-have
 
 
-    public Recipe(String recipeId, String recipeName, String preparationTime, String ingredientsList, String instructions, String category, String recipeImage, int recipeRating, String portions) {
+    public Recipe(String recipeId, String recipeName, String preparationTime, HashMap<String, String> ingredientsMap, String instructions, String category, String recipeImage, int recipeRating, String portions, String creator) {
         this.recipeId = recipeId;
         this.recipeName = recipeName;
         this.preparationTime = preparationTime;
-        this.ingredientsList = ingredientsList;
+        this.ingredientsMap = ingredientsMap;
         this.instructions = instructions;
         this.category = category;
         this.recipeImage = recipeImage;
         this.recipeRating = recipeRating;
         this.portions = portions;
+        this.creator = creator;
     }
 
     public Recipe() {
@@ -59,12 +61,12 @@ public class Recipe {
         this.recipeName = recipeName;
     }
 
-    public String getIngredientsList() {
-        return ingredientsList;
+    public HashMap<String, String> getIngredientsMap() {
+        return ingredientsMap;
     }
 
-    public void setIngredientsList(String ingredientsList) {
-        this.ingredientsList = ingredientsList;
+    public void setIngredientsMap(HashMap<String, String> ingredientsMap) {
+        this.ingredientsMap = ingredientsMap;
     }
 
     public String getPreparationTime() {
@@ -105,6 +107,14 @@ public class Recipe {
 
     public void setPortions(String portions) {
         this.portions = portions;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
 }
