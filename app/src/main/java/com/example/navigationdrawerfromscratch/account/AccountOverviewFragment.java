@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.account.recipes.MyRecipesFragment;
+import com.example.navigationdrawerfromscratch.account.recipes.NewIntoleranceFragment;
 
 public class AccountOverviewFragment extends Fragment {
 
@@ -139,7 +140,7 @@ public class AccountOverviewFragment extends Fragment {
 
     //Wechsel zu Unverträglichkeiten
     public void switchToIntolerance() {
-        IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
+        NewIntoleranceFragment intoleranceFragment = new NewIntoleranceFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
     }

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.account.IntoleranceFragment;
 import com.example.navigationdrawerfromscratch.account.recipes.CreateRecipeFragment;
+import com.example.navigationdrawerfromscratch.account.recipes.NewIntoleranceFragment;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.R;
 import com.google.firebase.database.DataSnapshot;
@@ -88,9 +89,10 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener {
         Food food = new Food(foodName, foodID, foodImage, foodCategory);
 
         if (vonWoher == "Intolerance") {
-            IntoleranceFragment.newAllergies.add(food);
+            NewIntoleranceFragment.upToDate=false;
+            NewIntoleranceFragment.oldAllergies.add(food);
             IntoleranceFragment.newObst = true;
-            IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
+            NewIntoleranceFragment intoleranceFragment = new NewIntoleranceFragment();
             FragmentManager manager = getFragmentManager();
             manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
         }

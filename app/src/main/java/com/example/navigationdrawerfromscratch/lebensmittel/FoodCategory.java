@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -21,7 +22,7 @@ public class FoodCategory extends Fragment {
     private Button buttonGewuerze;
     private Button buttonMilchprod;
     private Button buttonGetreide;
-    private Button buttonSüßes;
+    private Button buttonNuts;
 
 
 
@@ -91,16 +92,16 @@ public class FoodCategory extends Fragment {
         });
 
 
-        buttonSüßes = (Button) view.findViewById(R.id.buttonNuts);
+        /*buttonNuts = (Button) view.findViewById(R.id.buttonNuts);
 
-        buttonSüßes.setOnClickListener(new View.OnClickListener() {
+        buttonNuts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Nuts nuts = new Nuts();
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.fragment_container, nuts, nuts.getTag()).addToBackStack(null).commit();
             }
-        });
+        });*/
 
         return view;
     }
