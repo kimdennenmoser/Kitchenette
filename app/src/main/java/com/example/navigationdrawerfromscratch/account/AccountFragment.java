@@ -18,6 +18,7 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.navigationdrawerfromscratch.MainActivity;
 import com.example.navigationdrawerfromscratch.R;
+import com.example.navigationdrawerfromscratch.account.recipes.CreateRecipeFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -84,6 +85,7 @@ public class AccountFragment extends Fragment {
                             Toast.makeText(context, "Anmeldung erfolgreich", Toast.LENGTH_LONG).show();
                             MainActivity.isAngemeldet=true;
                             IntoleranceFragment.usernameString = username;
+                            CreateRecipeFragment.usernameString = username;
 
                             //Wenn Anmeldung erfolgreich, Switch zur Kontoübersicht
                             AccountOverviewFragment accountOverviewFragment = new AccountOverviewFragment();
