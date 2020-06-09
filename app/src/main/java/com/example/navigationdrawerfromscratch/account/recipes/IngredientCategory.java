@@ -18,11 +18,6 @@ import com.example.navigationdrawerfromscratch.account.recipes.recipeIngredients
 import com.example.navigationdrawerfromscratch.account.recipes.recipeIngredients.RecipeMilchprodukte;
 import com.example.navigationdrawerfromscratch.account.recipes.recipeIngredients.RecipeObst;
 import com.example.navigationdrawerfromscratch.account.recipes.recipeIngredients.RecipeSueßes;
-import com.example.navigationdrawerfromscratch.lebensmittel.Getreideprodukte;
-import com.example.navigationdrawerfromscratch.lebensmittel.Gewuerze;
-import com.example.navigationdrawerfromscratch.lebensmittel.Milchprodukte;
-import com.example.navigationdrawerfromscratch.lebensmittel.Obst;
-import com.example.navigationdrawerfromscratch.lebensmittel.Süßes;
 
 public class IngredientCategory extends Fragment {
 
@@ -99,7 +94,7 @@ public class IngredientCategory extends Fragment {
         });
 
 
-        buttonSüßes = (Button) view.findViewById(R.id.buttonSweetener);
+        buttonSüßes = (Button) view.findViewById(R.id.buttonNuts);
 
         buttonSüßes.setOnClickListener(new View.OnClickListener() {
             @Override

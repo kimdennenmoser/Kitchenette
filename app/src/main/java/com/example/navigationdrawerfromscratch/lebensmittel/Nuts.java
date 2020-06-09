@@ -24,22 +24,23 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Süßes extends Fragment implements ProductAdapter.OnNoteListener {
+public class Nuts extends Fragment implements ProductAdapter.OnNoteListener {
 
-    List<Food> süßList;
-    DatabaseReference databaseSüßes;
+    List<Food> nutsList;
+    DatabaseReference databaseNuts;
     ProductAdapter adapter;
     private RecyclerView mResultList;
+    public static String vonWoher = null;
 
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sweetener, container, false);
+        View view = inflater.inflate(R.layout.fragment_nuts, container, false);
 
-        süßList = new ArrayList<>();
-        databaseSüßes = FirebaseDatabase.getInstance().getReference("Lebensmittel"); //"Lebensmittel"
-        mResultList = (RecyclerView) view.findViewById(R.id.sweetsView);
+        nutsList = new ArrayList<>();
+        databaseNuts = FirebaseDatabase.getInstance().getReference("Lebensmittel"); //"Lebensmittel"
+        mResultList = (RecyclerView) view.findViewById(R.id.nutsView);
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
@@ -49,17 +50,17 @@ public class Süßes extends Fragment implements ProductAdapter.OnNoteListener {
     @Override
     public void onStart() {
         super.onStart();
-        adapter = new ProductAdapter(getView().getContext(), süßList, this);
-        databaseSüßes.addValueEventListener(new ValueEventListener() {
+        adapter = new ProductAdapter(getView().getContext(), nutsList, this);
+        databaseNuts.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                süßList.clear();
+                nutsList.clear();
 
-                for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
+                for (DataSnapshot productSnapshot : dataSnapshot.getChildren()) {
                     Food obst = productSnapshot.getValue(Food.class);
-                    if (obst.getCategory().equals("Süßes")){
-                        süßList.add(obst);
+                    if (obst.getCategory().equals("Nüsse")) {
+                        nutsList.add(obst);
                     }
                     mResultList.setAdapter(adapter);
                 }
@@ -77,18 +78,20 @@ public class Süßes extends Fragment implements ProductAdapter.OnNoteListener {
     @Override
     public void onFoodClick(int position) {
 
-        String foodID = süßList.get(position).getId();
-        String foodName = süßList.get(position).getName();
+        String foodID = nutsList.get(position).getId();
+        String foodName = nutsList.get(position).getName();
         //String foodInfo = süßList.get(position).getInfo();
-        String foodImage = süßList.get(position).getImage();
-        String foodCategory = süßList.get(position).getCategory();
+        String foodImage = nutsList.get(position).getImage();
+        String foodCategory = nutsList.get(position).getCategory();
         Food food = new Food(foodName, foodID, foodImage, foodCategory);
 
-        IntoleranceFragment.productList.add(food);
+        if (vonWoher == "Intolerance") {
+            IntoleranceFragment.productList.add(food);
+            IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
+            FragmentManager manager = getFragmentManager();
+            manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
 
-        IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
-        FragmentManager manager = getFragmentManager();
-        manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
+        }
     }
 
 

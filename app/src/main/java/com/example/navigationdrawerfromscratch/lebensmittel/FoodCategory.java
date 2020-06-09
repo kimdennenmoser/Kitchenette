@@ -91,14 +91,14 @@ public class FoodCategory extends Fragment {
         });
 
 
-        buttonSüßes = (Button) view.findViewById(R.id.buttonSweetener);
+        buttonSüßes = (Button) view.findViewById(R.id.buttonNuts);
 
         buttonSüßes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Süßes süßes = new Süßes();
+                Nuts nuts = new Nuts();
                 FragmentManager manager = getFragmentManager();
-                manager.beginTransaction().replace(R.id.fragment_container, süßes, süßes.getTag()).addToBackStack(null).commit();
+                manager.beginTransaction().replace(R.id.fragment_container, nuts, nuts.getTag()).addToBackStack(null).commit();
             }
         });
 

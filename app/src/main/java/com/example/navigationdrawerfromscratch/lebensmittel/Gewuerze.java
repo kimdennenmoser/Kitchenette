@@ -33,6 +33,7 @@ public class Gewuerze extends Fragment implements ProductAdapter.OnNoteListener 
     DatabaseReference databaseGewuerze;
     ProductAdapter adapter;
     private RecyclerView mResultList;
+    public static String vonWoher = null;
 
 
     @Nullable
@@ -87,12 +88,13 @@ public class Gewuerze extends Fragment implements ProductAdapter.OnNoteListener 
         String foodImage = gewuerzeList.get(position).getImage();
         String foodCategory = gewuerzeList.get(position).getCategory();
         Food food = new Food(foodName, foodID, foodImage, foodCategory);
-        IntoleranceFragment.productList.add(food);
+        if (vonWoher == "Intolerance") {
+            IntoleranceFragment.productList.add(food);
 
-        IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
-        FragmentManager manager = getFragmentManager();
-        manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
-
+            IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
+            FragmentManager manager = getFragmentManager();
+            manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
+        }
     }
 
     //View Holder Class

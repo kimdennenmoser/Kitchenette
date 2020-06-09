@@ -26,15 +26,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class Gemuese extends Fragment implements ProductAdapter.OnNoteListener{
+public class Gemuese extends Fragment implements ProductAdapter.OnNoteListener {
 
     List<Food> gemueseList;
     DatabaseReference databaseGemuese;
     ProductAdapter adapter;
     private RecyclerView mResultList;
-
-
-
+    public static String vonWoher = null;
 
 
     @Nullable
@@ -55,16 +53,16 @@ public class Gemuese extends Fragment implements ProductAdapter.OnNoteListener{
     @Override
     public void onStart() {
         super.onStart();
-        adapter = new ProductAdapter(getView().getContext(),gemueseList,this);
+        adapter = new ProductAdapter(getView().getContext(), gemueseList, this);
         databaseGemuese.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 gemueseList.clear();
 
-                for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
+                for (DataSnapshot productSnapshot : dataSnapshot.getChildren()) {
                     Food gemüse = productSnapshot.getValue(Food.class);
-                    if (gemüse.getCategory().equals("Gemüse")){
+                    if (gemüse.getCategory().equals("Gemüse")) {
                         gemueseList.add(gemüse);
                     }
                     mResultList.setAdapter(adapter);
@@ -79,6 +77,7 @@ public class Gemuese extends Fragment implements ProductAdapter.OnNoteListener{
 
 
     }
+
     @Override
     public void onFoodClick(int position) {
 
@@ -88,10 +87,13 @@ public class Gemuese extends Fragment implements ProductAdapter.OnNoteListener{
         String foodImage = gemueseList.get(position).getImage();
         String foodCategory = gemueseList.get(position).getCategory();
         Food food = new Food(foodName, foodID, foodImage, foodCategory);
-        IntoleranceFragment.productList.add(food);
 
-        IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
-        FragmentManager manager = getFragmentManager();
-        manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
+        if (vonWoher == "Intolerance") {
+            IntoleranceFragment.productList.add(food);
+
+            IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
+            FragmentManager manager = getFragmentManager();
+            manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
+        }
     }
 }

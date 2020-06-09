@@ -23,6 +23,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.lebensmittel.Food;
 import com.example.navigationdrawerfromscratch.lebensmittel.FoodCategory;
+import com.example.navigationdrawerfromscratch.lebensmittel.Gemuese;
+import com.example.navigationdrawerfromscratch.lebensmittel.Getreideprodukte;
+import com.example.navigationdrawerfromscratch.lebensmittel.Gewuerze;
+import com.example.navigationdrawerfromscratch.lebensmittel.Milchprodukte;
+import com.example.navigationdrawerfromscratch.lebensmittel.Nuts;
 import com.example.navigationdrawerfromscratch.lebensmittel.Obst;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -105,6 +110,11 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
         TextViewSwitchToFoodSelection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Gemuese.vonWoher = "CreateRecipe";
+                Getreideprodukte.vonWoher = "CreateRecipe";
+                Gewuerze.vonWoher = "CreateRecipe";
+                Milchprodukte.vonWoher = "CreateRecipe";
+                Nuts.vonWoher = "CreateRecipe";
                 Obst.vonWoher = "CreateRecipe";
                 FoodCategory foodCategory = new FoodCategory();
                 FragmentManager manager = getFragmentManager();

@@ -31,6 +31,7 @@ public class Milchprodukte extends Fragment implements ProductAdapter.OnNoteList
     DatabaseReference databaseMilch;
     ProductAdapter adapter;
     private RecyclerView mResultList;
+    public static String vonWoher = null;
 
 
     @Nullable
@@ -57,7 +58,7 @@ public class Milchprodukte extends Fragment implements ProductAdapter.OnNoteList
                 milchList.clear();
                 for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
                     Food gewuerze = productSnapshot.getValue(Food.class);
-                    if (gewuerze.getCategory().equals("Milchprodukt")){
+                    if (gewuerze.getCategory().equals("Milchprodukte")){
                         milchList.add(gewuerze);
                     }
                     mResultList.setAdapter(adapter);
@@ -82,12 +83,13 @@ public class Milchprodukte extends Fragment implements ProductAdapter.OnNoteList
         String foodImage = milchList.get(position).getImage();
         String foodCategory = milchList.get(position).getCategory();
         Food food = new Food(foodName, foodID, foodImage, foodCategory);
-        IntoleranceFragment.productList.add(food);
+        if (vonWoher == "Intolerance") {
+            IntoleranceFragment.productList.add(food);
 
-        IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
-        FragmentManager manager = getFragmentManager();
-        manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
-
+            IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
+            FragmentManager manager = getFragmentManager();
+            manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
+        }
     }
 
     //View Holder Class
