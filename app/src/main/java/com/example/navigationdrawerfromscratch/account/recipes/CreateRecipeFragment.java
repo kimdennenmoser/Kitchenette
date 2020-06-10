@@ -21,6 +21,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.R;
+import com.example.navigationdrawerfromscratch.account.AccountFragment;
+import com.example.navigationdrawerfromscratch.account.AccountOverviewFragment;
 import com.example.navigationdrawerfromscratch.adapters.RecipesAdapter;
 import com.example.navigationdrawerfromscratch.lebensmittel.Food;
 import com.example.navigationdrawerfromscratch.lebensmittel.FoodCategory;
@@ -68,7 +70,6 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
     public static HashMap<String, String> ingredientsMap = new HashMap<>();
 
     public static String foodName = "Zutat";
-    public static String usernameString = null;
 
 
     @Nullable
@@ -150,10 +151,26 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
     public void addIngredient() {
         ingredientsMap.put(editTextAmount.getText().toString().trim(), textViewChangeIngredient.getText().toString().trim());
         System.out.println(ingredientsMap.toString());
-        for (int i = 0; i < ingredientsMap.size(); i++){
+        for (int i = 0; i < ingredientsMap.size(); i++) {
             showAllIngredients.setText(ingredientsMap.toString());
         }
-        System.out.println(showAllIngredients.getText().toString().trim());
+        ArrayList<String> string = new ArrayList<>();
+        string.add("Apfel");
+        string.add("Joghurt");
+        boolean etwasFehlt = false;
+
+            for (String key : ingredientsMap.keySet()) {
+                for (int i = 0; i < string.size(); i++) {
+                if (string.get(i).equals(ingredientsMap.get(key))){
+                    System.out.println("ist enthalten " + string.get(i).toString());
+                } else {
+                    System.out.println("else!");
+                }
+                //System.out.print("Key: " + key + " - ");
+                //System.out.print("Value: " + ingredientsMap.get(key) + "\n");
+            }
+        }
+        //System.out.println(showAllIngredients.getText().toString().trim());
     }
 
 
@@ -187,7 +204,7 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
         String preparationTime = editTextPreparationTime.getText().toString().trim();
         String instruction = editTextInstruction.getText().toString().trim();
         String rPortions = editTextPortions.getText().toString().trim();
-        String creator = usernameString;
+        String creator = AccountFragment.usernameString;
 
 
         final Recipe recipe = new Recipe(rId, rName, preparationTime, ingredientsMap, instruction, categoryString, null, 0, rPortions, creator);

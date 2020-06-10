@@ -117,4 +117,20 @@ public class Recipe {
         this.creator = creator;
     }
 
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "recipeId='" + recipeId + '\'' +
+                ", recipeName='" + recipeName + '\'' +
+                ", preparationTime='" + preparationTime + '\'' +
+                ", ingredientsMap=" + ingredientsMap +
+                ", instructions='" + instructions + '\'' +
+                ", category='" + category + '\'' +
+                ", recipeImage='" + recipeImage + '\'' +
+                ", recipeRating=" + recipeRating +
+                ", portions='" + portions + '\'' +
+                ", creator='" + creator + '\'' +
+                '}';
+    }
+
 }
