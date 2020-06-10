@@ -36,6 +36,7 @@ public class AccountFragment extends Fragment {
     DatabaseReference databaseUser;
     Context context;
     private DrawerLayout drawer;
+    public static String usernameString;
 
     @Nullable
     @Override
@@ -84,8 +85,8 @@ public class AccountFragment extends Fragment {
                         if (login.getPassword().equals(password)) {
                             Toast.makeText(context, "Anmeldung erfolgreich", Toast.LENGTH_LONG).show();
                             MainActivity.isAngemeldet=true;
-                            IntoleranceFragment.usernameString = username;
-                            CreateRecipeFragment.usernameString = username;
+                            usernameString = username;
+                            //CreateRecipeFragment.usernameString = username;
 
                             //Wenn Anmeldung erfolgreich, Switch zur Kontoübersicht
                             AccountOverviewFragment accountOverviewFragment = new AccountOverviewFragment();

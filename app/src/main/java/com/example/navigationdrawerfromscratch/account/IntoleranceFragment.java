@@ -47,7 +47,6 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
     DatabaseReference databaseUser;
     List<String> allergies = new ArrayList<>();
     User user;
-    public static String usernameString = null;
 
     public static List<Food> productList = new ArrayList<>();
     public static boolean newObst = false;
@@ -116,7 +115,7 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
         databaseUser.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.child(usernameString).getValue(User.class);
+                User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
 
                 System.out.println(newObst);
 
@@ -183,9 +182,9 @@ public class IntoleranceFragment extends Fragment implements ProductAdapter.OnNo
                     String foodName = newAllergies.get(i).getName();
                     allergies.add(foodName);
                 }
-                user = dataSnapshot.child(usernameString).getValue(User.class);
+                user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
                 user.setAllergies(allergies);
-                databaseUser.child(usernameString).setValue(user);
+                databaseUser.child(AccountFragment.usernameString).setValue(user);
                 saved = true;
             }
 

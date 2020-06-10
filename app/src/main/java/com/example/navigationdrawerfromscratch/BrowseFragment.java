@@ -47,9 +47,6 @@ public class BrowseFragment extends Fragment implements RecipeAdapter.OnRecipeLi
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
-        //adapter = new ProductAdapter(view.getContext(),productList);
-        //mResultList.setAdapter(adapter);
-
         ImageView imageView = (ImageView) view.findViewById(R.id.imageViewZurSuche);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +59,7 @@ public class BrowseFragment extends Fragment implements RecipeAdapter.OnRecipeLi
 
         return view;
     }
+
     @Override
     public void onStart() {
         Context context = this.getContext();
