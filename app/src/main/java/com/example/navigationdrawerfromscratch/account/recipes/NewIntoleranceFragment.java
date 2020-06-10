@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.MainActivity;
+import com.example.navigationdrawerfromscratch.account.AccountFragment;
 import com.example.navigationdrawerfromscratch.account.User;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.R;
@@ -54,13 +55,10 @@ public class NewIntoleranceFragment extends Fragment implements ProductAdapter.O
     List<String> allergies = new ArrayList<>();
     User user;
     public String usernameString="lorenz";
-    public static final String ALLERGIES_CONST = "com.example.navigationdrawerfromscratch.ALLERGIES_CONST";
-
     public static List<Food> productList = new ArrayList<>();
     public static boolean newObst = false;
     public static List<String> allergiesList = new ArrayList<>();
     public int i;
-    public static List<Food> newAllergies = new ArrayList<>();
     public static ArrayList<Food> oldAllergies = new ArrayList<>();
     public boolean saved = false;
     public static boolean upToDate = true;
@@ -79,6 +77,7 @@ public class NewIntoleranceFragment extends Fragment implements ProductAdapter.O
         addIntolerance = (Button) view.findViewById(R.id.ButtonAddIntolerance);
         saveAllergies = (Button) view.findViewById(R.id.ButtonSaveAllergies);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
 
 
 
