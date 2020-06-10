@@ -60,6 +60,8 @@ public class MyRecipesFragment extends Fragment implements RecipeAdapter.OnRecip
         addRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                CreateRecipeFragment.foodName = "Zutat";
+                CreateRecipeFragment.ingredientsMap.clear();
                 CreateRecipeFragment createRecipeFragment = new CreateRecipeFragment();
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.fragment_container, createRecipeFragment, createRecipeFragment.getTag()).commit(); //.addToBackStack(null)

@@ -154,11 +154,23 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
         for (int i = 0; i < ingredientsMap.size(); i++) {
             showAllIngredients.setText(ingredientsMap.toString());
         }
-        for (String key : ingredientsMap.keySet()) {
-            System.out.print("Key: " + key + " - ");
-            System.out.print("Value: " + ingredientsMap.get(key) + "\n");
+        ArrayList<String> string = new ArrayList<>();
+        string.add("Apfel");
+        string.add("Joghurt");
+        boolean etwasFehlt = false;
+
+            for (String key : ingredientsMap.keySet()) {
+                for (int i = 0; i < string.size(); i++) {
+                if (string.get(i).equals(ingredientsMap.get(key))){
+                    System.out.println("ist enthalten " + string.get(i).toString());
+                } else {
+                    System.out.println("else!");
+                }
+                //System.out.print("Key: " + key + " - ");
+                //System.out.print("Value: " + ingredientsMap.get(key) + "\n");
+            }
         }
-        System.out.println(showAllIngredients.getText().toString().trim());
+        //System.out.println(showAllIngredients.getText().toString().trim());
     }
 
 
