@@ -68,36 +68,45 @@ public class CreateAccountFragment extends Fragment {
     public void addUser() {
 
         //Initalisieren aller Elemente
-        String firstName = editTextFirstName.getText().toString().trim();
-        String lastName = editTextLastName.getText().toString().trim();
-        String username = editTextUsername.getText().toString().trim();
-        String password = editTextPassword.getText().toString().trim();
-        String mail = editTextMail.getText().toString().trim();
+        if (editTextUsername.getText().toString().trim().contains(".") == true || editTextUsername.getText().toString().trim().contains("#") == true
+                || editTextUsername.getText().toString().trim().contains("$") == true || editTextUsername.getText().toString().trim().contains("[") == true
+                || editTextUsername.getText().toString().trim().contains("]") == true){
+            Toast.makeText(getContext(), "Username darf nicht enthalten: '.', '#', '$', '[', oder ']' ", Toast.LENGTH_LONG).show();
+        } else if (editTextUsername.getText().toString().trim().contains(".") == false || editTextUsername.getText().toString().trim().contains("#") == false
+                || editTextUsername.getText().toString().trim().contains("$") == false || editTextUsername.getText().toString().trim().contains("[") == false
+                || editTextUsername.getText().toString().trim().contains("]") == false){
+            String firstName = editTextFirstName.getText().toString().trim();
+            String lastName = editTextLastName.getText().toString().trim();
+            String username = editTextUsername.getText().toString().trim();
+            String password = editTextPassword.getText().toString().trim();
+            String mail = editTextMail.getText().toString().trim();
 
-        final Context context = this.getActivity();
-        final User user = new User(firstName, lastName, username, password, mail, allergies);
+            final Context context = this.getActivity();
+            final User user = new User(firstName, lastName, username, password, mail, allergies);
 
-        databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.child(user.getUsername()).exists()) {
-                    Toast.makeText(context, "Username existiert bereits", Toast.LENGTH_LONG).show();
-                } else {
-                    databaseUser.child(user.getUsername()).setValue(user); //wird als Kind des Knoten "User" angelegt
-                    Toast.makeText(context, "User wurde erfolgreich angelegt", Toast.LENGTH_LONG).show();
+            databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    if (dataSnapshot.child(user.getUsername()).exists()) {
+                        Toast.makeText(context, "Username existiert bereits", Toast.LENGTH_LONG).show();
+                    } else {
+                        databaseUser.child(user.getUsername()).setValue(user); //wird als Kind des Knoten "User" angelegt
+                        Toast.makeText(context, "User wurde erfolgreich angelegt", Toast.LENGTH_LONG).show();
+                        AccountFragment.usernameString = user.getUsername();
+                        //nach erfolgreicher Anlage, Aufruf des Account Overview Fragments
+                        AccountOverviewFragment accountOverviewFragment = new AccountOverviewFragment();
+                        FragmentManager manager = getFragmentManager();
+                        manager.beginTransaction().replace(R.id.fragment_container, accountOverviewFragment, accountOverviewFragment.getTag()).addToBackStack(null).commit();
 
-                    //nach erfolgreicher Anlage, Aufruf des Account Overview Fragments
-                    AccountOverviewFragment accountOverviewFragment = new AccountOverviewFragment();
-                    FragmentManager manager = getFragmentManager();
-                    manager.beginTransaction().replace(R.id.fragment_container, accountOverviewFragment, accountOverviewFragment.getTag()).addToBackStack(null).commit();
 
-
+                    }
                 }
-            }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
+
     }
 }

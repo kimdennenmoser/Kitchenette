@@ -15,6 +15,7 @@ import android.widget.ListView;
 
 import com.example.navigationdrawerfromscratch.account.AccountFragment;
 import com.example.navigationdrawerfromscratch.account.AccountOverviewFragment;
+import com.example.navigationdrawerfromscratch.account.recipes.RecipeGenerate;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.FirebaseError;
 import com.google.firebase.database.DataSnapshot;
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 break;
             case R.id.nav_start:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new SearchFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RecipeGenerate()).commit();
                 break;
             case R.id.nav_recipes:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new BrowseFragment()).commit();
