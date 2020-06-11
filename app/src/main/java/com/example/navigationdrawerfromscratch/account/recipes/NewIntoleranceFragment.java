@@ -54,7 +54,6 @@ public class NewIntoleranceFragment extends Fragment implements ProductAdapter.O
     DatabaseReference databaseUser;
     List<String> allergies = new ArrayList<>();
     User user;
-    public String usernameString="lorenz";
     public static List<Food> productList = new ArrayList<>();
     public static boolean newObst = false;
     public static List<String> allergiesList = new ArrayList<>();
@@ -77,6 +76,7 @@ public class NewIntoleranceFragment extends Fragment implements ProductAdapter.O
         addIntolerance = (Button) view.findViewById(R.id.ButtonAddIntolerance);
         saveAllergies = (Button) view.findViewById(R.id.ButtonSaveAllergies);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
 
 
 
@@ -120,13 +120,14 @@ public class NewIntoleranceFragment extends Fragment implements ProductAdapter.O
         Context context = this.getContext();
         adapter = new ProductAdapter(context, oldAllergies, this);
 
+
         //wenn ein User angemeldet ist, prüfe, ob dieser Allergien/Unverträglichkeiten bereits abgespeichert hat und speichere sie in das RecyclerView
 
         if (upToDate == true) {
             databaseUser.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    User user = dataSnapshot.child(usernameString).getValue(User.class);
+                    User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
                     System.out.println(newObst);
                     if (user.getAllergies() != null) {
                         allergiesList = user.getAllergies();
@@ -173,9 +174,9 @@ public class NewIntoleranceFragment extends Fragment implements ProductAdapter.O
                     String foodName = oldAllergies.get(i).getName();
                     allergies.add(foodName);
                 }
-                user = dataSnapshot.child(usernameString).getValue(User.class);
+                user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
                 user.setAllergies(allergies);
-                databaseUser.child(usernameString).setValue(user);
+                databaseUser.child(AccountFragment.usernameString).setValue(user);
                 saved = true;
                 upToDate = true;
             }
