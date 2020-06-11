@@ -9,10 +9,12 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.account.recipes.Recipe;
+import com.example.navigationdrawerfromscratch.account.recipes.RecipeInstruction;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -81,6 +83,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     public interface OnRecipeListener {
         void onRecipeClick(int position);
+
     }
 
     /*

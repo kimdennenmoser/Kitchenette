@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.account.recipes.Recipe;
 import com.example.navigationdrawerfromscratch.account.recipes.RecipeGenerate;
+import com.example.navigationdrawerfromscratch.account.recipes.RecipeInstruction;
 import com.example.navigationdrawerfromscratch.adapters.RecipeAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -91,8 +92,13 @@ public class BrowseFragment extends Fragment implements RecipeAdapter.OnRecipeLi
 
     @Override
     public void onRecipeClick(int position) {
-        Toast.makeText(getView().getContext(), position+" Wurde geklickt!", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getView().getContext(), position+" Wurde geklickt!", Toast.LENGTH_LONG).show();
         String id = recipeList.get(position).getRecipeId();
+        RecipeInstruction recipeInstruction = new RecipeInstruction();
+        FragmentManager recipeManager = getFragmentManager();
+        recipeManager.beginTransaction().replace(R.id.fragment_container, recipeInstruction, recipeInstruction.getTag()).addToBackStack(null).commit();
+        RecipeInstruction.recipeString=recipeList.get(position).getRecipeId();
+
         System.out.println(id);
 
     }
