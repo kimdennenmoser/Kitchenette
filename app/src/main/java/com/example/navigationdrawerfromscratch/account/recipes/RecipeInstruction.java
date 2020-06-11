@@ -45,7 +45,7 @@ public class RecipeInstruction extends Fragment {
         recipeName = (TextView) view.findViewById(R.id.recipeName);
         recipeImage = (ImageView) view.findViewById(R.id.imgFood);
         preperationTime = (TextView) view.findViewById(R.id.preperationTime);
-        recipeRating = (RatingBar) view.findViewById(R.id.recipeRating);
+        recipeRating = (RatingBar) view.findViewById(R.id.ratingBar);
         instructions = (TextView) view.findViewById(R.id.txtInstruction);
         recyclerViewIngredients = (RecyclerView) view.findViewById(R.id.recyclerViewIngredients);
         recyclerViewIngredients.setHasFixedSize(true);
@@ -62,7 +62,7 @@ public class RecipeInstruction extends Fragment {
                 recipeName.setText(recipe.getRecipeName());
                 Picasso.get().load(recipe.getRecipeImage()).into(recipeImage);
                 preperationTime.setText(recipe.getPreparationTime());
-                //recipeRating.setNumStars(recipe.getRecipeRating());
+                recipeRating.setNumStars(recipe.getRecipeRating());
                 instructions.setText(recipe.getInstructions());
                 System.out.println(recipe.getInstructions());
 
