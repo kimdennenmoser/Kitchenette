@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -51,6 +52,7 @@ public class RecipeInstruction extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_recipe_instruction, container, false);
 
+        ingredientsList = new ArrayList<>();
         recipeName = (TextView) view.findViewById(R.id.recipeName);
         recipeImage = (ImageView) view.findViewById(R.id.imgFood);
         preperationTime = (TextView) view.findViewById(R.id.preperationTime);
@@ -107,18 +109,18 @@ public class RecipeInstruction extends Fragment {
                 for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()) {
                     //Zutat zutat = recipeSnapshot.getValue(Zutat.class);
                     //Zutat zut = new Zutat(recipeSnapshot.getKey(),recipeSnapshot.getValue().toString());
-                    Zutat zutat = new Zutat(recipeSnapshot.getKey().toString(), recipeSnapshot.getValue().toString());
+                    Zutat zutat = new Zutat(recipeSnapshot.getKey(), recipeSnapshot.getValue().toString());
                     //Log.i("key", recipeSnapshot.getKey());
                     //Log.i("zutat", recipeSnapshot.getValue().toString());
-                    Log.i("Zutaten", zutat.getAmount()+ "  "+ zutat.getName());
+                    //Log.i("Zutaten", zutat.getAmount()+ "  "+ zutat.getName());
 
                     //---------------------- bis hier hin passts -------------------------
 
-                   // ingredientsList.add(zutat);
-                   // Log.i("Liste", ingredientsList.get(1).getAmount()+ "   "+ingredientsList.get(1).getName());
+                    ingredientsList.add(zutat);
 
 
-                    //recyclerViewIngredients.setAdapter(adapter);
+
+                    recyclerViewIngredients.setAdapter(adapter);
                 }
             }
 
