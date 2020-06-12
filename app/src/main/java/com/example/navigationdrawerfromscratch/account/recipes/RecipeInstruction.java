@@ -1,6 +1,8 @@
 package com.example.navigationdrawerfromscratch.account.recipes;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.R;
+import com.example.navigationdrawerfromscratch.adapters.IngredientsAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,10 +26,14 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+import java.util.List;
+
 public class RecipeInstruction extends Fragment {
 
     View view;
 
+    List<Zutat> ingredientsList;
     TextView recipeName;
     ImageView recipeImage;
     TextView preperationTime;
@@ -34,7 +41,9 @@ public class RecipeInstruction extends Fragment {
     TextView instructions;
     RecyclerView recyclerViewIngredients;
     DatabaseReference databaseRecipe;
+    DatabaseReference databaseIngredients;
     public static String recipeString;
+    IngredientsAdapter adapter;
 
     @Nullable
     @Override
@@ -51,12 +60,15 @@ public class RecipeInstruction extends Fragment {
         recyclerViewIngredients.setHasFixedSize(true);
         recyclerViewIngredients.setLayoutManager(new LinearLayoutManager(view.getContext()));
         databaseRecipe = FirebaseDatabase.getInstance().getReference("Rezepte").child(recipeString);
+        databaseIngredients = FirebaseDatabase.getInstance().getReference("Rezepte").child(recipeString).child("ingredientsMap");
         System.out.println(databaseRecipe.getKey());
 
 
         databaseRecipe.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+
 
                 Recipe recipe = dataSnapshot.getValue(Recipe.class);
                 recipeName.setText(recipe.getRecipeName());
@@ -79,4 +91,55 @@ public class RecipeInstruction extends Fragment {
 
         return view;
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Context context = this.getContext();
+        adapter = new IngredientsAdapter(context, ingredientsList);
+        databaseIngredients.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                //ingredientsList.clear();
+
+
+
+                for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()) {
+                    //Zutat zutat = recipeSnapshot.getValue(Zutat.class);
+                    //Zutat zut = new Zutat(recipeSnapshot.getKey(),recipeSnapshot.getValue().toString());
+                    Zutat zutat = new Zutat(recipeSnapshot.getKey().toString(), recipeSnapshot.getValue().toString());
+                    //Log.i("key", recipeSnapshot.getKey());
+                    //Log.i("zutat", recipeSnapshot.getValue().toString());
+                    Log.i("Zutaten", zutat.getAmount()+ "  "+ zutat.getName());
+
+                    //---------------------- bis hier hin passts -------------------------
+
+                   // ingredientsList.add(zutat);
+                   // Log.i("Liste", ingredientsList.get(1).getAmount()+ "   "+ingredientsList.get(1).getName());
+
+
+                    //recyclerViewIngredients.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    public class IngredientsViewHolder extends RecyclerView.ViewHolder {
+
+        View mView;
+
+        public IngredientsViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mView = itemView;
+        }
+
+    }
+
+
+
 }
