@@ -22,8 +22,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.account.AccountFragment;
-import com.example.navigationdrawerfromscratch.account.AccountOverviewFragment;
-import com.example.navigationdrawerfromscratch.adapters.RecipesAdapter;
 import com.example.navigationdrawerfromscratch.lebensmittel.Food;
 import com.example.navigationdrawerfromscratch.lebensmittel.FoodCategory;
 import com.example.navigationdrawerfromscratch.lebensmittel.Gemuese;
@@ -154,6 +152,7 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
         for (int i = 0; i < ingredientsMap.size(); i++) {
             showAllIngredients.setText(ingredientsMap.toString());
         }
+
         ArrayList<String> string = new ArrayList<>();
         string.add("Apfel");
         string.add("Joghurt");

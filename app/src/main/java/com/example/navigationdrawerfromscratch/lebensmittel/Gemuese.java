@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.account.IntoleranceFragment;
 import com.example.navigationdrawerfromscratch.account.recipes.CreateRecipeFragment;
+import com.example.navigationdrawerfromscratch.account.recipes.RecipeGenerate;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.R;
 import com.google.firebase.database.DataSnapshot;
@@ -103,7 +104,13 @@ public class Gemuese extends Fragment implements ProductAdapter.OnNoteListener {
             CreateRecipeFragment createRecipeFragment = new CreateRecipeFragment();
             FragmentManager manager = getFragmentManager();
             manager.beginTransaction().replace(R.id.fragment_container, createRecipeFragment, createRecipeFragment.getTag()).addToBackStack(null).commit();
+        }
+        if (vonWoher == "Search"){
+            RecipeGenerate.productList.add(food);
 
+            RecipeGenerate recipeGenerate = new RecipeGenerate();
+            FragmentManager manager = getFragmentManager();
+            manager.beginTransaction().replace(R.id.fragment_container, recipeGenerate, recipeGenerate.getTag()).addToBackStack(null).commit();
         }
     }
 }

@@ -92,7 +92,7 @@ public class FoodCategory extends Fragment {
         });
 
 
-        /*buttonNuts = (Button) view.findViewById(R.id.buttonNuts);
+        buttonNuts = (Button) view.findViewById(R.id.buttonNuts);
 
         buttonNuts.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +101,7 @@ public class FoodCategory extends Fragment {
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.fragment_container, nuts, nuts.getTag()).addToBackStack(null).commit();
             }
-        });*/
+        });
 
         return view;
     }

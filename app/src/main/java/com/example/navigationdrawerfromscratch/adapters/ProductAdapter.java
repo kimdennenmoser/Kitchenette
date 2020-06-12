@@ -41,7 +41,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         Food product = productList.get(position);
 
         holder.foodName.setText(product.getName());
-        //holder.foodInfo.setText(product.getInfo());
         Picasso.get().load(product.getImage()).into(holder.imageView);
 
     }
@@ -54,7 +53,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
     class ProductViewHolder extends  RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView imageView;
-        TextView foodName, foodInfo;
+        TextView foodName;
         OnNoteListener onNoteListener;
 
 
@@ -63,7 +62,6 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
 
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
             foodName = (TextView) itemView.findViewById(R.id.foodName);
-            //foodInfo = (TextView) itemView.findViewById(R.id.foodInfo);
             this.onNoteListener = onNoteListener;
 
             itemView.setOnClickListener(this);

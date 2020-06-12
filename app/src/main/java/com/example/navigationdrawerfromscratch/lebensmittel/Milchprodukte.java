@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.account.IntoleranceFragment;
 import com.example.navigationdrawerfromscratch.account.recipes.CreateRecipeFragment;
+import com.example.navigationdrawerfromscratch.account.recipes.RecipeGenerate;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -52,14 +53,14 @@ public class Milchprodukte extends Fragment implements ProductAdapter.OnNoteList
     @Override
     public void onStart() {
         super.onStart();
-        adapter = new ProductAdapter(getView().getContext(),milchList, this);
+        adapter = new ProductAdapter(getView().getContext(), milchList, this);
         databaseMilch.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 milchList.clear();
-                for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
+                for (DataSnapshot productSnapshot : dataSnapshot.getChildren()) {
                     Food gewuerze = productSnapshot.getValue(Food.class);
-                    if (gewuerze.getCategory().equals("Milchprodukte")){
+                    if (gewuerze.getCategory().equals("Milchprodukte")) {
                         milchList.add(gewuerze);
                     }
                     mResultList.setAdapter(adapter);
@@ -99,7 +100,13 @@ public class Milchprodukte extends Fragment implements ProductAdapter.OnNoteList
             CreateRecipeFragment createRecipeFragment = new CreateRecipeFragment();
             FragmentManager manager = getFragmentManager();
             manager.beginTransaction().replace(R.id.fragment_container, createRecipeFragment, createRecipeFragment.getTag()).addToBackStack(null).commit();
+        }
+        if (vonWoher == "Search") {
+            RecipeGenerate.productList.add(food);
 
+            RecipeGenerate recipeGenerate = new RecipeGenerate();
+            FragmentManager manager = getFragmentManager();
+            manager.beginTransaction().replace(R.id.fragment_container, recipeGenerate, recipeGenerate.getTag()).addToBackStack(null).commit();
         }
     }
 

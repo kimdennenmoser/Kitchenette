@@ -89,7 +89,7 @@ public class RecipeObst extends Fragment implements ProductAdapter.OnNoteListene
 
         RecipeGenerate.productList.add(food);
 
-        IngredientCategory ingredientCategory = new IngredientCategory();
+        RecipeGenerate ingredientCategory = new RecipeGenerate();
         FragmentManager manager = getFragmentManager();
         manager.beginTransaction().replace(R.id.fragment_container, ingredientCategory, ingredientCategory.getTag()).addToBackStack(null).commit();
     }
