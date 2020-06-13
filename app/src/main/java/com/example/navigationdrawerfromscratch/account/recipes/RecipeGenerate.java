@@ -50,6 +50,7 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
 
     public static List<Food> productList = new ArrayList<>();
     public static String foodName = null;
+    public static boolean resultsDisplayed = false;
     List<Recipe> recipeList = new ArrayList<>();
     List<String> enthalteneZutaten = new ArrayList<>();
     List<String> productListNameString = new ArrayList<>();
@@ -62,8 +63,6 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
         recyclerViewIngredient = (RecyclerView) view.findViewById(R.id.recyclerViewIngredient);
         recyclerViewIngredient.setHasFixedSize(true);
         recyclerViewIngredient.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        productAdapter = new ProductAdapter(view.getContext(), liste, this);
-        recyclerViewIngredient.setAdapter(productAdapter);
 
 
         btnAddIngredient = (Button) view.findViewById(R.id.btnAddIngredient);
@@ -82,6 +81,8 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
                 Nuts.vonWoher = "Search";
                 Obst.vonWoher = "Search";
 
+                resultsDisplayed = false;
+
                 FoodCategory foodCategory = new FoodCategory();
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.fragment_container, foodCategory, foodCategory.getTag()).addToBackStack(null).commit();
@@ -91,7 +92,7 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
         btnStartSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("RezepteListe 1: " + recipeList);
+               RecipeResultFragment.recipeList.clear();
 
                 databaseRecipes.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -131,6 +132,11 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
                                 System.out.println("enthalten: " + enthalteneZutaten.toString());
                                 System.out.println("productlist " + productListNameString.toString());
                                 if (enthalteneZutaten.equals(productListNameString)) {
+                                    RecipeResultFragment.recipeList.add(recipe);
+
+                                    RecipeResultFragment recipeResultFragment = new RecipeResultFragment();
+                                    FragmentManager manager = getFragmentManager();
+                                    manager.beginTransaction().replace(R.id.fragment_container, recipeResultFragment, recipeResultFragment.getTag()).addToBackStack(null).commit();
                                     System.out.println("Final geklappt");
                                     System.out.println("passendes Rezept:" + recipe.toString());
                                 }
@@ -152,6 +158,10 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
     @Override
     public void onStart() {
         super.onStart();
+        System.out.println("boolean displayed" + resultsDisplayed);
+        if (resultsDisplayed = true){
+            recipeList.clear();
+        }
         productAdapter = new ProductAdapter(getView().getContext(), productList, this);
         recyclerViewIngredient.setAdapter(productAdapter);
 
