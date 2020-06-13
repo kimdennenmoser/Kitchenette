@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -45,6 +47,7 @@ public class RecipeInstruction extends Fragment {
     DatabaseReference databaseIngredients;
     public static String recipeString;
     IngredientsAdapter adapter;
+    ImageButton buttonAddToFavorites;
 
     @Nullable
     @Override
@@ -64,13 +67,12 @@ public class RecipeInstruction extends Fragment {
         databaseRecipe = FirebaseDatabase.getInstance().getReference("Rezepte").child(recipeString);
         databaseIngredients = FirebaseDatabase.getInstance().getReference("Rezepte").child(recipeString).child("ingredientsMap");
         System.out.println(databaseRecipe.getKey());
+        buttonAddToFavorites = (ImageButton) view.findViewById(R.id.btnAddToFav);
 
 
         databaseRecipe.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-
 
                 Recipe recipe = dataSnapshot.getValue(Recipe.class);
                 recipeName.setText(recipe.getRecipeName());
