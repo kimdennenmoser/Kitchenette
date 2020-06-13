@@ -47,12 +47,12 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
     DatabaseReference databaseFood;
     DatabaseReference databaseRecipes;
     List<Food> liste = new ArrayList<>();
-    boolean etwasFehlt = false;
 
     public static List<Food> productList = new ArrayList<>();
-    public static boolean addIngredient = false;
     public static String foodName = null;
     List<Recipe> recipeList = new ArrayList<>();
+    List<String> enthalteneZutaten = new ArrayList<>();
+    List<String> productListNameString = new ArrayList<>();
 
     @Nullable
     @Override
@@ -100,40 +100,48 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
                         recipeList.clear();
 
                         for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()) {
+                            recipeList.clear();
+                            enthalteneZutaten.clear();
                             Recipe recipe = recipeSnapshot.getValue(Recipe.class);
                             recipeList.add(recipe);
+                            List<String> zutaten = new ArrayList<>();
                             System.out.println("RezepteListe 2: " + recipeList);
-                        }
-                        System.out.println("ProductList " + productList.toString());
+                            for (int i = 0; i < recipeList.size(); i++) {
+                                zutaten.clear();
+                                HashMap<String, String> ingredientsHashMap = recipeList.get(i).getIngredientsMap();
+                                System.out.println("IngredientsMap 1: " + ingredientsHashMap.toString());
+                                for (String key : ingredientsHashMap.keySet()) {
+                                    zutaten.add(ingredientsHashMap.get(key));
+                                }
+                                System.out.println("Zutaten:" + zutaten.toString());
 
-                        for (int i = 0; i < recipeList.size(); i++) {
-                            HashMap<String, String> ingredientsHashMap = recipeList.get(i).getIngredientsMap();
-                            System.out.println("IngredientsMap 1: " + ingredientsHashMap.toString());
-                            for (String key : ingredientsHashMap.keySet()) {
+                                for (int j = 0; j < zutaten.size(); j++) {
 
-                                for (int j = 0; j < productList.size(); j++) {
-                                    if (ingredientsHashMap.get(key).equals(productList.get(j).getName())) {
-                                        System.out.println("ist drin!" + productList.get(j).getName());
-                                    } else {
-                                        etwasFehlt = true;
-                                        System.out.println("ist nicht drin" + productList.get(j).getName());
+                                    for (int k = 0; k < productList.size(); k++) {
+                                        if (zutaten.get(j).equals(productList.get(k).getName())) {
+                                            System.out.println("geklappt: " + productList.get(k).getName());
+                                            enthalteneZutaten.add(productList.get(k).getName());
+                                        }
                                     }
                                 }
+                                productListNameString.clear();
+                                for (int z = 0; z < productList.size(); z++) {
+                                    productListNameString.add(productList.get(z).getName());
+                                }
+                                System.out.println("enthalten: " + enthalteneZutaten.toString());
+                                System.out.println("productlist " + productListNameString.toString());
+                                if (enthalteneZutaten.equals(productListNameString)) {
+                                    System.out.println("Final geklappt");
+                                    System.out.println("passendes Rezept:" + recipe.toString());
+                                }
                             }
-                        }
-                        if (etwasFehlt = true) {
-                            System.out.println("passt nicht");
-                        } else if (etwasFehlt = false) {
-                            System.out.println("passt");
                         }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
                     }
                 });
-                System.out.println("RezepteListe 4: " + recipeList); //leer
 
             }
         });
