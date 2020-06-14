@@ -198,6 +198,7 @@ public class RecipeInstruction extends Fragment {
             }
             for (int z = 0; z < ingredients.size(); z++){
                 ShoppingListFragment.foodNames.add(ingredients.get(z));
+                System.out.println(ingredients.get(z));
             }
 
             ShoppingListFragment shoppingListFragment = new ShoppingListFragment();
