@@ -160,6 +160,14 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
     public void onStart() {
         super.onStart();
         productAdapter = new ProductAdapter(getContext(), productList, this);
+        try {
+            System.out.println(productAdapter.getItemCount());
+        }
+        catch(Exception e){
+            Log.i("ExAdapter", "Adapter ist leer");
+        }
+
+        recyclerViewIngredient.setAdapter(productAdapter);
         if (resultsDisplayed = true) {
             recipeList.clear();
         }
