@@ -9,14 +9,16 @@ public class User {
     private String password;
     private String mail;
     private List<String> allergies;
+    private List<String> favorites;
 
-    public User(String firstname, String lastname, String username, String password, String mail, List<String> allergies) {
+    public User (String firstname, String lastname, String username, String password, String mail, List<String> allergies, List<String> favorites) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
         this.password = password;
         this.mail = mail;
         this.allergies = allergies;
+        this.favorites = favorites;
     }
 
     public User() {
@@ -80,5 +82,13 @@ public class User {
 
     public void setAllergies(List<String> allergies) {
         this.allergies = allergies;
+    }
+
+    public List<String> getFavorites() {
+        return favorites;
+    }
+
+    public void setFavorites(List<String> favorites) {
+        this.favorites = favorites;
     }
 }

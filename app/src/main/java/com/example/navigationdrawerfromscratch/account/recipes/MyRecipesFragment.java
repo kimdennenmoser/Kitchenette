@@ -1,6 +1,5 @@
 package com.example.navigationdrawerfromscratch.account.recipes;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.account.AccountFragment;
-import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.adapters.RecipeAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,9 +41,8 @@ public class MyRecipesFragment extends Fragment implements RecipeAdapter.OnRecip
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         //Aufruf des dazugehörigen Layouts
-        view = inflater.inflate(R.layout.fragment_my_recipe, container, false);
+        view = inflater.inflate(R.layout.fragment_my_recipes, container, false);
 
-        //Initi
         addRecipe = view.findViewById(R.id.imageViewAddRecipe);
 
         recipeList = new ArrayList<>();

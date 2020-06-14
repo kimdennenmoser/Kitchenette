@@ -35,6 +35,7 @@ public class ChangeUserDataFragment extends Fragment {
     Button btnSaveChanges;
     DatabaseReference databaseUser;
     List<String> allergiesUserList = new ArrayList<>();
+    List<String> favoritesUserList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -86,8 +87,9 @@ public class ChangeUserDataFragment extends Fragment {
                             String mail = editTextChangeMail.getText().toString().trim();
                             String pWord = editTextChangePassword.getText().toString().trim();
                             allergiesUserList = user.getAllergies();
+                            favoritesUserList = user.getFavorites();
 
-                            User changedUser = new User(fName, lName, uName, pWord, mail, allergiesUserList);
+                            User changedUser = new User(fName, lName, uName, pWord, mail, allergiesUserList, favoritesUserList);
                             databaseUser.child(uName).setValue(changedUser);
                         }
 
