@@ -69,7 +69,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 else{
                     getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new AccountOverviewFragment()).commit();
                 }
-
                 break;
             case R.id.nav_start:
                 RecipeGenerate.productList.clear();

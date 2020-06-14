@@ -5,6 +5,7 @@ import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -34,6 +35,7 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
 
     RecyclerView recyclerView;
     public static List<String> foodNames = new ArrayList<>();
+    Button buttonClearList;
     List<Food> foodList = new ArrayList<>();
     ProductAdapter adapter;
     DatabaseReference databaseFood;
@@ -49,6 +51,15 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
         databaseFood = FirebaseDatabase.getInstance().getReference("Lebensmittel");
+        buttonClearList = (Button) view.findViewById(R.id.buttonClearShoppingList);
+
+        buttonClearList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                foodList.clear();
+                recyclerView.setAdapter(adapter);
+            }
+        });
 
         return view;
     }
@@ -71,7 +82,6 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
                     }
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
@@ -80,6 +90,7 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
 
     @Override
     public void onFoodClick(int position) {
+        //Popup: Frage, ob Zutat entfernen
 
     }
 }

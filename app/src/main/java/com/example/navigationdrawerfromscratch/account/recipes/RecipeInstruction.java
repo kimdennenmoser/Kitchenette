@@ -1,6 +1,7 @@
 package com.example.navigationdrawerfromscratch.account.recipes;
 
 import android.content.Context;
+import android.net.http.SslCertificate;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -43,7 +44,7 @@ public class RecipeInstruction extends Fragment {
 
     View view;
 
-    List<Zutat> ingredientsList;
+    List<Zutat> ingredientsList = new ArrayList<>();
     TextView recipeName;
     ImageView recipeImage;
     TextView preperationTime;
@@ -59,7 +60,6 @@ public class RecipeInstruction extends Fragment {
     public static List<String> userFavorties = new ArrayList<>();
     public static List<String> ingredients = new ArrayList<>();
     public static List<String> enthalteneZutaten = new ArrayList<>();
-    public static List<String> brauchtManNichtMehr = new ArrayList<>();
     public static String vonWoher = null;
     public static String recipeString;
     IngredientsAdapter adapter;
@@ -71,7 +71,6 @@ public class RecipeInstruction extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_recipe_instruction, container, false);
 
-        ingredientsList = new ArrayList<>();
         recipeName = (TextView) view.findViewById(R.id.recipeName);
         recipeImage = (ImageView) view.findViewById(R.id.imgFood);
         preperationTime = (TextView) view.findViewById(R.id.preperationTime);
@@ -185,8 +184,6 @@ public class RecipeInstruction extends Fragment {
 
     private void addToShoppingList() {
         if (vonWoher == "Search") {
-
-            System.out.println("enthalten1: " + enthalteneZutaten);
             ingredients.clear();
             for (int z = 0; z < ingredientsList.size(); z++) {
                 ingredients.add(ingredientsList.get(z).getName());
@@ -194,12 +191,19 @@ public class RecipeInstruction extends Fragment {
             System.out.println("ingredients: " + ingredients);
 
             for (int i = 0; i < enthalteneZutaten.size(); i++) {
-                if ((ingredients.contains(enthalteneZutaten.get(i))) == true) {
-                    System.out.println("Erfolg " + enthalteneZutaten.get(i));
-                } else if ((ingredients.contains(enthalteneZutaten.get(i))) == false) {
-                    System.out.println("fehlt " + enthalteneZutaten.get(i));
+                String string = enthalteneZutaten.get(i);
+                if ((ingredients.contains(string))){
+                    ingredients.remove(string);
                 }
             }
+            for (int z = 0; z < ingredients.size(); z++){
+                ShoppingListFragment.foodNames.add(ingredients.get(z));
+            }
+
+            ShoppingListFragment shoppingListFragment = new ShoppingListFragment();
+            FragmentManager manager = getFragmentManager();
+            manager.beginTransaction().replace(R.id.fragment_container, shoppingListFragment, shoppingListFragment.getTag()).addToBackStack(null).commit();
+
         }
         if (vonWoher == "Browse") {
             ingredients.clear();
@@ -207,13 +211,15 @@ public class RecipeInstruction extends Fragment {
                 ingredients.add(ingredientsList.get(z).getName());
             }
             System.out.println("ingredients: " + ingredients);
-            for (int i = 0; i < ingredients.size(); i++){
+            for (int i = 0; i < ingredients.size(); i++) {
                 ShoppingListFragment.foodNames.add(ingredients.get(i));
             }
             ShoppingListFragment shoppingListFragment = new ShoppingListFragment();
             FragmentManager manager = getFragmentManager();
             manager.beginTransaction().replace(R.id.fragment_container, shoppingListFragment, shoppingListFragment.getTag()).addToBackStack(null).commit();
+
         }
+
     }
 
     public class IngredientsViewHolder extends RecyclerView.ViewHolder {
