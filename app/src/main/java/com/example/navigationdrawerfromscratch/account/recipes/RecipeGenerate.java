@@ -92,7 +92,7 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
         btnStartSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               RecipeResultFragment.recipeList.clear();
+                RecipeResultFragment.recipeList.clear();
 
                 databaseRecipes.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -116,9 +116,9 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
                                 }
                                 System.out.println("Zutaten:" + zutaten.toString());
 
-                                for (int j = 0; j < zutaten.size(); j++) {
 
-                                    for (int k = 0; k < productList.size(); k++) {
+                                for (int k = 0; k < productList.size(); k++) {
+                                    for (int j = 0; j < zutaten.size(); j++) {
                                         if (zutaten.get(j).equals(productList.get(k).getName())) {
                                             System.out.println("geklappt: " + productList.get(k).getName());
                                             enthalteneZutaten.add(productList.get(k).getName());
@@ -159,7 +159,7 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
     public void onStart() {
         super.onStart();
         System.out.println("boolean displayed" + resultsDisplayed);
-        if (resultsDisplayed = true){
+        if (resultsDisplayed = true) {
             recipeList.clear();
         }
         productAdapter = new ProductAdapter(getView().getContext(), productList, this);
