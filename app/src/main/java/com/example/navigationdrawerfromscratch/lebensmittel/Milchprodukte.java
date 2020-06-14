@@ -16,7 +16,7 @@ import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.account.IntoleranceFragment;
 import com.example.navigationdrawerfromscratch.account.NewIntoleranceFragment;
 import com.example.navigationdrawerfromscratch.account.recipes.CreateRecipeFragment;
-import com.example.navigationdrawerfromscratch.account.recipes.NewIntoleranceFragment;
+import com.example.navigationdrawerfromscratch.account.NewIntoleranceFragment;
 import com.example.navigationdrawerfromscratch.account.recipes.RecipeGenerate;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.google.firebase.database.DataSnapshot;

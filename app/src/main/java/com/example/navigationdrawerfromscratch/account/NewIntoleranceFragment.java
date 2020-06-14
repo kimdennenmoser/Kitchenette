@@ -41,8 +41,6 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
-
 public class NewIntoleranceFragment extends Fragment implements ProductAdapter.OnNoteListener {
 
 
@@ -179,7 +177,7 @@ public class NewIntoleranceFragment extends Fragment implements ProductAdapter.O
             }
         });
     }
-    
+
     @Override
     public void onFoodClick(int position) {
         Toast.makeText(getView().getContext(), "Wurde geklickt!", Toast.LENGTH_LONG).show();

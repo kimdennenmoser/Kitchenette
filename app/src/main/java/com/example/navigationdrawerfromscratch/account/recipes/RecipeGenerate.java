@@ -165,18 +165,18 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
         }
     }
 
-        @Override
-        public void onFoodClick ( int position){
-            //Toast.makeText(getView().getContext(), "Wurde geklickt!", Toast.LENGTH_LONG).show();
-        }
+    @Override
+    public void onFoodClick(int position) {
+        //Toast.makeText(getView().getContext(), "Wurde geklickt!", Toast.LENGTH_LONG).show();
+    }
 
+    public class FoodViewHolder extends RecyclerView.ViewHolder {
+        View mView;
 
-        public class FoodViewHolder extends RecyclerView.ViewHolder {
-            View mView;
-
-            public FoodViewHolder(@NonNull View itemView) {
-                super(itemView);
-                mView = itemView;
-            }
+        public FoodViewHolder(@NonNull View itemView) {
+            super(itemView);
+            mView = itemView;
         }
     }
+
+}

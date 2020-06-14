@@ -13,10 +13,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.navigationdrawerfromscratch.account.IntoleranceFragment;
 import com.example.navigationdrawerfromscratch.account.NewIntoleranceFragment;
 import com.example.navigationdrawerfromscratch.account.recipes.CreateRecipeFragment;
-import com.example.navigationdrawerfromscratch.account.recipes.NewIntoleranceFragment;
 import com.example.navigationdrawerfromscratch.account.recipes.RecipeGenerate;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.R;
