@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.account.IntoleranceFragment;
+import com.example.navigationdrawerfromscratch.account.NewIntoleranceFragment;
 import com.example.navigationdrawerfromscratch.account.recipes.CreateRecipeFragment;
 import com.example.navigationdrawerfromscratch.account.recipes.RecipeGenerate;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
@@ -87,9 +88,10 @@ public class Milchprodukte extends Fragment implements ProductAdapter.OnNoteList
         Food food = new Food(foodName, foodID, foodImage, foodCategory);
 
         if (vonWoher == "Intolerance") {
-            IntoleranceFragment.productList.add(food);
+            NewIntoleranceFragment.upToDate=false;
+            NewIntoleranceFragment.oldAllergies.add(food);
 
-            IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
+            NewIntoleranceFragment intoleranceFragment = new NewIntoleranceFragment();
             FragmentManager manager = getFragmentManager();
             manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
         }

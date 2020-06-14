@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.account.IntoleranceFragment;
+import com.example.navigationdrawerfromscratch.account.NewIntoleranceFragment;
 import com.example.navigationdrawerfromscratch.account.recipes.CreateRecipeFragment;
 import com.example.navigationdrawerfromscratch.account.recipes.RecipeGenerate;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
@@ -88,8 +89,10 @@ public class Nuts extends Fragment implements ProductAdapter.OnNoteListener {
         Food food = new Food(foodName, foodID, foodImage, foodCategory);
 
         if (vonWoher == "Intolerance") {
-            IntoleranceFragment.productList.add(food);
-            IntoleranceFragment intoleranceFragment = new IntoleranceFragment();
+            NewIntoleranceFragment.upToDate=false;
+            NewIntoleranceFragment.oldAllergies.add(food);
+
+            NewIntoleranceFragment intoleranceFragment = new NewIntoleranceFragment();
             FragmentManager manager = getFragmentManager();
             manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
 

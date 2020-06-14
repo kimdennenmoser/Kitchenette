@@ -79,7 +79,7 @@ public class FavoritesFragment extends Fragment implements RecipeAdapter.OnRecip
                         for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()) {
                             Recipe recipe = recipeSnapshot.getValue(Recipe.class);
                             for (int i = 0; i < favoritesIDsList.size(); i++) {
-                                if (recipe.getRecipeId().equals(favoritesIDsList.get(i).toString())) {
+                                if (recipe.getRecipeId().equals(favoritesIDsList.get(i))) {
                                     recipeList.add(recipe);
                                 }
                             }

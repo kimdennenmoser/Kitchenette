@@ -139,6 +139,8 @@ public class AccountOverviewFragment extends Fragment {
 
     //Wechsel zu Unverträglichkeiten
     public void switchToIntolerance() {
+        NewIntoleranceFragment.oldAllergies.clear();
+        NewIntoleranceFragment.upToDate = true;
         NewIntoleranceFragment intoleranceFragment = new NewIntoleranceFragment();
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();

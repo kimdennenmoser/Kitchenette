@@ -54,6 +54,7 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
     List<Recipe> recipeList = new ArrayList<>();
     List<String> enthalteneZutaten = new ArrayList<>();
     List<String> productListNameString = new ArrayList<>();
+    List<Food> selectedIngredients = new ArrayList<>();
 
     @Nullable
     @Override
@@ -158,27 +159,24 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
     @Override
     public void onStart() {
         super.onStart();
-        System.out.println("boolean displayed" + resultsDisplayed);
+        productAdapter = new ProductAdapter(getContext(), productList, this);
         if (resultsDisplayed = true) {
             recipeList.clear();
         }
-        productAdapter = new ProductAdapter(getView().getContext(), productList, this);
-        recyclerViewIngredient.setAdapter(productAdapter);
-
     }
 
-    @Override
-    public void onFoodClick(int position) {
-        //Toast.makeText(getView().getContext(), "Wurde geklickt!", Toast.LENGTH_LONG).show();
-    }
+        @Override
+        public void onFoodClick ( int position){
+            //Toast.makeText(getView().getContext(), "Wurde geklickt!", Toast.LENGTH_LONG).show();
+        }
 
 
-    public class FoodViewHolder extends RecyclerView.ViewHolder {
-        View mView;
+        public class FoodViewHolder extends RecyclerView.ViewHolder {
+            View mView;
 
-        public FoodViewHolder(@NonNull View itemView) {
-            super(itemView);
-            mView = itemView;
+            public FoodViewHolder(@NonNull View itemView) {
+                super(itemView);
+                mView = itemView;
+            }
         }
     }
-}

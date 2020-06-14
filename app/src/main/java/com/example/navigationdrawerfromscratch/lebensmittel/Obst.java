@@ -107,8 +107,6 @@ public class Obst extends Fragment implements ProductAdapter.OnNoteListener {
         }
         if (vonWoher == "Search"){
             RecipeGenerate.productList.add(food);
-            //RecipeGenerate.addIngredient = true;
-            //RecipeGenerate.foodName = food.getName();
 
             RecipeGenerate recipeGenerate = new RecipeGenerate();
             FragmentManager manager = getFragmentManager();
