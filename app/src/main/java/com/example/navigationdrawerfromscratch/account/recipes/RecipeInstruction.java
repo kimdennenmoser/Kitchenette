@@ -19,7 +19,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.navigationdrawerfromscratch.MainActivity;
 import com.example.navigationdrawerfromscratch.R;
+import com.example.navigationdrawerfromscratch.account.AccountFragment;
+import com.example.navigationdrawerfromscratch.account.User;
 import com.example.navigationdrawerfromscratch.adapters.IngredientsAdapter;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -42,9 +45,13 @@ public class RecipeInstruction extends Fragment {
     TextView preperationTime;
     RatingBar recipeRating;
     TextView instructions;
+    TextView amoutPortions;
     RecyclerView recyclerViewIngredients;
     DatabaseReference databaseRecipe;
     DatabaseReference databaseIngredients;
+    DatabaseReference databaseUser;
+
+    public static List<String> userFavorties = new ArrayList<>();
     public static String recipeString;
     IngredientsAdapter adapter;
     ImageButton buttonAddToFavorites;
@@ -66,8 +73,10 @@ public class RecipeInstruction extends Fragment {
         recyclerViewIngredients.setLayoutManager(new LinearLayoutManager(view.getContext()));
         databaseRecipe = FirebaseDatabase.getInstance().getReference("Rezepte").child(recipeString);
         databaseIngredients = FirebaseDatabase.getInstance().getReference("Rezepte").child(recipeString).child("ingredientsMap");
+        databaseUser = FirebaseDatabase.getInstance().getReference("User");
         System.out.println(databaseRecipe.getKey());
         buttonAddToFavorites = (ImageButton) view.findViewById(R.id.btnAddToFav);
+        amoutPortions = (TextView) view.findViewById(R.id.textViewAmountPortions);
 
 
         databaseRecipe.addValueEventListener(new ValueEventListener() {
@@ -80,17 +89,51 @@ public class RecipeInstruction extends Fragment {
                 preperationTime.setText(recipe.getPreparationTime());
                 recipeRating.setNumStars(recipe.getRecipeRating());
                 instructions.setText(recipe.getInstructions());
-                System.out.println(recipe.getInstructions());
-
-
+                amoutPortions.setText(recipe.getPortions());
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
 
+        buttonAddToFavorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                userFavorties.clear();
+                System.out.println("Angemeldet: " + MainActivity.isAngemeldet);
+                if (MainActivity.isAngemeldet == true) {
+                    databaseRecipe.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            final Recipe recipe = dataSnapshot.getValue(Recipe.class);
+                            databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
+                                    if (user.getFavorites() != null) {
+                                        userFavorties = user.getFavorites();
+                                    }
+                                    userFavorties.add(recipe.getRecipeId());
+                                    System.out.println("Rezepte ID" + recipe.getRecipeId().toString().trim());
+                                    user.setFavorites(userFavorties);
+                                    databaseUser.child(user.getUsername()).setValue(user);
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                }
+                            });
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
+                    });
+                } else {
+                    Toast.makeText(getContext(), "Bitte anmelden", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
 
         return view;
@@ -107,7 +150,6 @@ public class RecipeInstruction extends Fragment {
                 //ingredientsList.clear();
 
 
-
                 for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()) {
                     //Zutat zutat = recipeSnapshot.getValue(Zutat.class);
                     //Zutat zut = new Zutat(recipeSnapshot.getKey(),recipeSnapshot.getValue().toString());
@@ -119,7 +161,6 @@ public class RecipeInstruction extends Fragment {
                     //---------------------- bis hier hin passts -------------------------
 
                     ingredientsList.add(zutat);
-
 
 
                     recyclerViewIngredients.setAdapter(adapter);
@@ -143,7 +184,6 @@ public class RecipeInstruction extends Fragment {
         }
 
     }
-
 
 
 }

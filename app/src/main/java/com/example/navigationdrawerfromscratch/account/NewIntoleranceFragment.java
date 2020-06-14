@@ -1,4 +1,4 @@
-package com.example.navigationdrawerfromscratch.account.recipes;
+package com.example.navigationdrawerfromscratch.account;
 
 import androidx.fragment.app.Fragment;
 

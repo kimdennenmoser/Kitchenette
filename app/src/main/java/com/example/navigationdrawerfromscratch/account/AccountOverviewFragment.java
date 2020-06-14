@@ -14,7 +14,6 @@ import androidx.fragment.app.FragmentManager;
 
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.account.recipes.MyRecipesFragment;
-import com.example.navigationdrawerfromscratch.account.recipes.NewIntoleranceFragment;
 
 public class AccountOverviewFragment extends Fragment {
 

@@ -41,6 +41,7 @@ public class ChangePasswordPopUpFragment extends DialogFragment {
     DatabaseReference databaseUser;
 
     List<String> allergiesUserList = new ArrayList<>();
+    List<String> favoritesUserList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -71,8 +72,9 @@ public class ChangePasswordPopUpFragment extends DialogFragment {
                             String mail = user.getMail();
                             String pWord = editTextNewPassword.getText().toString().trim();
                             allergiesUserList = user.getAllergies();
+                            favoritesUserList = user.getFavorites();
                             ChangeUserDataFragment.editTextChangePassword.setText(pWord);
-                            User changedUser = new User (fName, lName, uName, pWord, mail, allergiesUserList);
+                            User changedUser = new User (fName, lName, uName, pWord, mail, allergiesUserList, favoritesUserList);
                             databaseUser.child(uName).setValue(changedUser);
 
 

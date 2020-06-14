@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -63,14 +64,14 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/txtInstruction" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewAmountPortions" />
 
             <ImageView
                 android:id="@+id/imgPrepTime"
                 android:layout_width="47dp"
                 android:layout_height="43dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginLeft="40dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/imgFood"
@@ -81,24 +82,25 @@
                 style="?android:attr/ratingBarStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="19dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="25dp"
                 android:isIndicator="true"
                 android:numStars="5"
                 android:progressBackgroundTint="#CC9C00"
                 android:stepSize="1"
-                app:layout_constraintStart_toEndOf="@+id/preperationTime"
+                app:layout_constraintStart_toEndOf="@+id/textViewPortions"
                 app:layout_constraintTop_toBottomOf="@+id/imgFood" />
 
             <TextView
                 android:id="@+id/preperationTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="15dp"
                 android:text="TextView"
+                android:textColor="@color/colorPrimaryDark"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/imgPrepTime"
@@ -112,17 +114,46 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/preperationTime" />
+                app:layout_constraintTop_toBottomOf="@+id/recyclerViewIngredients" />
 
             <TextView
                 android:id="@+id/txtEnde"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="145dp"
-                android:layout_marginLeft="145dp"
+                android:layout_marginStart="139dp"
+                android:layout_marginLeft="139dp"
                 android:layout_marginTop="20dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/recyclerViewIngredients" />
+                app:layout_constraintTop_toBottomOf="@+id/txtInstruction" />
+
+            <TextView
+                android:id="@+id/textViewAmountPortions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="15dp"
+                android:text="Anzahl"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/preperationTime"
+                app:layout_constraintTop_toBottomOf="@+id/imgFood" />
+
+            <TextView
+                android:id="@+id/textViewPortions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="15dp"
+                android:text="Portionen"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/textViewAmountPortions"
+                app:layout_constraintTop_toBottomOf="@+id/imgFood" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
