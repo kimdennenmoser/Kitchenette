@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.account.IntoleranceFragment;
+import com.example.navigationdrawerfromscratch.account.NewIntoleranceFragment;
 import com.example.navigationdrawerfromscratch.account.recipes.CreateRecipeFragment;
 import com.example.navigationdrawerfromscratch.account.NewIntoleranceFragment;
 import com.example.navigationdrawerfromscratch.account.recipes.RecipeGenerate;

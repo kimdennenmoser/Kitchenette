@@ -14,8 +14,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.account.IntoleranceFragment;
-import com.example.navigationdrawerfromscratch.account.recipes.CreateRecipeFragment;
 import com.example.navigationdrawerfromscratch.account.NewIntoleranceFragment;
+import com.example.navigationdrawerfromscratch.account.recipes.CreateRecipeFragment;
 import com.example.navigationdrawerfromscratch.account.recipes.RecipeGenerate;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.R;
@@ -91,8 +91,7 @@ public class Gemuese extends Fragment implements ProductAdapter.OnNoteListener {
         String foodCategory = gemueseList.get(position).getCategory();
         Food food = new Food(foodName, foodID, foodImage, foodCategory);
 
-        if (vonWoher == "Intolerance")
-        {
+        if (vonWoher == "Intolerance") {
             NewIntoleranceFragment.upToDate=false;
             NewIntoleranceFragment.oldAllergies.add(food);
 
@@ -110,7 +109,6 @@ public class Gemuese extends Fragment implements ProductAdapter.OnNoteListener {
         }
         if (vonWoher == "Search"){
             RecipeGenerate.productList.add(food);
-
 
             RecipeGenerate recipeGenerate = new RecipeGenerate();
             FragmentManager manager = getFragmentManager();

@@ -40,31 +40,30 @@ import java.util.List;
 
 public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteListener {
 
-    public RecyclerView recyclerViewIngredient;
-    public ProductAdapter productAdapter;
-    public static List<Food> productList = new ArrayList<>();
-
     Button btnAddIngredient;
     Button btnStartSearch;
+    RecyclerView recyclerViewIngredient;
+    private ProductAdapter productAdapter;
     DatabaseReference databaseFood;
     DatabaseReference databaseRecipes;
     List<Food> liste = new ArrayList<>();
-    boolean etwasFehlt = false;
-    public static boolean addIngredient = false;
-    public static String foodName = null;
-    List<Recipe> recipeList = new ArrayList<>();
 
+    public static List<Food> productList = new ArrayList<>();
+    public static String foodName = null;
+    public static boolean resultsDisplayed = false;
+    List<Recipe> recipeList = new ArrayList<>();
+    List<String> enthalteneZutaten = new ArrayList<>();
+    List<String> productListNameString = new ArrayList<>();
+    List<Food> selectedIngredients = new ArrayList<>();
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_search, container, false);
+        View view = inflater.inflate(R.layout.fragment_search, container, false);
 
         recyclerViewIngredient = (RecyclerView) view.findViewById(R.id.recyclerViewIngredient);
         recyclerViewIngredient.setHasFixedSize(true);
         recyclerViewIngredient.setLayoutManager(new LinearLayoutManager(view.getContext()));
-
-
 
 
         btnAddIngredient = (Button) view.findViewById(R.id.btnAddIngredient);
@@ -83,6 +82,8 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
                 Nuts.vonWoher = "Search";
                 Obst.vonWoher = "Search";
 
+                resultsDisplayed = false;
+
                 FoodCategory foodCategory = new FoodCategory();
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.fragment_container, foodCategory, foodCategory.getTag()).addToBackStack(null).commit();
@@ -92,104 +93,90 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
         btnStartSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                recipeSearch();
+                RecipeResultFragment.recipeList.clear();
 
-            }
-        });
+                databaseRecipes.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
+                        recipeList.clear();
 
-
-
-        return view;
-    }
-    @Override
-    public void onStart() {
-        super.onStart();
-        Context context = this.getContext();
-        productAdapter = new ProductAdapter(context, productList, this);
-
-
-        try{
-            Log.i("Produkte", productList.get(0).getName());
-        }catch(Exception e){
-            Log.i("Ex", "Liste ist leer");
-        }
-
-        try {
-            System.out.println(productAdapter.getItemCount());
-        }catch (Exception p){
-            Log.i("ExAdap", "Adapter übernimmt nicht");
-        }
+                        for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()) {
+                            recipeList.clear();
+                            enthalteneZutaten.clear();
+                            Recipe recipe = recipeSnapshot.getValue(Recipe.class);
+                            recipeList.add(recipe);
+                            List<String> zutaten = new ArrayList<>();
+                            System.out.println("RezepteListe 2: " + recipeList);
+                            for (int i = 0; i < recipeList.size(); i++) {
+                                zutaten.clear();
+                                HashMap<String, String> ingredientsHashMap = recipeList.get(i).getIngredientsMap();
+                                System.out.println("IngredientsMap 1: " + ingredientsHashMap.toString());
+                                for (String key : ingredientsHashMap.keySet()) {
+                                    zutaten.add(ingredientsHashMap.get(key));
+                                }
+                                System.out.println("Zutaten:" + zutaten.toString());
 
 
-        recyclerViewIngredient.setAdapter(productAdapter);
+                                for (int k = 0; k < productList.size(); k++) {
+                                    for (int j = 0; j < zutaten.size(); j++) {
+                                        if (zutaten.get(j).equals(productList.get(k).getName())) {
+                                            System.out.println("geklappt: " + productList.get(k).getName());
+                                            enthalteneZutaten.add(productList.get(k).getName());
+                                        }
+                                    }
+                                }
+                                productListNameString.clear();
+                                for (int z = 0; z < productList.size(); z++) {
+                                    productListNameString.add(productList.get(z).getName());
+                                }
+                                System.out.println("enthalten: " + enthalteneZutaten.toString());
+                                System.out.println("productlist " + productListNameString.toString());
+                                if (enthalteneZutaten.equals(productListNameString)) {
+                                    RecipeResultFragment.recipeList.add(recipe);
 
-    }
-
-    public void recipeSearch(){
-
-        System.out.println("RezepteListe 1: " + recipeList);
-
-        databaseRecipes.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                recipeList.clear();
-
-                for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()) {
-                    Recipe recipe = recipeSnapshot.getValue(Recipe.class);
-                    recipeList.add(recipe);
-                    System.out.println("RezepteListe 2: " + recipeList);
-                }
-                System.out.println("ProductList " + productList.toString());
-
-                for (int i = 0; i < recipeList.size(); i++) {
-                    HashMap<String, String> ingredientsHashMap = recipeList.get(i).getIngredientsMap();
-                    System.out.println("IngredientsMap 1: " + ingredientsHashMap.toString());
-                    for (String key : ingredientsHashMap.keySet()) {
-
-                        for (int j = 0; j < productList.size(); j++) {
-                            if (ingredientsHashMap.get(key).equals(productList.get(j).getName())) {
-                                System.out.println("ist drin!" + productList.get(j).getName());
-                            } else {
-                                etwasFehlt = true;
-                                System.out.println("ist nicht drin" + productList.get(j).getName());
+                                    RecipeResultFragment recipeResultFragment = new RecipeResultFragment();
+                                    FragmentManager manager = getFragmentManager();
+                                    manager.beginTransaction().replace(R.id.fragment_container, recipeResultFragment, recipeResultFragment.getTag()).addToBackStack(null).commit();
+                                    System.out.println("Final geklappt");
+                                    System.out.println("passendes Rezept:" + recipe.toString());
+                                }
                             }
                         }
                     }
-                }
-                if (etwasFehlt = true) {
-                    System.out.println("passt nicht");
-                } else if (etwasFehlt = false) {
-                    System.out.println("passt");
-                }
-            }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
 
             }
         });
-        System.out.println("RezepteListe 4: " + recipeList); //leer
 
+        return view;
     }
-
-
-
 
     @Override
-    public void onFoodClick(int position) {
-        Toast.makeText(getView().getContext(), "Wurde geklickt!", Toast.LENGTH_LONG).show();
-    }
-
-
-    public class FoodViewHolder extends RecyclerView.ViewHolder {
-        View mView;
-
-
-        public FoodViewHolder(@NonNull View itemView) {
-            super(itemView);
-            mView = itemView;
+    public void onStart() {
+        super.onStart();
+        productAdapter = new ProductAdapter(getContext(), productList, this);
+        if (resultsDisplayed = true) {
+            recipeList.clear();
         }
     }
-}
+
+        @Override
+        public void onFoodClick ( int position){
+            //Toast.makeText(getView().getContext(), "Wurde geklickt!", Toast.LENGTH_LONG).show();
+        }
+
+
+        public class FoodViewHolder extends RecyclerView.ViewHolder {
+            View mView;
+
+            public FoodViewHolder(@NonNull View itemView) {
+                super(itemView);
+                mView = itemView;
+            }
+        }
+    }

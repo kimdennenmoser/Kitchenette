@@ -60,9 +60,7 @@ public class NewIntoleranceFragment extends Fragment implements ProductAdapter.O
     public static boolean newObst = false;
     public static List<String> allergiesList = new ArrayList<>();
     public int i;
-    public static List<Food> newAllergies = new ArrayList<>();
     public static ArrayList<Food> oldAllergies = new ArrayList<>();
-    public boolean saved = false;
     public static boolean upToDate = true;
 
 
@@ -79,9 +77,6 @@ public class NewIntoleranceFragment extends Fragment implements ProductAdapter.O
         addIntolerance = (Button) view.findViewById(R.id.ButtonAddIntolerance);
         saveAllergies = (Button) view.findViewById(R.id.ButtonSaveAllergies);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
-
-
-
 
         //Wechsel zur Auswahl der "Zutaten"
         addIntolerance.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +117,6 @@ public class NewIntoleranceFragment extends Fragment implements ProductAdapter.O
         adapter = new ProductAdapter(context, oldAllergies, this);
 
         //wenn ein User angemeldet ist, prüfe, ob dieser Allergien/Unverträglichkeiten bereits abgespeichert hat und speichere sie in das RecyclerView
-
         if (upToDate == true) {
             databaseUser.addValueEventListener(new ValueEventListener() {
                 @Override
@@ -185,27 +179,7 @@ public class NewIntoleranceFragment extends Fragment implements ProductAdapter.O
             }
         });
     }
-
-    public void getFood(List<String> allergien) {
-        databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Food food = snapshot.getValue(Food.class);
-                    for (int i = 0; i < productList.size(); i++)
-                        if ((food.getName()).equals(productList.get(i).getName())) {
-                            productList.add(food);
-                        }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-    }
-
+    
     @Override
     public void onFoodClick(int position) {
         Toast.makeText(getView().getContext(), "Wurde geklickt!", Toast.LENGTH_LONG).show();
