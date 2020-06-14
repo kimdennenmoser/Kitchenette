@@ -25,7 +25,7 @@ import java.util.List;
 public class LogOutPopUpFragment extends DialogFragment {
 
     View view;
-    Button btnDeleteAccount;
+    Button btnLogOut;
     DatabaseReference databaseUser;
 
     List<String> allergiesUserList = new ArrayList<>();
@@ -35,12 +35,12 @@ public class LogOutPopUpFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
-        view = inflater.inflate(R.layout.fragment_delete_account_popup, container, false);
+        view = inflater.inflate(R.layout.fragment_log_out_popup, container, false);
 
         databaseUser = FirebaseDatabase.getInstance().getReference("User").child(AccountFragment.usernameString);
-        btnDeleteAccount = (Button) view.findViewById(R.id.buttonDeleteAccount);
+        btnLogOut = (Button) view.findViewById(R.id.buttonLogOutAccount);
 
-        btnDeleteAccount.setOnClickListener(new View.OnClickListener() {
+        btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getContext(), "User erfolgreich abgemeldet", Toast.LENGTH_LONG).show();
