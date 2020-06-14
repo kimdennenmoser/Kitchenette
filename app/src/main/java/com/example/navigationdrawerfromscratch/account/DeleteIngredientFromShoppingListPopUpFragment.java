@@ -31,9 +31,6 @@ public class DeleteIngredientFromShoppingListPopUpFragment extends DialogFragmen
     Button btnDeleteIngredientAbbruch;
     DatabaseReference databaseFood;
     public static String foodName = null;
-    public static List<String> ingredientsToDelete = new ArrayList<>();
-    public static List<String> foodListFromShoppingList = new ArrayList<>();
-    public static List<Food> foodList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -44,47 +41,30 @@ public class DeleteIngredientFromShoppingListPopUpFragment extends DialogFragmen
 
         btnDeleteIngredient = (Button) view.findViewById(R.id.buttonDeleteIngredient);
         btnDeleteIngredientAbbruch = (Button) view.findViewById(R.id.buttonDeleteIngredientAbbruch);
-        databaseFood = FirebaseDatabase.getInstance().getReference("Lebensmittel");
-        foodList = ShoppingListFragment.foodList;
+        databaseFood = FirebaseDatabase.getInstance().getReference("Lebensmittel").child(foodName);
 
 
         btnDeleteIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                for (int i = 0; i < ShoppingListFragment.foodList.size(); i++) {
-                    ingredientsToDelete.add(ShoppingListFragment.foodList.get(i).getName());
-                }
-                System.out.println("to delete " + ingredientsToDelete.toString());
-                for (int k = 0; k < ShoppingListFragment.foodList.size(); k++) {
-                    foodListFromShoppingList.add(ShoppingListFragment.foodList.get(k).getName());
-                }
-                System.out.println("foodList 1" + foodListFromShoppingList.toString());
-
-                foodListFromShoppingList.remove(foodName);
-                System.out.println("foodList 2" + foodListFromShoppingList.toString());
-
                 databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()){
-                            for (int o = 0; o < foodListFromShoppingList.size(); o++){
-                                Food food = dataSnapshot.child(foodListFromShoppingList.get(o)).getValue(Food.class);
-                                foodList.add(food);
-                            }
-                        }
-                    }
+                        for (DataSnapshot foodSnapshot : dataSnapshot.getChildren()){
+                            //foodSnapshot.getRef().removeValue();
+                            /*Food food = dataSnapshot.getValue(Food.class);
+                            ShoppingListFragment.foodList.remove(food);
 
+                             */
+                        }
+
+                    }
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
-
                     }
                 });
-
-                 ShoppingListFragment.foodList = foodList;
             }
-
-
         });
 
         btnDeleteIngredientAbbruch.setOnClickListener(new View.OnClickListener() {

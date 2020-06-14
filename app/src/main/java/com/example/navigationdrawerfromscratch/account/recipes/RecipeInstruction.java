@@ -190,6 +190,7 @@ public class RecipeInstruction extends Fragment {
                 }
             }
             System.out.println("ingredietns "+ ingredients.toString());
+            ShoppingListFragment.foodNames.clear();
             for (int z = 0; z < ingredients.size(); z++){
                 ShoppingListFragment.foodNames.add(ingredients.get(z));
             }
@@ -203,6 +204,7 @@ public class RecipeInstruction extends Fragment {
                 ingredients.add(ingredientsList.get(z).getName());
             }
             System.out.println("ingredients: " + ingredients);
+            ShoppingListFragment.foodNames.clear();
             for (int i = 0; i < ingredients.size(); i++) {
                 ShoppingListFragment.foodNames.add(ingredients.get(i));
             }
