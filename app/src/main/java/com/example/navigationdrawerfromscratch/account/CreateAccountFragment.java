@@ -38,6 +38,7 @@ public class CreateAccountFragment extends Fragment {
     User user;
     List<String> allergies = new ArrayList<>();
     List<String> favoritesUserList = new ArrayList<>();
+    List<String> shoppingList = new ArrayList<>();
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
@@ -82,7 +83,7 @@ public class CreateAccountFragment extends Fragment {
             String mail = editTextMail.getText().toString().trim();
 
             final Context context = this.getActivity();
-            final User user = new User(firstName, lastName, username, password, mail, allergies, favoritesUserList);
+            final User user = new User(firstName, lastName, username, password, mail, allergies, favoritesUserList, shoppingList);
 
             databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

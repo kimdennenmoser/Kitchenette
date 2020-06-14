@@ -1,5 +1,7 @@
 package com.example.navigationdrawerfromscratch.account;
 
+import com.example.navigationdrawerfromscratch.lebensmittel.Food;
+
 import java.util.List;
 
 public class User {
@@ -10,8 +12,9 @@ public class User {
     private String mail;
     private List<String> allergies;
     private List<String> favorites;
+    private List<String> shoppingList;
 
-    public User (String firstname, String lastname, String username, String password, String mail, List<String> allergies, List<String> favorites) {
+    public User (String firstname, String lastname, String username, String password, String mail, List<String> allergies, List<String> favorites, List<String> shoppingList) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
@@ -19,6 +22,7 @@ public class User {
         this.mail = mail;
         this.allergies = allergies;
         this.favorites = favorites;
+        this.shoppingList = shoppingList;
     }
 
     public User() {
@@ -33,6 +37,8 @@ public class User {
                 ", password='" + password + '\'' +
                 ", mail='" + mail + '\'' +
                 ", allergies=" + allergies +
+                ", favorites=" + favorites +
+                ", shoppingList=" + shoppingList +
                 '}';
     }
 
@@ -90,5 +96,13 @@ public class User {
 
     public void setFavorites(List<String> favorites) {
         this.favorites = favorites;
+    }
+
+    public List<String> getShoppingList() {
+        return shoppingList;
+    }
+
+    public void setShoppingList(List<String> shoppingList) {
+        this.shoppingList = shoppingList;
     }
 }

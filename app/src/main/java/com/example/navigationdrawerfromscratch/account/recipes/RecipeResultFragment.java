@@ -1,11 +1,9 @@
 package com.example.navigationdrawerfromscratch.account.recipes;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,13 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.R;
-import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.adapters.RecipeAdapter;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +57,7 @@ public class RecipeResultFragment extends Fragment implements RecipeAdapter.OnRe
     @Override
     public void onRecipeClick(int position) {
         String id = recipeList.get(position).getRecipeId();
-        RecipeInstruction.vonWoher = "Search";
+        RecipeInstruction.shoppingList = "selective";
         RecipeInstruction recipeInstruction = new RecipeInstruction();
         FragmentManager recipeManager = getFragmentManager();
         recipeManager.beginTransaction().replace(R.id.fragment_container, recipeInstruction, recipeInstruction.getTag()).addToBackStack(null).commit();
