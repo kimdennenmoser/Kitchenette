@@ -1,7 +1,6 @@
 package com.example.navigationdrawerfromscratch;
 
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.navigationdrawerfromscratch.account.AccountFragment;
-import com.example.navigationdrawerfromscratch.account.User;
-import com.example.navigationdrawerfromscratch.account.recipes.Recipe;
+import com.example.navigationdrawerfromscratch.account.DeleteIngredientFromShoppingListPopUpFragment;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
-import com.example.navigationdrawerfromscratch.adapters.RecipeAdapter;
 import com.example.navigationdrawerfromscratch.lebensmittel.Food;
-import com.google.firebase.FirebaseApiNotAvailableException;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,11 +28,12 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
 
     View view;
 
-    RecyclerView recyclerView;
+    public static RecyclerView recyclerView;
     public static List<String> foodNames = new ArrayList<>();
     Button buttonClearList;
-    List<Food> foodList = new ArrayList<>();
-    ProductAdapter adapter;
+    public static List<Food> foodList = new ArrayList<>();
+    public static ProductAdapter adapter;
+    public static boolean cleanList = false;
     DatabaseReference databaseFood;
 
     @Nullable
@@ -57,6 +53,7 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
             @Override
             public void onClick(View v) {
                 foodList.clear();
+                foodNames.clear();
                 recyclerView.setAdapter(adapter);
             }
         });
@@ -68,6 +65,7 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
     public void onStart() {
         super.onStart();
         adapter = new ProductAdapter(getView().getContext(), foodList, this);
+
         databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -88,9 +86,16 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
         });
     }
 
+    public static void removeFood(Food food){
+        foodList.remove(food);
+        recyclerView.setAdapter(adapter);
+    }
+
     @Override
     public void onFoodClick(int position) {
         //Popup: Frage, ob Zutat entfernen
-
+        DeleteIngredientFromShoppingListPopUpFragment deleteIngredientPopUpFragment = new DeleteIngredientFromShoppingListPopUpFragment();
+        deleteIngredientPopUpFragment.show(getActivity().getSupportFragmentManager(), "DeleteIngredientPopUpFragment");
+        DeleteIngredientFromShoppingListPopUpFragment.foodName = foodList.get(position).getName();
     }
 }

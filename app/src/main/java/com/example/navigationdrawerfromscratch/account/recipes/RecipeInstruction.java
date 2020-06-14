@@ -1,9 +1,7 @@
 package com.example.navigationdrawerfromscratch.account.recipes;
 
 import android.content.Context;
-import android.net.http.SslCertificate;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,10 +23,8 @@ import com.example.navigationdrawerfromscratch.MainActivity;
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.ShoppingListFragment;
 import com.example.navigationdrawerfromscratch.account.AccountFragment;
-import com.example.navigationdrawerfromscratch.account.CreateAccountFragment;
 import com.example.navigationdrawerfromscratch.account.User;
 import com.example.navigationdrawerfromscratch.adapters.IngredientsAdapter;
-import com.example.navigationdrawerfromscratch.lebensmittel.Food;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -37,7 +33,6 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class RecipeInstruction extends Fragment {
@@ -60,7 +55,7 @@ public class RecipeInstruction extends Fragment {
     public static List<String> userFavorties = new ArrayList<>();
     public static List<String> ingredients = new ArrayList<>();
     public static List<String> enthalteneZutaten = new ArrayList<>();
-    public static String vonWoher = null;
+    public static String shoppingList = null;
     public static String recipeString;
     IngredientsAdapter adapter;
     ImageButton buttonAddToFavorites;
@@ -162,7 +157,6 @@ public class RecipeInstruction extends Fragment {
                                 userFavorties = user.getFavorites();
                             }
                             userFavorties.add(recipe.getRecipeId());
-                            System.out.println("Rezepte ID" + recipe.getRecipeId().toString().trim());
                             user.setFavorites(userFavorties);
                             databaseUser.child(user.getUsername()).setValue(user);
                         }
@@ -183,29 +177,27 @@ public class RecipeInstruction extends Fragment {
     }
 
     private void addToShoppingList() {
-        if (vonWoher == "Search") {
+        if (shoppingList == "selective") {
             ingredients.clear();
             for (int z = 0; z < ingredientsList.size(); z++) {
                 ingredients.add(ingredientsList.get(z).getName());
             }
-            System.out.println("ingredients: " + ingredients);
-
+            System.out.println("ingredietns "+ ingredients.toString());
             for (int i = 0; i < enthalteneZutaten.size(); i++) {
                 String string = enthalteneZutaten.get(i);
                 if ((ingredients.contains(string))){
                     ingredients.remove(string);
                 }
             }
+            System.out.println("ingredietns "+ ingredients.toString());
             for (int z = 0; z < ingredients.size(); z++){
                 ShoppingListFragment.foodNames.add(ingredients.get(z));
             }
-
             ShoppingListFragment shoppingListFragment = new ShoppingListFragment();
             FragmentManager manager = getFragmentManager();
             manager.beginTransaction().replace(R.id.fragment_container, shoppingListFragment, shoppingListFragment.getTag()).addToBackStack(null).commit();
-
         }
-        if (vonWoher == "Browse") {
+        if (shoppingList == "all") {
             ingredients.clear();
             for (int z = 0; z < ingredientsList.size(); z++) {
                 ingredients.add(ingredientsList.get(z).getName());
@@ -217,9 +209,7 @@ public class RecipeInstruction extends Fragment {
             ShoppingListFragment shoppingListFragment = new ShoppingListFragment();
             FragmentManager manager = getFragmentManager();
             manager.beginTransaction().replace(R.id.fragment_container, shoppingListFragment, shoppingListFragment.getTag()).addToBackStack(null).commit();
-
         }
-
     }
 
     public class IngredientsViewHolder extends RecyclerView.ViewHolder {

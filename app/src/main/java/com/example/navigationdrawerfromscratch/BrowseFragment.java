@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -92,15 +91,11 @@ public class BrowseFragment extends Fragment implements RecipeAdapter.OnRecipeLi
 
     @Override
     public void onRecipeClick(int position) {
-        //Toast.makeText(getView().getContext(), position+" Wurde geklickt!", Toast.LENGTH_LONG).show();
-        String id = recipeList.get(position).getRecipeId();
-        RecipeInstruction.vonWoher = "Browse";
+        RecipeInstruction.shoppingList = "all";
         RecipeInstruction recipeInstruction = new RecipeInstruction();
         FragmentManager recipeManager = getFragmentManager();
         recipeManager.beginTransaction().replace(R.id.fragment_container, recipeInstruction, recipeInstruction.getTag()).addToBackStack(null).commit();
         RecipeInstruction.recipeString=recipeList.get(position).getRecipeId();
-
-        System.out.println(id);
 
     }
 
@@ -116,34 +111,5 @@ public class BrowseFragment extends Fragment implements RecipeAdapter.OnRecipeLi
         }
 
     }
-
-  /*  private void insertFakeRecipeS() {
-        for (int i = 0; i < 1000; i++) {
-            Recipe recipe = new Recipe();
-            recipe.setRecipeId("nbvghjmnbvgc24rtgvc #" + i);
-            recipe.setRecipeName("Brot");
-            recipe.setCategory("Vorspeise");
-            recipe.setPreparationTime("140");
-            recipe.setIngredientsList(" ");
-            recipe.setRecipeImage("");
-            recipeArrayList.add(recipe);
-
-        }
-    }
-
-    private void initRecyclerView() {
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this.getContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recipeAdapter = new RecipeAdapter(this.getContext(), recipeArrayList, this);
-        recyclerView.setAdapter(recipeAdapter);
-    }
-
-    @Override
-    public void onRecipeClick(int position) {
-        //Switch to new Fragment/Activity
-        Toast.makeText(getView().getContext(), "Wurde geklickt!", Toast.LENGTH_LONG).show();
-    }
-
-   */
 
 }
