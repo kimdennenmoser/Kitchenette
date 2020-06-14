@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 break;
             case R.id.nav_start:
+                RecipeGenerate.productList.clear();
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new RecipeGenerate()).commit();
                 break;
             case R.id.nav_recipes:

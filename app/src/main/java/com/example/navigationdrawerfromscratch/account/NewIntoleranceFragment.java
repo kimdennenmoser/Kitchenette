@@ -19,9 +19,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.navigationdrawerfromscratch.MainActivity;
-import com.example.navigationdrawerfromscratch.account.AccountFragment;
-import com.example.navigationdrawerfromscratch.account.User;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.lebensmittel.Food;
@@ -113,6 +110,7 @@ public class NewIntoleranceFragment extends Fragment implements ProductAdapter.O
         super.onStart();
         Context context = this.getContext();
         adapter = new ProductAdapter(context, oldAllergies, this);
+
 
         //wenn ein User angemeldet ist, prüfe, ob dieser Allergien/Unverträglichkeiten bereits abgespeichert hat und speichere sie in das RecyclerView
         if (upToDate == true) {

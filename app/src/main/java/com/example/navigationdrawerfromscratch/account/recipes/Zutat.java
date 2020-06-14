@@ -10,6 +10,13 @@ public class Zutat {
         this.name = name;
     }
 
+    @Override
+    public String toString() {
+        return "Zutat{" +
+                "amount='" + amount + '\'' +
+                ", name='" + name + '\'' +
+                '}';
+    }
 
     public String getAmount() {
         return amount;

@@ -44,17 +44,15 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
     Button btnStartSearch;
     RecyclerView recyclerViewIngredient;
     private ProductAdapter productAdapter;
-    DatabaseReference databaseFood;
     DatabaseReference databaseRecipes;
     List<Food> liste = new ArrayList<>();
 
     public static List<Food> productList = new ArrayList<>();
     public static String foodName = null;
     public static boolean resultsDisplayed = false;
-    List<Recipe> recipeList = new ArrayList<>();
-    List<String> enthalteneZutaten = new ArrayList<>();
-    List<String> productListNameString = new ArrayList<>();
-    List<Food> selectedIngredients = new ArrayList<>();
+    public static List<Recipe> recipeList = new ArrayList<>();
+    public static List<String> enthalteneZutaten = new ArrayList<>();
+    public static List<String> productListNameString = new ArrayList<>();
 
     @Nullable
     @Override
@@ -68,7 +66,7 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
 
         btnAddIngredient = (Button) view.findViewById(R.id.btnAddIngredient);
         btnStartSearch = (Button) view.findViewById(R.id.btnStartSearch);
-        databaseFood = FirebaseDatabase.getInstance().getReference("Lebensmittel");
+
         databaseRecipes = FirebaseDatabase.getInstance().getReference("Rezepte");
 
 
@@ -93,76 +91,71 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
         btnStartSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RecipeResultFragment.recipeList.clear();
-
-                databaseRecipes.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                        recipeList.clear();
-
-                        for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()) {
-                            recipeList.clear();
-                            enthalteneZutaten.clear();
-                            Recipe recipe = recipeSnapshot.getValue(Recipe.class);
-                            recipeList.add(recipe);
-                            List<String> zutaten = new ArrayList<>();
-                            System.out.println("RezepteListe 2: " + recipeList);
-                            for (int i = 0; i < recipeList.size(); i++) {
-                                zutaten.clear();
-                                HashMap<String, String> ingredientsHashMap = recipeList.get(i).getIngredientsMap();
-                                System.out.println("IngredientsMap 1: " + ingredientsHashMap.toString());
-                                for (String key : ingredientsHashMap.keySet()) {
-                                    zutaten.add(ingredientsHashMap.get(key));
-                                }
-                                System.out.println("Zutaten:" + zutaten.toString());
-
-
-                                for (int k = 0; k < productList.size(); k++) {
-                                    for (int j = 0; j < zutaten.size(); j++) {
-                                        if (zutaten.get(j).equals(productList.get(k).getName())) {
-                                            System.out.println("geklappt: " + productList.get(k).getName());
-                                            enthalteneZutaten.add(productList.get(k).getName());
-                                        }
-                                    }
-                                }
-                                productListNameString.clear();
-                                for (int z = 0; z < productList.size(); z++) {
-                                    productListNameString.add(productList.get(z).getName());
-                                }
-                                System.out.println("enthalten: " + enthalteneZutaten.toString());
-                                System.out.println("productlist " + productListNameString.toString());
-                                if (enthalteneZutaten.equals(productListNameString)) {
-                                    RecipeResultFragment.recipeList.add(recipe);
-
-                                    RecipeResultFragment recipeResultFragment = new RecipeResultFragment();
-                                    FragmentManager manager = getFragmentManager();
-                                    manager.beginTransaction().replace(R.id.fragment_container, recipeResultFragment, recipeResultFragment.getTag()).addToBackStack(null).commit();
-                                    System.out.println("Final geklappt");
-                                    System.out.println("passendes Rezept:" + recipe.toString());
-                                }
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                    }
-                });
-
+                startSearch();
             }
         });
 
         return view;
     }
 
+
     @Override
     public void onStart() {
         super.onStart();
-        productAdapter = new ProductAdapter(getContext(), productList, this);
+        Context context = this.getContext();
+        productAdapter = new ProductAdapter(context, productList, this);
         if (resultsDisplayed = true) {
             recipeList.clear();
         }
+        recyclerViewIngredient.setAdapter(productAdapter);
+    }
+
+    private void startSearch() {
+        RecipeResultFragment.recipeList.clear();
+
+        databaseRecipes.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                recipeList.clear();
+                for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()) {
+                    recipeList.clear();
+                    enthalteneZutaten.clear();
+                    Recipe recipe = recipeSnapshot.getValue(Recipe.class);
+                    recipeList.add(recipe);
+                    List<String> zutaten = new ArrayList<>();
+                    for (int i = 0; i < recipeList.size(); i++) {
+                        zutaten.clear();
+                        HashMap<String, String> ingredientsHashMap = recipeList.get(i).getIngredientsMap();
+                        for (String key : ingredientsHashMap.keySet()) {
+                            zutaten.add(ingredientsHashMap.get(key));
+                        }
+                        for (int k = 0; k < productList.size(); k++) {
+                            for (int j = 0; j < zutaten.size(); j++) {
+                                if (zutaten.get(j).equals(productList.get(k).getName())) {
+                                    enthalteneZutaten.add(productList.get(k).getName());
+                                }
+                            }
+                        }
+                        productListNameString.clear();
+                        for (int z = 0; z < productList.size(); z++) {
+                            productListNameString.add(productList.get(z).getName());
+                        }
+                        System.out.println("enthalten list" + enthalteneZutaten.toString());
+                        if (enthalteneZutaten.equals(productListNameString)) {
+                            RecipeResultFragment.recipeList.add(recipe);
+
+                            RecipeResultFragment recipeResultFragment = new RecipeResultFragment();
+                            FragmentManager manager = getFragmentManager();
+                            manager.beginTransaction().replace(R.id.fragment_container, recipeResultFragment, recipeResultFragment.getTag()).addToBackStack(null).commit();
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+            }
+        });
     }
 
     @Override
