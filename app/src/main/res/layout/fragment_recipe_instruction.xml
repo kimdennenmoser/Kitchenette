@@ -31,12 +31,12 @@
             <TextView
                 android:id="@+id/recipeName"
                 android:layout_width="wrap_content"
-                android:layout_height="35dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:fontFamily="cursive"
-                android:textSize="30sp"
+                android:textSize="34sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -45,9 +45,9 @@
                 android:id="@+id/btnAddToFav"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="5dp"
+                android:layout_marginRight="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/btn_star" />
@@ -58,13 +58,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="1dp"
                 android:layout_marginLeft="1dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 android:layout_marginEnd="1dp"
                 android:layout_marginRight="1dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textViewAmountPortions" />
+                app:layout_constraintTop_toBottomOf="@+id/buttonAddToShoppingList" />
 
             <ImageView
                 android:id="@+id/imgPrepTime"
@@ -84,7 +84,7 @@
                 android:layout_height="19dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="22dp"
                 android:isIndicator="true"
                 android:numStars="5"
                 android:progressBackgroundTint="#CC9C00"
@@ -101,7 +101,7 @@
                 android:layout_marginTop="15dp"
                 android:text="TextView"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/imgPrepTime"
                 app:layout_constraintTop_toBottomOf="@+id/imgFood" />
@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="40dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="15dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/recyclerViewIngredients" />
 
@@ -135,7 +135,7 @@
                 android:layout_marginTop="15dp"
                 android:text="Anzahl"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/preperationTime"
                 app:layout_constraintTop_toBottomOf="@+id/imgFood" />
@@ -149,10 +149,23 @@
                 android:layout_marginTop="15dp"
                 android:text="Portionen"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="24sp"
+                android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/textViewAmountPortions"
                 app:layout_constraintTop_toBottomOf="@+id/imgFood" />
+
+            <Button
+                android:id="@+id/buttonAddToShoppingList"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="65dp"
+                android:layout_marginLeft="65dp"
+                android:layout_marginTop="10dp"
+                android:text="zu Einkaufsliste hinzufügen"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/preperationTime" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

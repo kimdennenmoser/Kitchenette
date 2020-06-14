@@ -15,8 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import com.example.navigationdrawerfromscratch.R;
-import com.example.navigationdrawerfromscratch.Test;
-import com.example.navigationdrawerfromscratch.lebensmittel.FoodCategory;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;

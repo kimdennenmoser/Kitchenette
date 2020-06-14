@@ -8,10 +8,10 @@
 
     <Button
         android:id="@+id/buttonDeleteAccount"
-        android:layout_width="wrap_content"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginLeft="35dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
         android:text="Ja"
         android:textColor="@color/colorPrimaryDark"
@@ -25,7 +25,19 @@
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:text="Konto wirklich löschen?"
+        android:text="Konto wirklich löschen?   "
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/buttonDeleteAccountAbbruch"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:text="Nein"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintStart_toEndOf="@+id/buttonDeleteAccount"
+        app:layout_constraintTop_toBottomOf="@+id/textViewWantDelete" />
 </androidx.constraintlayout.widget.ConstraintLayout>

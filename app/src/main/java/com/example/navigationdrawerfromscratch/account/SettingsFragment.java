@@ -47,9 +47,8 @@ public class SettingsFragment extends Fragment {
         switchToDeleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DeleteAccountPopUpFragment deleteAccountPopUpFragment = new DeleteAccountPopUpFragment();
-                deleteAccountPopUpFragment.show(getActivity().getSupportFragmentManager(), "DeleteAccountPopUpFragment");
-
+                    DeleteAccountPopUpFragment deleteAccountPopUpFragment = new DeleteAccountPopUpFragment();
+                    deleteAccountPopUpFragment.show(getActivity().getSupportFragmentManager(), "DeleteAccountPopUpFragment");
             }
         });
 

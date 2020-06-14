@@ -7,15 +7,27 @@
     android:background="#CCECE3">
 
     <Button
-        android:id="@+id/buttonDeleteAccount"
-        android:layout_width="wrap_content"
+        android:id="@+id/buttonLogOutAccount"
+        android:layout_width="60dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="35dp"
-        android:layout_marginLeft="35dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:text="Ja"
         android:textColor="@color/colorPrimaryDark"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewWantLogout" />
+
+    <Button
+        android:id="@+id/buttonLogOutAccountAbbruch"
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:text="Nein"
+        android:textColor="@color/colorPrimaryDark"
+        app:layout_constraintStart_toEndOf="@+id/buttonLogOutAccount"
         app:layout_constraintTop_toBottomOf="@+id/textViewWantLogout" />
 
     <TextView
@@ -25,7 +37,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:text="Wirklich abmelden?"
+        android:text="Wirklich abmelden?    "
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

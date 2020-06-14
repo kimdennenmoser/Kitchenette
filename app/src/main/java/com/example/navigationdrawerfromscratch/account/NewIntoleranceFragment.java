@@ -19,9 +19,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.navigationdrawerfromscratch.MainActivity;
-import com.example.navigationdrawerfromscratch.account.AccountFragment;
-import com.example.navigationdrawerfromscratch.account.User;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.lebensmittel.Food;
@@ -40,8 +37,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 
 public class NewIntoleranceFragment extends Fragment implements ProductAdapter.OnNoteListener {
 
@@ -116,6 +111,7 @@ public class NewIntoleranceFragment extends Fragment implements ProductAdapter.O
         Context context = this.getContext();
         adapter = new ProductAdapter(context, oldAllergies, this);
 
+
         //wenn ein User angemeldet ist, prüfe, ob dieser Allergien/Unverträglichkeiten bereits abgespeichert hat und speichere sie in das RecyclerView
         if (upToDate == true) {
             databaseUser.addValueEventListener(new ValueEventListener() {
@@ -179,7 +175,7 @@ public class NewIntoleranceFragment extends Fragment implements ProductAdapter.O
             }
         });
     }
-    
+
     @Override
     public void onFoodClick(int position) {
         Toast.makeText(getView().getContext(), "Wurde geklickt!", Toast.LENGTH_LONG).show();

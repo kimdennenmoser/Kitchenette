@@ -1,6 +1,7 @@
 package com.example.navigationdrawerfromscratch.account.recipes;
 
 import android.content.Context;
+import android.net.http.SslCertificate;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -16,14 +17,18 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.MainActivity;
 import com.example.navigationdrawerfromscratch.R;
+import com.example.navigationdrawerfromscratch.ShoppingListFragment;
 import com.example.navigationdrawerfromscratch.account.AccountFragment;
+import com.example.navigationdrawerfromscratch.account.CreateAccountFragment;
 import com.example.navigationdrawerfromscratch.account.User;
 import com.example.navigationdrawerfromscratch.adapters.IngredientsAdapter;
+import com.example.navigationdrawerfromscratch.lebensmittel.Food;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -39,7 +44,7 @@ public class RecipeInstruction extends Fragment {
 
     View view;
 
-    List<Zutat> ingredientsList;
+    List<Zutat> ingredientsList = new ArrayList<>();
     TextView recipeName;
     ImageView recipeImage;
     TextView preperationTime;
@@ -50,8 +55,12 @@ public class RecipeInstruction extends Fragment {
     DatabaseReference databaseRecipe;
     DatabaseReference databaseIngredients;
     DatabaseReference databaseUser;
+    Button btnAddToShoppingList;
 
     public static List<String> userFavorties = new ArrayList<>();
+    public static List<String> ingredients = new ArrayList<>();
+    public static List<String> enthalteneZutaten = new ArrayList<>();
+    public static String vonWoher = null;
     public static String recipeString;
     IngredientsAdapter adapter;
     ImageButton buttonAddToFavorites;
@@ -62,7 +71,6 @@ public class RecipeInstruction extends Fragment {
 
         view = inflater.inflate(R.layout.fragment_recipe_instruction, container, false);
 
-        ingredientsList = new ArrayList<>();
         recipeName = (TextView) view.findViewById(R.id.recipeName);
         recipeImage = (ImageView) view.findViewById(R.id.imgFood);
         preperationTime = (TextView) view.findViewById(R.id.preperationTime);
@@ -77,6 +85,8 @@ public class RecipeInstruction extends Fragment {
         System.out.println(databaseRecipe.getKey());
         buttonAddToFavorites = (ImageButton) view.findViewById(R.id.btnAddToFav);
         amoutPortions = (TextView) view.findViewById(R.id.textViewAmountPortions);
+        btnAddToShoppingList = (Button) view.findViewById(R.id.buttonAddToShoppingList);
+        enthalteneZutaten = RecipeGenerate.enthalteneZutaten;
 
 
         databaseRecipe.addValueEventListener(new ValueEventListener() {
@@ -100,42 +110,17 @@ public class RecipeInstruction extends Fragment {
         buttonAddToFavorites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userFavorties.clear();
-                System.out.println("Angemeldet: " + MainActivity.isAngemeldet);
-                if (MainActivity.isAngemeldet == true) {
-                    databaseRecipe.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            final Recipe recipe = dataSnapshot.getValue(Recipe.class);
-                            databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
-                                    if (user.getFavorites() != null) {
-                                        userFavorties = user.getFavorites();
-                                    }
-                                    userFavorties.add(recipe.getRecipeId());
-                                    System.out.println("Rezepte ID" + recipe.getRecipeId().toString().trim());
-                                    user.setFavorites(userFavorties);
-                                    databaseUser.child(user.getUsername()).setValue(user);
-                                }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-                                }
-                            });
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                        }
-                    });
-                } else {
-                    Toast.makeText(getContext(), "Bitte anmelden", Toast.LENGTH_LONG).show();
-                }
+                addToFavorites();
             }
         });
 
 
+        btnAddToShoppingList.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addToShoppingList();
+            }
+        });
         return view;
     }
 
@@ -147,21 +132,10 @@ public class RecipeInstruction extends Fragment {
         databaseIngredients.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                //ingredientsList.clear();
-
 
                 for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()) {
-                    //Zutat zutat = recipeSnapshot.getValue(Zutat.class);
-                    //Zutat zut = new Zutat(recipeSnapshot.getKey(),recipeSnapshot.getValue().toString());
                     Zutat zutat = new Zutat(recipeSnapshot.getKey(), recipeSnapshot.getValue().toString());
-                    //Log.i("key", recipeSnapshot.getKey());
-                    //Log.i("zutat", recipeSnapshot.getValue().toString());
-                    //Log.i("Zutaten", zutat.getAmount()+ "  "+ zutat.getName());
-
-                    //---------------------- bis hier hin passts -------------------------
-
                     ingredientsList.add(zutat);
-
 
                     recyclerViewIngredients.setAdapter(adapter);
                 }
@@ -169,9 +143,83 @@ public class RecipeInstruction extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
+    }
+
+    private void addToFavorites() {
+        userFavorties.clear();
+        if (MainActivity.isAngemeldet == true) {
+            databaseRecipe.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    final Recipe recipe = dataSnapshot.getValue(Recipe.class);
+                    databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
+                            if (user.getFavorites() != null) {
+                                userFavorties = user.getFavorites();
+                            }
+                            userFavorties.add(recipe.getRecipeId());
+                            System.out.println("Rezepte ID" + recipe.getRecipeId().toString().trim());
+                            user.setFavorites(userFavorties);
+                            databaseUser.child(user.getUsername()).setValue(user);
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
+                    });
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        } else {
+            Toast.makeText(getContext(), "Bitte anmelden", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void addToShoppingList() {
+        if (vonWoher == "Search") {
+            ingredients.clear();
+            for (int z = 0; z < ingredientsList.size(); z++) {
+                ingredients.add(ingredientsList.get(z).getName());
+            }
+            System.out.println("ingredients: " + ingredients);
+
+            for (int i = 0; i < enthalteneZutaten.size(); i++) {
+                String string = enthalteneZutaten.get(i);
+                if ((ingredients.contains(string))){
+                    ingredients.remove(string);
+                }
+            }
+            for (int z = 0; z < ingredients.size(); z++){
+                ShoppingListFragment.foodNames.add(ingredients.get(z));
+            }
+
+            ShoppingListFragment shoppingListFragment = new ShoppingListFragment();
+            FragmentManager manager = getFragmentManager();
+            manager.beginTransaction().replace(R.id.fragment_container, shoppingListFragment, shoppingListFragment.getTag()).addToBackStack(null).commit();
+
+        }
+        if (vonWoher == "Browse") {
+            ingredients.clear();
+            for (int z = 0; z < ingredientsList.size(); z++) {
+                ingredients.add(ingredientsList.get(z).getName());
+            }
+            System.out.println("ingredients: " + ingredients);
+            for (int i = 0; i < ingredients.size(); i++) {
+                ShoppingListFragment.foodNames.add(ingredients.get(i));
+            }
+            ShoppingListFragment shoppingListFragment = new ShoppingListFragment();
+            FragmentManager manager = getFragmentManager();
+            manager.beginTransaction().replace(R.id.fragment_container, shoppingListFragment, shoppingListFragment.getTag()).addToBackStack(null).commit();
+
+        }
+
     }
 
     public class IngredientsViewHolder extends RecyclerView.ViewHolder {

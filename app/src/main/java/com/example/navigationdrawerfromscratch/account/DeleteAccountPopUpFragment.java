@@ -30,6 +30,7 @@ public class DeleteAccountPopUpFragment extends DialogFragment {
 
     View view;
     Button btnDeleteAccount;
+    Button btnDeleteAccountAbbruch;
     DatabaseReference databaseUser;
 
     List<String> allergiesUserList = new ArrayList<>();
@@ -43,6 +44,7 @@ public class DeleteAccountPopUpFragment extends DialogFragment {
 
         databaseUser = FirebaseDatabase.getInstance().getReference("User").child(AccountFragment.usernameString);
         btnDeleteAccount = (Button) view.findViewById(R.id.buttonDeleteAccount);
+        btnDeleteAccountAbbruch = (Button) view.findViewById(R.id.buttonDeleteAccountAbbruch);
 
         btnDeleteAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,6 +55,13 @@ public class DeleteAccountPopUpFragment extends DialogFragment {
                 AccountFragment accountFragment = new AccountFragment();
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.fragment_container, accountFragment, accountFragment.getTag()).addToBackStack(null).commit();
+
+            }
+        });
+
+        btnDeleteAccountAbbruch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
             }
         });

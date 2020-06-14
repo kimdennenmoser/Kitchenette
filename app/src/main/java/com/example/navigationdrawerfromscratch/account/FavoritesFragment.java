@@ -71,25 +71,27 @@ public class FavoritesFragment extends Fragment implements RecipeAdapter.OnRecip
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
-                favoritesIDsList = user.getFavorites();
-                databaseRecipe.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        recipeList.clear();
-                        for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()) {
-                            Recipe recipe = recipeSnapshot.getValue(Recipe.class);
-                            for (int i = 0; i < favoritesIDsList.size(); i++) {
-                                if (recipe.getRecipeId().equals(favoritesIDsList.get(i))) {
-                                    recipeList.add(recipe);
+                if (user.getFavorites() != null) {
+                    favoritesIDsList = user.getFavorites();
+                    databaseRecipe.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            recipeList.clear();
+                            for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()) {
+                                Recipe recipe = recipeSnapshot.getValue(Recipe.class);
+                                for (int i = 0; i < favoritesIDsList.size(); i++) {
+                                    if (recipe.getRecipeId().equals(favoritesIDsList.get(i))) {
+                                        recipeList.add(recipe);
+                                    }
                                 }
+                                recyclerView.setAdapter(adapter);
                             }
-                            recyclerView.setAdapter(adapter);
                         }
-                    }
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                    }
-                });
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                        }
+                    });
+                }
             }
 
             @Override
