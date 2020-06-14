@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import com.example.navigationdrawerfromscratch.account.recipes.CreateRecipeFragm
 import com.example.navigationdrawerfromscratch.account.recipes.RecipeGenerate;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.R;
+import com.google.android.gms.common.util.ArrayUtils;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +27,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -91,12 +94,16 @@ public class Gemuese extends Fragment implements ProductAdapter.OnNoteListener {
         Food food = new Food(foodName, foodID, foodImage, foodCategory);
 
         if (vonWoher == "Intolerance") {
-            NewIntoleranceFragment.upToDate=false;
-            NewIntoleranceFragment.oldAllergies.add(food);
+            if (NewIntoleranceFragment.oldAllergies.contains(food)) {
+                Toast.makeText(getView().getContext(),"Lebensmittel bereits vorhanden",Toast.LENGTH_LONG).show();
+            } else {
+                NewIntoleranceFragment.upToDate = false;
+                NewIntoleranceFragment.oldAllergies.add(food);
 
-            NewIntoleranceFragment intoleranceFragment = new NewIntoleranceFragment();
-            FragmentManager manager = getFragmentManager();
-            manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
+                NewIntoleranceFragment intoleranceFragment = new NewIntoleranceFragment();
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
+            }
         }
         if (vonWoher == "CreateRecipe") {
             CreateRecipeFragment.zutatenList.add(food);

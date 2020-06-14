@@ -1,9 +1,14 @@
 package com.example.navigationdrawerfromscratch.lebensmittel;
 
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.widget.ImageView;
 
+import androidx.annotation.RequiresApi;
+
 import com.example.navigationdrawerfromscratch.R;
+
+import java.util.Objects;
 
 public class Food {
 
@@ -37,6 +42,24 @@ public class Food {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Food food = (Food) o;
+        return Objects.equals(name, food.name) &&
+                Objects.equals(id, food.id) &&
+                Objects.equals(image, food.image) &&
+                Objects.equals(category, food.category);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, id, image, category);
     }
 
     /*public String getInfo() {
