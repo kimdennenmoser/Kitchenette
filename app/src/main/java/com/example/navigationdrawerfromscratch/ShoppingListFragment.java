@@ -83,17 +83,21 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
             @Override
             public void onClick(View v) {
 
-                if (foodNames.isEmpty()) {
-                    Toast.makeText(getView().getContext(), "Einkaufsliste ist leer oder es wurde nichts Neues hinzugefügt", Toast.LENGTH_LONG).show();
-                } else if (!foodNames.isEmpty()) {
+                if (MainActivity.isAngemeldet == true) {
+                    if (foodNames.isEmpty()) {
+                        Toast.makeText(getView().getContext(), "Einkaufsliste ist leer oder es wurde nichts Neues hinzugefügt", Toast.LENGTH_LONG).show();
+                    } else if (!foodNames.isEmpty()) {
 
-                    if (MainActivity.isAngemeldet == true) {
-                        saveShoppinglistToUser();
-                        userShoppingList.clear();
-                        upToDate = true;
-                    } else {
-                        Toast.makeText(getContext(), "Bitte anmelden", Toast.LENGTH_LONG).show();
+                        if (MainActivity.isAngemeldet == true) {
+                            saveShoppinglistToUser();
+                            userShoppingList.clear();
+                            upToDate = true;
+                        } else {
+                            Toast.makeText(getContext(), "Bitte anmelden", Toast.LENGTH_LONG).show();
+                        }
                     }
+                } else {
+                    Toast.makeText(getContext(), "Bitte anmelden", Toast.LENGTH_LONG).show();
                 }
             }
         });

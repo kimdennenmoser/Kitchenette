@@ -78,7 +78,7 @@ public class RecipeInstruction extends Fragment {
         databaseRecipe = FirebaseDatabase.getInstance().getReference("Rezepte").child(recipeString);
         databaseIngredients = FirebaseDatabase.getInstance().getReference("Rezepte").child(recipeString).child("ingredientsMap");
         databaseUser = FirebaseDatabase.getInstance().getReference("User");
-        System.out.println(databaseRecipe.getKey());
+
         buttonAddToFavorites = (ImageButton) view.findViewById(R.id.btnAddToFav);
         amoutPortions = (TextView) view.findViewById(R.id.textViewAmountPortions);
         btnAddToShoppingList = (Button) view.findViewById(R.id.buttonAddToShoppingList);
@@ -128,7 +128,7 @@ public class RecipeInstruction extends Fragment {
         databaseIngredients.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
+                ingredientsList.clear();
                 for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()) {
                     Zutat zutat = new Zutat(recipeSnapshot.getKey(), recipeSnapshot.getValue().toString());
                     ingredientsList.add(zutat);
@@ -198,6 +198,9 @@ public class RecipeInstruction extends Fragment {
                     }
                 }
                 ShoppingListFragment.foodNames.clear();
+                for (int i = 0; i < ShoppingListFragment.foodList.size(); i++) {
+                    ShoppingListFragment.foodNames.add(ShoppingListFragment.foodList.get(i).getName());
+                }
                 ShoppingListFragment.foodList.clear();
                 for (int z = 0; z < ingredients.size(); z++) {
                     ShoppingListFragment.foodNames.add(ingredients.get(z));
@@ -220,13 +223,16 @@ public class RecipeInstruction extends Fragment {
                     }
                 }
                 ShoppingListFragment.foodNames.clear();
+                for (int i = 0; i < ShoppingListFragment.foodList.size(); i++) {
+                    ShoppingListFragment.foodNames.add(ShoppingListFragment.foodList.get(i).getName());
+                }
                 ShoppingListFragment.foodList.clear();
                 for (int i = 0; i < ingredients.size(); i++) {
-                    Log.d("ingredients get", ingredients.get(i));
                     ShoppingListFragment.foodNames.add(ingredients.get(i));
                     ShoppingListFragment.upToDate = false;
                     ShoppingListFragment.schonhinzugefügt = false;
                 }
+
                 ShoppingListFragment shoppingListFragment = new ShoppingListFragment();
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.fragment_container, shoppingListFragment, shoppingListFragment.getTag()).addToBackStack(null).commit();
