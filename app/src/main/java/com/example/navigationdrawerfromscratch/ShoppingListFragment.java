@@ -82,7 +82,7 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
                 public void onClick(View v) {
 
                     if (foodNames.isEmpty()) {
-                        Toast.makeText(getView().getContext(), "Einkaufsliste ist leer oder es wurde nichts neues hinzugefügt", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getView().getContext(), "Einkaufsliste ist leer oder es wurde nichts Neues hinzugefügt", Toast.LENGTH_LONG).show();
                     } else if (!foodNames.isEmpty()) {
 
                         if (MainActivity.isAngemeldet == true) {
@@ -141,7 +141,6 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
                                         Food food = snapshot.getValue(Food.class);
                                         for (int i = 0; i < foodNames.size(); i++) {
                                             if ((foodNames.get(i)).equals(food.getName())) {
-                                                System.out.println("yess");
                                                 foodList.add(food);
                                                 recyclerView.setAdapter(adapter);
                                             }
@@ -175,7 +174,6 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
                             }
                         }
                         schonhinzugefügt = true;
-
                     }
 
                     @Override
@@ -195,6 +193,8 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
             databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
+
                     for (int i = 0; i < foodList.size(); i++) {
                         String foodName = foodList.get(i).getName();
                         userShoppingList.add(foodName);
@@ -202,7 +202,7 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
                     foodList.clear();
                     upToDate = false;
                     schonhinzugefügt = true;
-                    User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
+
                     user.setShoppingList(userShoppingList);
                     databaseUser.child(AccountFragment.usernameString).setValue(user);
 
