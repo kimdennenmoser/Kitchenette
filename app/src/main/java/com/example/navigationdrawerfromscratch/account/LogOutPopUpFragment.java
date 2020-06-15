@@ -1,6 +1,7 @@
 package com.example.navigationdrawerfromscratch.account;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,20 +26,29 @@ import java.util.List;
 public class LogOutPopUpFragment extends DialogFragment {
 
     View view;
-    Button btnLogOut;
+    Button btnLogOut, btnLogoutCancel;
     DatabaseReference databaseUser;
 
     List<String> allergiesUserList = new ArrayList<>();
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
 
         view = inflater.inflate(R.layout.fragment_log_out_popup, container, false);
 
         databaseUser = FirebaseDatabase.getInstance().getReference("User").child(AccountFragment.usernameString);
         btnLogOut = (Button) view.findViewById(R.id.buttonLogOutAccount);
+        btnLogoutCancel = (Button) view.findViewById(R.id.buttonLogOutAccountAbbruch);
+
+        btnLogoutCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
 
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override

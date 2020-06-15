@@ -92,7 +92,7 @@ public class Milchprodukte extends Fragment implements ProductAdapter.OnNoteList
         if (vonWoher == "Intolerance") {
             if (NewIntoleranceFragment.oldAllergies.contains(food)) {
                 Toast.makeText(getView().getContext(), "Lebensmittel bereits vorhanden", Toast.LENGTH_LONG).show();
-            } else {
+            } else if(!NewIntoleranceFragment.oldAllergies.contains(food)){
                 NewIntoleranceFragment.upToDate = false;
                 NewIntoleranceFragment.oldAllergies.add(food);
 

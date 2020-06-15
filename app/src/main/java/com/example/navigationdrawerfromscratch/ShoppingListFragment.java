@@ -81,9 +81,11 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
         buttonSaveShoppingListToUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                userShoppingList.clear();
+
                 if (MainActivity.isAngemeldet == true) {
                     saveShoppinglistToUser();
+                    userShoppingList.clear();
+                    upToDate=false;
                 } else {
                     Toast.makeText(getContext(), "Bitte anmelden", Toast.LENGTH_LONG).show();
                 }
@@ -100,7 +102,7 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
 
         if (schonhinzugefügt == false) {
             if (upToDate == true) {
-
+                userShoppingList.clear();
                 databaseUser.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

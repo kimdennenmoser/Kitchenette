@@ -90,7 +90,7 @@ public class Getreideprodukte extends Fragment implements ProductAdapter.OnNoteL
         if (vonWoher == "Intolerance") {
             if (NewIntoleranceFragment.oldAllergies.contains(food)) {
                 Toast.makeText(getView().getContext(), "Lebensmittel bereits vorhanden", Toast.LENGTH_LONG).show();
-            } else {
+            } else if(!NewIntoleranceFragment.oldAllergies.contains(food)) {
                 NewIntoleranceFragment.upToDate = false;
                 NewIntoleranceFragment.oldAllergies.add(food);
 
