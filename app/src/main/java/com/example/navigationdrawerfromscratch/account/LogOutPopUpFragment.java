@@ -40,7 +40,6 @@ public class LogOutPopUpFragment extends DialogFragment {
 
         databaseUser = FirebaseDatabase.getInstance().getReference("User").child(AccountFragment.usernameString);
         btnLogOut = (Button) view.findViewById(R.id.buttonLogOutAccount);
-        btnLogoutCancel = (Button) view.findViewById(R.id.buttonLogOutAccountAbbruch);
 
         btnLogoutCancel.setOnClickListener(new View.OnClickListener() {
             @Override

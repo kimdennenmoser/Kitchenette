@@ -6,6 +6,7 @@
 
     <string name="category_prompt">Kategorie</string>
     <string-array name="category_arrays">
+        <item>Kategorie auswählen</item>
         <item>Vorspeise</item>
         <item>Hauptgericht</item>
         <item>Dessert</item>

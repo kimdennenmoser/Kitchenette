@@ -17,6 +17,7 @@ import com.example.navigationdrawerfromscratch.account.recipes.Recipe;
 import com.example.navigationdrawerfromscratch.account.recipes.RecipeInstruction;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
@@ -84,6 +85,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
     public interface OnRecipeListener {
         void onRecipeClick(int position);
 
+    }
+
+    public void filterList(ArrayList<Recipe> filteredList){
+        recipeList = filteredList;
+        notifyDataSetChanged();
     }
 
     /*
