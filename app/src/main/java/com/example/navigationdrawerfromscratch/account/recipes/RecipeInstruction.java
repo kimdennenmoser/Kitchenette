@@ -183,7 +183,9 @@ public class RecipeInstruction extends Fragment {
                 for (int z = 0; z < ingredientsList.size(); z++) {
                     if(!ShoppingListFragment.foodNames.contains(ingredientsList.get(z).getName())){
                     ingredients.add(ingredientsList.get(z).getName());
-                }
+                }else if (ShoppingListFragment.foodNames.contains(ingredientsList.get(z).getName())){
+
+                    }
                 }
                 System.out.println("ingredietns " + ingredients.toString());
                 for (int i = 0; i < enthalteneZutaten.size(); i++) {

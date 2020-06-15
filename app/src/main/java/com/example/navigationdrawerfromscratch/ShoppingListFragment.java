@@ -78,19 +78,27 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
                 }
             }
         });
-        buttonSaveShoppingListToUser.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                if (MainActivity.isAngemeldet == true) {
-                    saveShoppinglistToUser();
-                    userShoppingList.clear();
-                    upToDate=false;
-                } else {
-                    Toast.makeText(getContext(), "Bitte anmelden", Toast.LENGTH_LONG).show();
+
+            buttonSaveShoppingListToUser.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    if (foodNames.isEmpty()) {
+                        Toast.makeText(getView().getContext(), "Einkaufsliste ist leer oder es wurde nichts neues hinzugefügt", Toast.LENGTH_LONG).show();
+                    } else if (!foodNames.isEmpty()) {
+
+                        if (MainActivity.isAngemeldet == true) {
+                            saveShoppinglistToUser();
+                            userShoppingList.clear();
+                            upToDate = true;
+                        } else {
+                            Toast.makeText(getContext(), "Bitte anmelden", Toast.LENGTH_LONG).show();
+                        }
+                    }
                 }
-            }
-        });
+            });
+
 
         return view;
     }
@@ -102,7 +110,6 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
 
         if (schonhinzugefügt == false) {
             if (upToDate == true) {
-                userShoppingList.clear();
                 databaseUser.addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
