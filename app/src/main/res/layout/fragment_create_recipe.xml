@@ -166,23 +166,23 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="30dp"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:ems="10"
                 android:hint="Menge"
                 android:inputType="textPersonName"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/textViewFoodSelection" />
 
             <TextView
                 android:id="@+id/textViewFoodSelection"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginStart="35dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="10dp"
                 android:text="Zutat auswählen"
-                android:textColor="#3D5AFE"
-                android:textSize="14sp"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toEndOf="@+id/editTextAmount"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -191,16 +191,12 @@
                 android:id="@+id/ImageViewAddIngredient"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="61dp"
-                android:layout_marginRight="61dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="18dp"
                 android:src="@drawable/ic_add"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.237"
-                app:layout_constraintStart_toEndOf="@+id/textViewFoodSelection"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@+id/textViewChangeIngredient"
+                app:layout_constraintTop_toBottomOf="@+id/textViewFoodSelection" />
 
             <TextView
                 android:id="@+id/textViewChangeIngredient"
@@ -208,7 +204,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="30dp"
+                android:textSize="20sp"
                 app:layout_constraintStart_toEndOf="@+id/editTextAmount"
                 app:layout_constraintTop_toBottomOf="@+id/textViewFoodSelection" />
 

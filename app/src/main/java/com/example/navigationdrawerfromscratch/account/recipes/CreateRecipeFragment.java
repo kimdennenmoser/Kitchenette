@@ -100,6 +100,13 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
 
         databaseRecipe = FirebaseDatabase.getInstance().getReference("Rezepte");
 
+        if (!(ingredientsMap.isEmpty())){
+            for (int i = 0; i < ingredientsMap.size(); i++) {
+                showAllIngredients.setText(ingredientsMap.toString());
+            }
+        }
+
+
         btncreateRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +148,7 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
         } else if (editTextAmount.getText().toString().trim().contains("/") == false){
             ingredientsMap.put(editTextAmount.getText().toString().trim(), textViewChangeIngredient.getText().toString().trim());
         }
-        System.out.println(ingredientsMap.toString());
+
         for (int i = 0; i < ingredientsMap.size(); i++) {
             showAllIngredients.setText(ingredientsMap.toString());
         }
