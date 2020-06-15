@@ -82,7 +82,7 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
                 public void onClick(View v) {
 
                     if (foodNames.isEmpty()) {
-                        Toast.makeText(getView().getContext(), "Einkaufsliste ist leer oder es wurde nichts neues hinzugefügt", Toast.LENGTH_LONG).show();
+                        Toast.makeText(getView().getContext(), "Einkaufsliste ist leer oder es wurde nichts Neues hinzugefügt", Toast.LENGTH_LONG).show();
                     } else if (!foodNames.isEmpty()) {
 
                         if (MainActivity.isAngemeldet == true) {

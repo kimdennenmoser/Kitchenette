@@ -2,6 +2,7 @@ package com.example.navigationdrawerfromscratch.account.recipes;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -181,21 +182,23 @@ public class RecipeInstruction extends Fragment {
             if (shoppingList == "selective") {
                 ingredients.clear();
                 for (int z = 0; z < ingredientsList.size(); z++) {
-                    if(!ShoppingListFragment.foodNames.contains(ingredientsList.get(z).getName())){
                     ingredients.add(ingredientsList.get(z).getName());
-                }else if (ShoppingListFragment.foodNames.contains(ingredientsList.get(z).getName())){
-
-                    }
                 }
-                System.out.println("ingredietns " + ingredients.toString());
+
                 for (int i = 0; i < enthalteneZutaten.size(); i++) {
                     String string = enthalteneZutaten.get(i);
                     if ((ingredients.contains(string))) {
                         ingredients.remove(string);
                     }
                 }
-                System.out.println("ingredietns " + ingredients.toString());
+                for (int i = 0; i < ShoppingListFragment.foodList.size(); i++) {
+                    String string = ShoppingListFragment.foodList.get(i).getName();
+                    if ((ingredients.contains(string))) {
+                        ingredients.remove(string);
+                    }
+                }
                 ShoppingListFragment.foodNames.clear();
+                ShoppingListFragment.foodList.clear();
                 for (int z = 0; z < ingredients.size(); z++) {
                     ShoppingListFragment.foodNames.add(ingredients.get(z));
                     ShoppingListFragment.upToDate = false;
@@ -204,14 +207,22 @@ public class RecipeInstruction extends Fragment {
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.fragment_container, shoppingListFragment, shoppingListFragment.getTag()).addToBackStack(null).commit();
             }
+
             if (shoppingList == "all") {
                 ingredients.clear();
                 for (int z = 0; z < ingredientsList.size(); z++) {
                     ingredients.add(ingredientsList.get(z).getName());
                 }
-                System.out.println("ingredients: " + ingredients);
+                for (int i = 0; i < ShoppingListFragment.foodList.size(); i++) {
+                    String string = ShoppingListFragment.foodList.get(i).getName();
+                    if ((ingredients.contains(string))) {
+                        ingredients.remove(string);
+                    }
+                }
                 ShoppingListFragment.foodNames.clear();
+                ShoppingListFragment.foodList.clear();
                 for (int i = 0; i < ingredients.size(); i++) {
+                    Log.d("ingredients get", ingredients.get(i));
                     ShoppingListFragment.foodNames.add(ingredients.get(i));
                     ShoppingListFragment.upToDate = false;
                     ShoppingListFragment.schonhinzugefügt = false;
