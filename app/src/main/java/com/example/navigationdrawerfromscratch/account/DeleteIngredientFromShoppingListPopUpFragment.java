@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.ShoppingListFragment;
@@ -43,7 +44,6 @@ public class DeleteIngredientFromShoppingListPopUpFragment extends DialogFragmen
         btnDeleteIngredientAbbruch = (Button) view.findViewById(R.id.buttonDeleteIngredientAbbruch);
         databaseFood = FirebaseDatabase.getInstance().getReference("Lebensmittel").child(foodName);
 
-
         btnDeleteIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,15 +51,24 @@ public class DeleteIngredientFromShoppingListPopUpFragment extends DialogFragmen
                 databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot foodSnapshot : dataSnapshot.getChildren()){
-                            //foodSnapshot.getRef().removeValue();
-                            /*Food food = dataSnapshot.getValue(Food.class);
-                            ShoppingListFragment.foodList.remove(food);
+                        for (DataSnapshot foodSnapshot : dataSnapshot.getChildren()) {
+                            Food food = foodSnapshot.getValue(Food.class);
+                            //ShoppingListFragment.foodList.remove(food);
+                            System.out.println(food.toString());
+                            System.out.println("SLF foodname1: " + ShoppingListFragment.foodNames.toString());
+                            System.out.println("SLF foodlist1: " + ShoppingListFragment.foodList.toString());
+                            if (food.getName().equals(foodName)) {
+                                System.out.println(food.toString());
+                                ShoppingListFragment.foodNames.remove(food);
+                                ShoppingListFragment.foodList.remove(food);
+                                System.out.println("SLF foodname2: " + ShoppingListFragment.foodNames.toString());
+                                System.out.println("SLF foodlist2: " + ShoppingListFragment.foodList.toString());
+                            }
 
-                             */
                         }
 
                     }
+
                     @Override
                     public void onCancelled(@NonNull DatabaseError databaseError) {
                     }

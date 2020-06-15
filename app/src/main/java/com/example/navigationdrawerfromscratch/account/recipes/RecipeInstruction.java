@@ -177,41 +177,44 @@ public class RecipeInstruction extends Fragment {
     }
 
     private void addToShoppingList() {
-        if (shoppingList == "selective") {
-            ingredients.clear();
-            for (int z = 0; z < ingredientsList.size(); z++) {
-                ingredients.add(ingredientsList.get(z).getName());
-            }
-            System.out.println("ingredietns "+ ingredients.toString());
-            for (int i = 0; i < enthalteneZutaten.size(); i++) {
-                String string = enthalteneZutaten.get(i);
-                if ((ingredients.contains(string))){
-                    ingredients.remove(string);
+        if (MainActivity.isAngemeldet == true) {
+            if (shoppingList == "selective") {
+                ingredients.clear();
+                for (int z = 0; z < ingredientsList.size(); z++) {
+                    ingredients.add(ingredientsList.get(z).getName());
                 }
+                System.out.println("ingredietns " + ingredients.toString());
+                for (int i = 0; i < enthalteneZutaten.size(); i++) {
+                    String string = enthalteneZutaten.get(i);
+                    if ((ingredients.contains(string))) {
+                        ingredients.remove(string);
+                    }
+                }
+                System.out.println("ingredietns " + ingredients.toString());
+                ShoppingListFragment.foodNames.clear();
+                for (int z = 0; z < ingredients.size(); z++) {
+                    ShoppingListFragment.foodNames.add(ingredients.get(z));
+                }
+                ShoppingListFragment shoppingListFragment = new ShoppingListFragment();
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.fragment_container, shoppingListFragment, shoppingListFragment.getTag()).addToBackStack(null).commit();
             }
-            System.out.println("ingredietns "+ ingredients.toString());
-            ShoppingListFragment.foodNames.clear();
-            for (int z = 0; z < ingredients.size(); z++){
-                ShoppingListFragment.foodNames.add(ingredients.get(z));
-                System.out.println(ingredients.get(z));
+            if (shoppingList == "all") {
+                ingredients.clear();
+                for (int z = 0; z < ingredientsList.size(); z++) {
+                    ingredients.add(ingredientsList.get(z).getName());
+                }
+                System.out.println("ingredients: " + ingredients);
+                ShoppingListFragment.foodNames.clear();
+                for (int i = 0; i < ingredients.size(); i++) {
+                    ShoppingListFragment.foodNames.add(ingredients.get(i));
+                }
+                ShoppingListFragment shoppingListFragment = new ShoppingListFragment();
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.fragment_container, shoppingListFragment, shoppingListFragment.getTag()).addToBackStack(null).commit();
             }
-            ShoppingListFragment shoppingListFragment = new ShoppingListFragment();
-            FragmentManager manager = getFragmentManager();
-            manager.beginTransaction().replace(R.id.fragment_container, shoppingListFragment, shoppingListFragment.getTag()).addToBackStack(null).commit();
-        }
-        if (shoppingList == "all") {
-            ingredients.clear();
-            for (int z = 0; z < ingredientsList.size(); z++) {
-                ingredients.add(ingredientsList.get(z).getName());
-            }
-            System.out.println("ingredients: " + ingredients);
-            ShoppingListFragment.foodNames.clear();
-            for (int i = 0; i < ingredients.size(); i++) {
-                ShoppingListFragment.foodNames.add(ingredients.get(i));
-            }
-            ShoppingListFragment shoppingListFragment = new ShoppingListFragment();
-            FragmentManager manager = getFragmentManager();
-            manager.beginTransaction().replace(R.id.fragment_container, shoppingListFragment, shoppingListFragment.getTag()).addToBackStack(null).commit();
+        } else {
+            Toast.makeText(getContext(), "Bitte anmelden", Toast.LENGTH_LONG).show();
         }
     }
 

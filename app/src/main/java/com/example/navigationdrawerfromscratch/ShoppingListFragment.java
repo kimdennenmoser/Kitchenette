@@ -1,5 +1,6 @@
 package com.example.navigationdrawerfromscratch;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -31,6 +33,7 @@ import java.util.List;
 public class ShoppingListFragment extends Fragment implements ProductAdapter.OnNoteListener {
 
     View view;
+    public static Context context;
 
     public static RecyclerView recyclerView;
     public static List<String> foodNames = new ArrayList<>();
@@ -48,7 +51,7 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_shopping_list, container, false);
 
-
+        context = this.getContext();
         recyclerView = (RecyclerView) view.findViewById(R.id.RecyclerViewShoppingList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(view.getContext()));
