@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,7 +43,8 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
     RecyclerView recyclerViewIngredient;
     private ProductAdapter productAdapter;
     DatabaseReference databaseRecipes;
-    List<Food> liste = new ArrayList<>();
+
+    TextView showIngredients;
 
     public static List<Food> productList = new ArrayList<>();
     public static String foodName = null;
@@ -53,18 +56,25 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_search, container, false);
+        //View view = inflater.inflate(R.layout.fragment_search, container, false);
+        View view = inflater.inflate(R.layout.fragment_search_alternative, container, false);
 
-        recyclerViewIngredient = (RecyclerView) view.findViewById(R.id.recyclerViewIngredient);
+        /*recyclerViewIngredient = (RecyclerView) view.findViewById(R.id.recyclerViewIngredient);
         recyclerViewIngredient.setHasFixedSize(true);
         recyclerViewIngredient.setLayoutManager(new LinearLayoutManager(view.getContext()));
+
 
 
         btnAddIngredient = (Button) view.findViewById(R.id.btnAddIngredient);
         btnStartSearch = (Button) view.findViewById(R.id.btnStartSearch);
 
-        databaseRecipes = FirebaseDatabase.getInstance().getReference("Rezepte");
+         */
 
+        btnAddIngredient = (Button) view.findViewById(R.id.btnAddIngredientAlternative);
+        btnStartSearch = (Button) view.findViewById(R.id.btnStartSearchAlternative);
+        showIngredients = (TextView) view.findViewById(R.id.textViewShowSelectedIngredients);
+
+        databaseRecipes = FirebaseDatabase.getInstance().getReference("Rezepte");
 
         btnAddIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,11 +109,19 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
     public void onStart() {
         super.onStart();
         Context context = this.getContext();
+        /*
         productAdapter = new ProductAdapter(context, productList, this);
         if (resultsDisplayed = true) {
             recipeList.clear();
         }
         recyclerViewIngredient.setAdapter(productAdapter);
+
+         */
+        productListNameString.clear();
+        for (int z = 0; z < productList.size(); z++) {
+            productListNameString.add(productList.get(z).getName());
+        }
+        showIngredients.setText(productListNameString.toString());
     }
 
     private void startSearch() {
@@ -136,7 +154,8 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
                         for (int z = 0; z < productList.size(); z++) {
                             productListNameString.add(productList.get(z).getName());
                         }
-                        System.out.println("enthalten list" + enthalteneZutaten.toString());
+                        // System.out.println("enthalten list" + enthalteneZutaten.toString());
+                        System.out.println("productListNameString: " + productListNameString.toString());
                         if (enthalteneZutaten.equals(productListNameString)) {
                             RecipeResultFragment.recipeList.add(recipe);
 
