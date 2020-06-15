@@ -193,6 +193,7 @@ public class RecipeInstruction extends Fragment {
             ShoppingListFragment.foodNames.clear();
             for (int z = 0; z < ingredients.size(); z++){
                 ShoppingListFragment.foodNames.add(ingredients.get(z));
+                System.out.println(ingredients.get(z));
             }
             ShoppingListFragment shoppingListFragment = new ShoppingListFragment();
             FragmentManager manager = getFragmentManager();

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -71,6 +72,8 @@ public class Drinks extends Fragment implements ProductAdapter.OnNoteListener {
 
             }
         });
+
+
     }
 
     @Override
@@ -78,17 +81,22 @@ public class Drinks extends Fragment implements ProductAdapter.OnNoteListener {
 
         String foodID = drinksList.get(position).getId();
         String foodName = drinksList.get(position).getName();
+        //String foodInfo = süßList.get(position).getInfo();
         String foodImage = drinksList.get(position).getImage();
         String foodCategory = drinksList.get(position).getCategory();
         Food food = new Food(foodName, foodID, foodImage, foodCategory);
 
         if (vonWoher == "Intolerance") {
-            NewIntoleranceFragment.upToDate=false;
-            NewIntoleranceFragment.oldAllergies.add(food);
+            if(NewIntoleranceFragment.oldAllergies.contains(food)){
+                Toast.makeText(getView().getContext(), "Lebensmittel bereits vorhanden", Toast.LENGTH_LONG).show();
+            }else {
+                NewIntoleranceFragment.upToDate = false;
+                NewIntoleranceFragment.oldAllergies.add(food);
 
-            NewIntoleranceFragment intoleranceFragment = new NewIntoleranceFragment();
-            FragmentManager manager = getFragmentManager();
-            manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
+                NewIntoleranceFragment intoleranceFragment = new NewIntoleranceFragment();
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
+            }
         }
         if (vonWoher == "CreateRecipe") {
             CreateRecipeFragment.zutatenList.add(food);
@@ -97,6 +105,7 @@ public class Drinks extends Fragment implements ProductAdapter.OnNoteListener {
             CreateRecipeFragment createRecipeFragment = new CreateRecipeFragment();
             FragmentManager manager = getFragmentManager();
             manager.beginTransaction().replace(R.id.fragment_container, createRecipeFragment, createRecipeFragment.getTag()).addToBackStack(null).commit();
+
         }
         if (vonWoher == "Search") {
             RecipeGenerate.productList.add(food);
@@ -104,16 +113,27 @@ public class Drinks extends Fragment implements ProductAdapter.OnNoteListener {
             RecipeGenerate recipeGenerate = new RecipeGenerate();
             FragmentManager manager = getFragmentManager();
             manager.beginTransaction().replace(R.id.fragment_container, recipeGenerate, recipeGenerate.getTag()).addToBackStack(null).commit();
+
+
         }
     }
 
+
     //View Holder Class
+
     public class FoodViewHolder extends RecyclerView.ViewHolder {
+
         View mView;
+
         public FoodViewHolder(@NonNull View itemView) {
             super(itemView);
+
             mView = itemView;
+
         }
+
+
     }
+
 
 }
