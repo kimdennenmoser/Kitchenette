@@ -2,13 +2,10 @@ package com.example.navigationdrawerfromscratch.account.recipes;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,7 +15,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.R;
-import com.example.navigationdrawerfromscratch.adapters.RecipeAdapter;
 import com.example.navigationdrawerfromscratch.lebensmittel.FoodCategory;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.lebensmittel.Food;
@@ -26,7 +22,7 @@ import com.example.navigationdrawerfromscratch.lebensmittel.Gemuese;
 import com.example.navigationdrawerfromscratch.lebensmittel.Getreideprodukte;
 import com.example.navigationdrawerfromscratch.lebensmittel.Gewuerze;
 import com.example.navigationdrawerfromscratch.lebensmittel.Milchprodukte;
-import com.example.navigationdrawerfromscratch.lebensmittel.Nuts;
+import com.example.navigationdrawerfromscratch.lebensmittel.Drinks;
 import com.example.navigationdrawerfromscratch.lebensmittel.Obst;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -77,7 +73,7 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
                 Getreideprodukte.vonWoher = "Search";
                 Gewuerze.vonWoher = "Search";
                 Milchprodukte.vonWoher = "Search";
-                Nuts.vonWoher = "Search";
+                Drinks.vonWoher = "Search";
                 Obst.vonWoher = "Search";
 
                 resultsDisplayed = false;

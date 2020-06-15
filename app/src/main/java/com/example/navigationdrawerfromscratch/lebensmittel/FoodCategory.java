@@ -9,7 +9,6 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -58,7 +57,7 @@ public class FoodCategory extends Fragment {
 
 
 
-        buttonGewuerze = (Button) view.findViewById(R.id.buttonGewuerze);
+        buttonGewuerze = (Button) view.findViewById(R.id.buttonGewuerzeNuts);
 
         buttonGewuerze.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,14 +91,14 @@ public class FoodCategory extends Fragment {
         });
 
 
-        buttonNuts = (Button) view.findViewById(R.id.buttonNuts);
+        buttonNuts = (Button) view.findViewById(R.id.buttonDrinks);
 
         buttonNuts.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Nuts nuts = new Nuts();
+                Drinks drinks = new Drinks();
                 FragmentManager manager = getFragmentManager();
-                manager.beginTransaction().replace(R.id.fragment_container, nuts, nuts.getTag()).addToBackStack(null).commit();
+                manager.beginTransaction().replace(R.id.fragment_container, drinks, drinks.getTag()).addToBackStack(null).commit();
             }
         });
 

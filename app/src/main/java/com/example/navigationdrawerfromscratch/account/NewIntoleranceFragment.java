@@ -3,8 +3,6 @@ package com.example.navigationdrawerfromscratch.account;
 import androidx.fragment.app.Fragment;
 
 import android.content.Context;
-import android.content.Intent;
-import android.media.audiofx.AcousticEchoCanceler;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +12,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,7 +24,7 @@ import com.example.navigationdrawerfromscratch.lebensmittel.Gemuese;
 import com.example.navigationdrawerfromscratch.lebensmittel.Getreideprodukte;
 import com.example.navigationdrawerfromscratch.lebensmittel.Gewuerze;
 import com.example.navigationdrawerfromscratch.lebensmittel.Milchprodukte;
-import com.example.navigationdrawerfromscratch.lebensmittel.Nuts;
+import com.example.navigationdrawerfromscratch.lebensmittel.Drinks;
 import com.example.navigationdrawerfromscratch.lebensmittel.Obst;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -82,7 +79,7 @@ public class NewIntoleranceFragment extends Fragment implements ProductAdapter.O
                 Getreideprodukte.vonWoher = "Intolerance";
                 Gewuerze.vonWoher = "Intolerance";
                 Milchprodukte.vonWoher = "Intolerance";
-                Nuts.vonWoher = "Intolerance";
+                Drinks.vonWoher = "Intolerance";
                 Obst.vonWoher = "Intolerance";
                 FoodCategory foodCategory = new FoodCategory();
                 FragmentManager manager = getFragmentManager();

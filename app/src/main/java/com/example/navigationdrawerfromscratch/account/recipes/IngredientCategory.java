@@ -60,7 +60,7 @@ public class IngredientCategory extends Fragment {
 
 
 
-        buttonGewuerze = (Button) view.findViewById(R.id.buttonGewuerze);
+        buttonGewuerze = (Button) view.findViewById(R.id.buttonGewuerzeNuts);
 
         buttonGewuerze.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -94,7 +94,7 @@ public class IngredientCategory extends Fragment {
         });
 
 
-        buttonSüßes = (Button) view.findViewById(R.id.buttonNuts);
+        buttonSüßes = (Button) view.findViewById(R.id.buttonDrinks);
 
         buttonSüßes.setOnClickListener(new View.OnClickListener() {
             @Override

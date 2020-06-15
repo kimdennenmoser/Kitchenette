@@ -26,10 +26,10 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Nuts extends Fragment implements ProductAdapter.OnNoteListener {
+public class Drinks extends Fragment implements ProductAdapter.OnNoteListener {
 
-    List<Food> nutsList;
-    DatabaseReference databaseNuts;
+    List<Food> drinksList;
+    DatabaseReference databaseDrinks;
     ProductAdapter adapter;
     private RecyclerView mResultList;
     public static String vonWoher = null;
@@ -38,11 +38,11 @@ public class Nuts extends Fragment implements ProductAdapter.OnNoteListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_nuts, container, false);
+        View view = inflater.inflate(R.layout.fragment_drinks, container, false);
 
-        nutsList = new ArrayList<>();
-        databaseNuts = FirebaseDatabase.getInstance().getReference("Lebensmittel"); //"Lebensmittel"
-        mResultList = (RecyclerView) view.findViewById(R.id.nutsView);
+        drinksList = new ArrayList<>();
+        databaseDrinks = FirebaseDatabase.getInstance().getReference("Lebensmittel"); //"Lebensmittel"
+        mResultList = (RecyclerView) view.findViewById(R.id.drinksView);
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
@@ -52,17 +52,15 @@ public class Nuts extends Fragment implements ProductAdapter.OnNoteListener {
     @Override
     public void onStart() {
         super.onStart();
-        adapter = new ProductAdapter(getView().getContext(), nutsList, this);
-        databaseNuts.addValueEventListener(new ValueEventListener() {
+        adapter = new ProductAdapter(getView().getContext(), drinksList, this);
+        databaseDrinks.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                nutsList.clear();
-
+                drinksList.clear();
                 for (DataSnapshot productSnapshot : dataSnapshot.getChildren()) {
                     Food obst = productSnapshot.getValue(Food.class);
-                    if (obst.getCategory().equals("Nüsse")) {
-                        nutsList.add(obst);
+                    if (obst.getCategory().equals("Getränk")) {
+                        drinksList.add(obst);
                     }
                     mResultList.setAdapter(adapter);
                 }
@@ -73,18 +71,15 @@ public class Nuts extends Fragment implements ProductAdapter.OnNoteListener {
 
             }
         });
-
-
     }
 
     @Override
     public void onFoodClick(int position) {
 
-        String foodID = nutsList.get(position).getId();
-        String foodName = nutsList.get(position).getName();
-        //String foodInfo = süßList.get(position).getInfo();
-        String foodImage = nutsList.get(position).getImage();
-        String foodCategory = nutsList.get(position).getCategory();
+        String foodID = drinksList.get(position).getId();
+        String foodName = drinksList.get(position).getName();
+        String foodImage = drinksList.get(position).getImage();
+        String foodCategory = drinksList.get(position).getCategory();
         Food food = new Food(foodName, foodID, foodImage, foodCategory);
 
         if (vonWoher == "Intolerance") {
@@ -94,7 +89,6 @@ public class Nuts extends Fragment implements ProductAdapter.OnNoteListener {
             NewIntoleranceFragment intoleranceFragment = new NewIntoleranceFragment();
             FragmentManager manager = getFragmentManager();
             manager.beginTransaction().replace(R.id.fragment_container, intoleranceFragment, intoleranceFragment.getTag()).addToBackStack(null).commit();
-
         }
         if (vonWoher == "CreateRecipe") {
             CreateRecipeFragment.zutatenList.add(food);
@@ -103,7 +97,6 @@ public class Nuts extends Fragment implements ProductAdapter.OnNoteListener {
             CreateRecipeFragment createRecipeFragment = new CreateRecipeFragment();
             FragmentManager manager = getFragmentManager();
             manager.beginTransaction().replace(R.id.fragment_container, createRecipeFragment, createRecipeFragment.getTag()).addToBackStack(null).commit();
-
         }
         if (vonWoher == "Search") {
             RecipeGenerate.productList.add(food);
@@ -111,27 +104,16 @@ public class Nuts extends Fragment implements ProductAdapter.OnNoteListener {
             RecipeGenerate recipeGenerate = new RecipeGenerate();
             FragmentManager manager = getFragmentManager();
             manager.beginTransaction().replace(R.id.fragment_container, recipeGenerate, recipeGenerate.getTag()).addToBackStack(null).commit();
-
-
         }
     }
-
 
     //View Holder Class
-
     public class FoodViewHolder extends RecyclerView.ViewHolder {
-
         View mView;
-
         public FoodViewHolder(@NonNull View itemView) {
             super(itemView);
-
             mView = itemView;
-
         }
-
-
     }
-
 
 }

@@ -28,7 +28,7 @@ import com.example.navigationdrawerfromscratch.lebensmittel.Gemuese;
 import com.example.navigationdrawerfromscratch.lebensmittel.Getreideprodukte;
 import com.example.navigationdrawerfromscratch.lebensmittel.Gewuerze;
 import com.example.navigationdrawerfromscratch.lebensmittel.Milchprodukte;
-import com.example.navigationdrawerfromscratch.lebensmittel.Nuts;
+import com.example.navigationdrawerfromscratch.lebensmittel.Drinks;
 import com.example.navigationdrawerfromscratch.lebensmittel.Obst;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -79,17 +79,6 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
 
         context = this.getActivity();
 
-        //ArrayList<Zutat> ingredientsList = ingredientsList();
-
-        /*ingredients = (RecyclerView) view.findViewById(R.id.ingredientsList);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
-        this.ingredients.setLayoutManager(layoutManager);
-
-        adapter = new IngredientsAdapter(context, ingredientsList);
-        this.ingredients.setAdapter(adapter);
-
-         */
-
         //Initalisieren aller Elemente
         editTextName = (EditText) view.findViewById(R.id.editTextRecipeName);
         editTextPreparationTime = (EditText) view.findViewById(R.id.editTextPreparationTime);
@@ -126,7 +115,7 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
                 Getreideprodukte.vonWoher = "CreateRecipe";
                 Gewuerze.vonWoher = "CreateRecipe";
                 Milchprodukte.vonWoher = "CreateRecipe";
-                Nuts.vonWoher = "CreateRecipe";
+                Drinks.vonWoher = "CreateRecipe";
                 Obst.vonWoher = "CreateRecipe";
                 FoodCategory foodCategory = new FoodCategory();
                 FragmentManager manager = getFragmentManager();
@@ -152,26 +141,7 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
         for (int i = 0; i < ingredientsMap.size(); i++) {
             showAllIngredients.setText(ingredientsMap.toString());
         }
-
-        ArrayList<String> string = new ArrayList<>();
-        string.add("Apfel");
-        string.add("Joghurt");
-        boolean etwasFehlt = false;
-
-            for (String key : ingredientsMap.keySet()) {
-                for (int i = 0; i < string.size(); i++) {
-                if (string.get(i).equals(ingredientsMap.get(key))){
-                    System.out.println("ist enthalten " + string.get(i).toString());
-                } else {
-                    System.out.println("else!");
-                }
-                //System.out.print("Key: " + key + " - ");
-                //System.out.print("Value: " + ingredientsMap.get(key) + "\n");
-            }
-        }
-        //System.out.println(showAllIngredients.getText().toString().trim());
     }
-
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -214,6 +184,10 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 databaseRecipe.child(recipe.getRecipeId()).setValue(recipe);
                 Toast.makeText(context, "Rezept wurde erfolgreich angelegt", Toast.LENGTH_LONG).show();
+
+                MyRecipesFragment myRecipesFragment = new MyRecipesFragment();
+                FragmentManager manager = getFragmentManager();
+                manager.beginTransaction().replace(R.id.fragment_container, myRecipesFragment, myRecipesFragment.getTag()).addToBackStack(null).commit();
             }
 
             @Override

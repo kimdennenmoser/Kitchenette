@@ -37,7 +37,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/buttonGewuerze"
+        android:id="@+id/buttonGewuerzeNuts"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginStart="20dp"
@@ -45,7 +45,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/button_border"
         android:fontFamily="cursive"
-        android:text="Gewürze"
+        android:text="Gewürze + Nüsse"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,10 +79,10 @@
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonGewuerze" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonGewuerzeNuts" />
 
     <Button
-        android:id="@+id/buttonNuts"
+        android:id="@+id/buttonDrinks"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="10dp"
@@ -90,7 +90,7 @@
         android:layout_marginRight="20dp"
         android:background="@drawable/button_border"
         android:fontFamily="cursive"
-        android:text="Nüsse"
+        android:text="Getränke"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

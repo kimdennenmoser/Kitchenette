@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.R;
-import com.example.navigationdrawerfromscratch.account.IntoleranceFragment;
 import com.example.navigationdrawerfromscratch.account.recipes.IngredientCategory;
 import com.example.navigationdrawerfromscratch.account.recipes.RecipeGenerate;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
@@ -41,11 +40,11 @@ public class RecipeGewuerze extends Fragment implements ProductAdapter.OnNoteLis
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_gewuerze, container, false);
+        View view = inflater.inflate(R.layout.fragment_gewuerze_nuts, container, false);
 
         gewuerzeList = new ArrayList<>();
         databaseGewuerze = FirebaseDatabase.getInstance().getReference("Lebensmittel"); //"Gewürze"
-        mResultList = (RecyclerView) view.findViewById(R.id.gewuerzeView);
+        mResultList = (RecyclerView) view.findViewById(R.id.gewuerzeNutsView);
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
 

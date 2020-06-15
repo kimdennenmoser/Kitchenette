@@ -41,11 +41,11 @@ public class Gewuerze extends Fragment implements ProductAdapter.OnNoteListener 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_gewuerze, container, false);
+        View view = inflater.inflate(R.layout.fragment_gewuerze_nuts, container, false);
 
         gewuerzeList = new ArrayList<>();
         databaseGewuerze = FirebaseDatabase.getInstance().getReference("Lebensmittel"); //"Gewürze"
-        mResultList = (RecyclerView) view.findViewById(R.id.gewuerzeView);
+        mResultList = (RecyclerView) view.findViewById(R.id.gewuerzeNutsView);
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
@@ -62,7 +62,7 @@ public class Gewuerze extends Fragment implements ProductAdapter.OnNoteListener 
                 gewuerzeList.clear();
                 for(DataSnapshot productSnapshot: dataSnapshot.getChildren()){
                     Food gewuerze = productSnapshot.getValue(Food.class);
-                    if (gewuerze.getCategory().equals("Gewürz")){
+                    if (gewuerze.getCategory().equals("Gewürz & Nuss")){
                         gewuerzeList.add(gewuerze);
                     }
                     mResultList.setAdapter(adapter);

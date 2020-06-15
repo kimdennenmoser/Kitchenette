@@ -37,11 +37,11 @@ public class RecipeSueßes extends Fragment implements ProductAdapter.OnNoteList
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_nuts, container, false);
+        View view = inflater.inflate(R.layout.fragment_drinks, container, false);
 
         süßList = new ArrayList<>();
         databaseSüßes = FirebaseDatabase.getInstance().getReference("Lebensmittel"); //"Lebensmittel"
-        mResultList = (RecyclerView) view.findViewById(R.id.nutsView);
+        mResultList = (RecyclerView) view.findViewById(R.id.drinksView);
         mResultList.setHasFixedSize(true);
         mResultList.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
