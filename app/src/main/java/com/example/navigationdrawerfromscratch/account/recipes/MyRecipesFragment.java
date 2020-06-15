@@ -91,7 +91,11 @@ public class MyRecipesFragment extends Fragment implements RecipeAdapter.OnRecip
 
     @Override
     public void onRecipeClick(int position) {
-        Toast.makeText(getView().getContext(), "Wurde geklickt!", Toast.LENGTH_LONG).show();
+        RecipeInstruction.shoppingList = "all";
+        RecipeInstruction recipeInstruction = new RecipeInstruction();
+        FragmentManager recipeManager = getFragmentManager();
+        recipeManager.beginTransaction().replace(R.id.fragment_container, recipeInstruction, recipeInstruction.getTag()).addToBackStack(null).commit();
+        RecipeInstruction.recipeString=recipeList.get(position).getRecipeId();
     }
 
     //View Holder Class

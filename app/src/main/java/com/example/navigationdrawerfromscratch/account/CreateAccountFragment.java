@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.example.navigationdrawerfromscratch.MainActivity;
 import com.example.navigationdrawerfromscratch.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -94,6 +95,7 @@ public class CreateAccountFragment extends Fragment {
                         databaseUser.child(user.getUsername()).setValue(user); //wird als Kind des Knoten "User" angelegt
                         Toast.makeText(context, "User wurde erfolgreich angelegt", Toast.LENGTH_LONG).show();
                         AccountFragment.usernameString = user.getUsername();
+                        MainActivity.isAngemeldet = true;
 
                         AccountOverviewFragment accountOverviewFragment = new AccountOverviewFragment();
                         FragmentManager manager = getFragmentManager();

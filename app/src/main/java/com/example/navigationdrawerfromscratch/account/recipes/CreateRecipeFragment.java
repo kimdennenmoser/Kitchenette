@@ -56,7 +56,6 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
     ImageView addIngredient;
     DatabaseReference databaseRecipe;
     String categoryString;
-    EditText editTextRating;
     EditText editTextPortions;
     EditText editTextAmount;
     TextView TextViewSwitchToFoodSelection;
@@ -136,7 +135,12 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
     }
 
     public void addIngredient() {
-        ingredientsMap.put(editTextAmount.getText().toString().trim(), textViewChangeIngredient.getText().toString().trim());
+
+        if (editTextAmount.getText().toString().trim().contains("/") == true) {
+            Toast.makeText(getContext(), "Menge darf nicht '/' enthalten", Toast.LENGTH_LONG).show();
+        } else if (editTextAmount.getText().toString().trim().contains("/") == false){
+            ingredientsMap.put(editTextAmount.getText().toString().trim(), textViewChangeIngredient.getText().toString().trim());
+        }
         System.out.println(ingredientsMap.toString());
         for (int i = 0; i < ingredientsMap.size(); i++) {
             showAllIngredients.setText(ingredientsMap.toString());
