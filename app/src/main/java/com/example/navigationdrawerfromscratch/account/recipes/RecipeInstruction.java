@@ -194,6 +194,7 @@ public class RecipeInstruction extends Fragment {
                 ShoppingListFragment.foodNames.clear();
                 for (int z = 0; z < ingredients.size(); z++) {
                     ShoppingListFragment.foodNames.add(ingredients.get(z));
+                    ShoppingListFragment.upToDate = false;
                 }
                 ShoppingListFragment shoppingListFragment = new ShoppingListFragment();
                 FragmentManager manager = getFragmentManager();
@@ -208,6 +209,8 @@ public class RecipeInstruction extends Fragment {
                 ShoppingListFragment.foodNames.clear();
                 for (int i = 0; i < ingredients.size(); i++) {
                     ShoppingListFragment.foodNames.add(ingredients.get(i));
+                    ShoppingListFragment.upToDate = false;
+                    ShoppingListFragment.schonhinzugefügt = false;
                 }
                 ShoppingListFragment shoppingListFragment = new ShoppingListFragment();
                 FragmentManager manager = getFragmentManager();

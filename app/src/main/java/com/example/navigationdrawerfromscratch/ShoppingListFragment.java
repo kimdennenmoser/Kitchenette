@@ -45,6 +45,7 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
     DatabaseReference databaseUser;
     Button buttonSaveShoppingListToUser;
     public static boolean upToDate = true;
+    public static boolean schonhinzugefügt = false;
 
     @Nullable
     @Override
@@ -87,52 +88,49 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
     @Override
     public void onStart() {
         super.onStart();
-
         adapter = new ProductAdapter(getView().getContext(), foodList, this);
 
-/*
+        if (schonhinzugefügt == false) {
+            if (upToDate == true) {
 
-        databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Food food = snapshot.getValue(Food.class);
-                    for (int i = 0; i < foodNames.size(); i++) {
-                        if ((foodNames.get(i)).equals(food.getName())) {
-                            System.out.println("yess");
-                            foodList.add(food);
-                            recyclerView.setAdapter(adapter);
-                        }
-                    }
-                }
-            }
+                databaseUser.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-        */
+                        if (user.getShoppingList() != null) {
+                            userShoppingList = user.getShoppingList();
+                            for (int i = 0; i < userShoppingList.size(); i++) {
+                                final String shoppingListIngredient = userShoppingList.get(i);
+                                databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot intoleranceSnapshot : dataSnapshot.getChildren()) {
+                                            Food food = intoleranceSnapshot.getValue(Food.class);
+                                            if (shoppingListIngredient.equals(food.getName())) {
+                                                foodList.add(food);
+                                                recyclerView.setAdapter(adapter);
+                                            }
+                                        }
+                                    }
 
-
-        // if (upToDate == true) {
-        if (MainActivity.isAngemeldet == true) {
-            databaseUser.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
-
-                    if (user.getShoppingList() != null) {
-                        userShoppingList = user.getShoppingList();
-                        for (int i = 0; i < userShoppingList.size(); i++) {
-                            final String shoppingListIngredient = userShoppingList.get(i);
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    }
+                                });
+                            }
+                        } else {
                             databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    for (DataSnapshot intoleranceSnapshot : dataSnapshot.getChildren()) {
-                                        Food food = intoleranceSnapshot.getValue(Food.class);
-                                        if (shoppingListIngredient.equals(food.getName())) {
-                                            foodList.add(food);
-                                            recyclerView.setAdapter(adapter);
+                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                        Food food = snapshot.getValue(Food.class);
+                                        for (int i = 0; i < foodNames.size(); i++) {
+                                            if ((foodNames.get(i)).equals(food.getName())) {
+                                                System.out.println("yess");
+                                                foodList.add(food);
+                                                recyclerView.setAdapter(adapter);
+                                            }
                                         }
                                     }
                                 }
@@ -142,79 +140,40 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
                                 }
                             });
                         }
-                    } else {
-                        //recyclerView.setAdapter(adapter);
-                        databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                    Food food = snapshot.getValue(Food.class);
-                                    for (int i = 0; i < foodNames.size(); i++) {
-                                        if ((foodNames.get(i)).equals(food.getName())) {
-                                            System.out.println("yess");
-                                            foodList.add(food);
-                                            recyclerView.setAdapter(adapter);
-                                        }
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                            }
-                        });
-                        /*
-                        databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                    Food food = snapshot.getValue(Food.class);
-                                    for (int i = 0; i < foodNames.size(); i++) {
-                                        if ((foodNames.get(i)).equals(food.getName())) {
-                                            System.out.println("yess");
-                                            foodList.add(food);
-                                            recyclerView.setAdapter(adapter);
-                                        }
-                                    }
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError databaseError) {
-                            }
-                        });
-
-                         */
                     }
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                }
-            });
-        } else {
-            databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        Food food = snapshot.getValue(Food.class);
-                        for (int i = 0; i < foodNames.size(); i++) {
-                            if ((foodNames.get(i)).equals(food.getName())) {
-                                System.out.println("yess");
-                                foodList.add(food);
-                                recyclerView.setAdapter(adapter);
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+
+            } else {
+                databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Food food = snapshot.getValue(Food.class);
+                            for (int i = 0; i < foodNames.size(); i++) {
+                                if ((foodNames.get(i)).equals(food.getName())) {
+                                    foodList.add(food);
+                                    recyclerView.setAdapter(adapter);
+                                }
                             }
                         }
+                        schonhinzugefügt = true;
+
                     }
-                }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                }
-            });
-
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+            }
+        } else {
+            recyclerView.setAdapter(adapter);
         }
     }
+
 
     public void saveShoppinglistToUser() {
         if (MainActivity.isAngemeldet == true) {

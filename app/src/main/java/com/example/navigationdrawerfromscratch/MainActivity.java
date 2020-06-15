@@ -78,7 +78,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new BrowseFragment()).commit();
                 break;
             case R.id.nav_shoppinglist:
-                ShoppingListFragment.upToDate = true;
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new ShoppingListFragment()).commit();
                 break;
         }
