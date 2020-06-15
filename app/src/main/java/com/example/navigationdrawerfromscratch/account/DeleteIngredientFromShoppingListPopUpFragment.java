@@ -29,7 +29,6 @@ public class DeleteIngredientFromShoppingListPopUpFragment extends DialogFragmen
 
     View view;
     Button btnDeleteIngredient;
-    Button btnDeleteIngredientAbbruch;
     DatabaseReference databaseFood;
     public static String foodName = null;
 
@@ -41,7 +40,6 @@ public class DeleteIngredientFromShoppingListPopUpFragment extends DialogFragmen
         view = inflater.inflate(R.layout.fragment_delete_ingredient_popup, container, false);
 
         btnDeleteIngredient = (Button) view.findViewById(R.id.buttonDeleteIngredient);
-        btnDeleteIngredientAbbruch = (Button) view.findViewById(R.id.buttonDeleteIngredientAbbruch);
         databaseFood = FirebaseDatabase.getInstance().getReference("Lebensmittel").child(foodName);
 
         btnDeleteIngredient.setOnClickListener(new View.OnClickListener() {
@@ -76,12 +74,6 @@ public class DeleteIngredientFromShoppingListPopUpFragment extends DialogFragmen
             }
         });
 
-        btnDeleteIngredientAbbruch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         onResume();
         onStop();
 

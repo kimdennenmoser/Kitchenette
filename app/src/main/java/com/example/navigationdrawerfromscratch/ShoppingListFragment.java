@@ -66,9 +66,6 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
         buttonClearList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                foodList.clear();
-                foodNames.clear();
-
                 recyclerView.setAdapter(adapter);
                 if (MainActivity.isAngemeldet == true) {
                     DeleteAllIngredientsFromShoppingListPopUpFragment deleteAllIngredientsFromShoppingListPopUpFragment = new DeleteAllIngredientsFromShoppingListPopUpFragment();
@@ -185,6 +182,7 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
 
     public void saveShoppinglistToUser() {
         if (MainActivity.isAngemeldet == true) {
+            foodNames.clear();
             databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -192,13 +190,13 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
                         String foodName = foodList.get(i).getName();
                         userShoppingList.add(foodName);
                     }
+                    foodList.clear();
+                    upToDate = false;
+                    schonhinzugefügt = true;
                     User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
                     user.setShoppingList(userShoppingList);
                     databaseUser.child(AccountFragment.usernameString).setValue(user);
-                    foodList.clear();
-                    foodNames.clear();
-                    upToDate = false;
-                    schonhinzugefügt = true;
+
                 }
 
                 @Override
