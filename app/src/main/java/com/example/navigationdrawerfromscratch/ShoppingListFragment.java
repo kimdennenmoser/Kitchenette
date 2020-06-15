@@ -187,7 +187,10 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
                     User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
                     user.setShoppingList(userShoppingList);
                     databaseUser.child(AccountFragment.usernameString).setValue(user);
-                    upToDate = true;
+                    foodList.clear();
+                    foodNames.clear();
+                    upToDate = false;
+                    schonhinzugefügt = true;
                 }
 
                 @Override
