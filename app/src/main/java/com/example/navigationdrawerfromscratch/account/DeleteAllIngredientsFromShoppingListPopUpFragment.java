@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.navigationdrawerfromscratch.R;
+import com.example.navigationdrawerfromscratch.ShoppingListFragment;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,7 +25,6 @@ public class DeleteAllIngredientsFromShoppingListPopUpFragment extends DialogFra
 
     View view;
     Button btnDeleteIngredient;
-    Button btnDeleteIngredientAbbruch;
     DatabaseReference databaseUser;
     public static String foodName = null;
 
@@ -36,7 +36,6 @@ public class DeleteAllIngredientsFromShoppingListPopUpFragment extends DialogFra
         view = inflater.inflate(R.layout.fragment_delete_all_ingredients_popup, container, false);
 
         btnDeleteIngredient = (Button) view.findViewById(R.id.buttonDeleteAllIngredients);
-        btnDeleteIngredientAbbruch = (Button) view.findViewById(R.id.buttonDeleteAllIngredientsAbbruch);
         databaseUser = FirebaseDatabase.getInstance().getReference("User").child(AccountFragment.usernameString);
 
         btnDeleteIngredient.setOnClickListener(new View.OnClickListener() {
@@ -50,6 +49,8 @@ public class DeleteAllIngredientsFromShoppingListPopUpFragment extends DialogFra
                         if (user.getShoppingList() != null){
                             user.setShoppingList(null);
                             databaseUser.setValue(user);
+                            ShoppingListFragment.foodList.clear();
+                            ShoppingListFragment.foodNames.clear();
                             Toast.makeText(getContext(), "Erfolgreich geleert", Toast.LENGTH_LONG).show();
                         } else {
                             Toast.makeText(getContext(), "Bereits leer", Toast.LENGTH_LONG).show();
@@ -65,12 +66,6 @@ public class DeleteAllIngredientsFromShoppingListPopUpFragment extends DialogFra
             }
         });
 
-        btnDeleteIngredientAbbruch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
         onResume();
         onStop();
 

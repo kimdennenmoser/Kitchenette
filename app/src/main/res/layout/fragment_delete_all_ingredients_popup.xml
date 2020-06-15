@@ -25,19 +25,8 @@
         android:layout_marginStart="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:text="Liste leeren?                                "
+        android:text="Liste leeren?    "
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/buttonDeleteAllIngredientsAbbruch"
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="10dp"
-        android:text="Nein"
-        android:textColor="@color/colorPrimaryDark"
-        app:layout_constraintStart_toEndOf="@+id/buttonDeleteAllIngredients"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWantDeleteAllIngredients" />
 </androidx.constraintlayout.widget.ConstraintLayout>
