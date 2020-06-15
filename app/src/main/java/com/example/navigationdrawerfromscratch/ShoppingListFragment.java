@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.navigationdrawerfromscratch.account.AccountFragment;
+import com.example.navigationdrawerfromscratch.account.DeleteAllIngredientsFromShoppingListPopUpFragment;
 import com.example.navigationdrawerfromscratch.account.DeleteIngredientFromShoppingListPopUpFragment;
 import com.example.navigationdrawerfromscratch.account.User;
 import com.example.navigationdrawerfromscratch.account.recipes.Recipe;
@@ -67,7 +68,14 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
             public void onClick(View v) {
                 foodList.clear();
                 foodNames.clear();
+
                 recyclerView.setAdapter(adapter);
+                if (MainActivity.isAngemeldet == true) {
+                    DeleteAllIngredientsFromShoppingListPopUpFragment deleteAllIngredientsFromShoppingListPopUpFragment = new DeleteAllIngredientsFromShoppingListPopUpFragment();
+                    deleteAllIngredientsFromShoppingListPopUpFragment.show(getActivity().getSupportFragmentManager(), "DeleteAllIngredientsPopUpFragment");
+                } else {
+                    Toast.makeText(getContext(), "Bitte anmelden", Toast.LENGTH_LONG).show();
+                }
             }
         });
         buttonSaveShoppingListToUser.setOnClickListener(new View.OnClickListener() {
