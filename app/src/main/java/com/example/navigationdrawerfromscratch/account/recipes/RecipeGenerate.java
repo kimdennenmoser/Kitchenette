@@ -2,6 +2,7 @@ package com.example.navigationdrawerfromscratch.account.recipes;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,12 +42,11 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
     Button btnAddIngredient;
     Button btnStartSearch;
     RecyclerView recyclerViewIngredient;
-    private ProductAdapter productAdapter;
+    ProductAdapter adapter;
     DatabaseReference databaseRecipes;
 
     TextView showIngredients;
-
-    public static List<Food> productList = new ArrayList<>();
+    public static ArrayList<Food> productList = new ArrayList<>();
     public static String foodName = null;
     public static boolean resultsDisplayed = false;
     public static List<Recipe> recipeList = new ArrayList<>();
@@ -57,18 +57,28 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //View view = inflater.inflate(R.layout.fragment_search, container, false);
+
+
         View view = inflater.inflate(R.layout.fragment_search_alternative, container, false);
+
+
 
         /*recyclerViewIngredient = (RecyclerView) view.findViewById(R.id.recyclerViewIngredient);
         recyclerViewIngredient.setHasFixedSize(true);
         recyclerViewIngredient.setLayoutManager(new LinearLayoutManager(view.getContext()));
 
+        try {
+            Log.i("DEBUG", adapter.toString());
+        }catch(Exception e){
+            System.out.println("Adapter ist noch leer");
+        }
+
 
 
         btnAddIngredient = (Button) view.findViewById(R.id.btnAddIngredient);
-        btnStartSearch = (Button) view.findViewById(R.id.btnStartSearch);
+        btnStartSearch = (Button) view.findViewById(R.id.btnStartSearch);*/
 
-         */
+
 
         btnAddIngredient = (Button) view.findViewById(R.id.btnAddIngredientAlternative);
         btnStartSearch = (Button) view.findViewById(R.id.btnStartSearchAlternative);
@@ -88,9 +98,11 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
 
                 resultsDisplayed = false;
 
+
                 FoodCategory foodCategory = new FoodCategory();
                 FragmentManager manager = getFragmentManager();
                 manager.beginTransaction().replace(R.id.fragment_container, foodCategory, foodCategory.getTag()).addToBackStack(null).commit();
+
             }
         });
 
@@ -108,15 +120,19 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
     @Override
     public void onStart() {
         super.onStart();
-        Context context = this.getContext();
-        /*
-        productAdapter = new ProductAdapter(context, productList, this);
+
+
+        adapter = new ProductAdapter(getView().getContext(), productList, this);
+
+
+
+
         if (resultsDisplayed = true) {
             recipeList.clear();
         }
-        recyclerViewIngredient.setAdapter(productAdapter);
+ //           recyclerViewIngredient.setAdapter(adapter);
 
-         */
+
         productListNameString.clear();
         for (int z = 0; z < productList.size(); z++) {
             productListNameString.add(productList.get(z).getName());
@@ -124,7 +140,7 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
         showIngredients.setText(productListNameString.toString());
     }
 
-    private void startSearch() {
+   private void startSearch() {
         RecipeResultFragment.recipeList.clear();
 
         databaseRecipes.addListenerForSingleValueEvent(new ValueEventListener() {

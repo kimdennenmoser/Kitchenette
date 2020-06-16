@@ -101,7 +101,7 @@ public class RecipeResultFragment extends Fragment implements RecipeAdapter.OnRe
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (spinner.getItemAtPosition(position).toString()) {
-            case ("Kategorie auswählen"):
+            case ("Kategorie"):
                 text="";
                 filter(text);
                 break;
