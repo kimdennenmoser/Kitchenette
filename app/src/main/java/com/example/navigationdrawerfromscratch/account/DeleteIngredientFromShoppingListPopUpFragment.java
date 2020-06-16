@@ -2,6 +2,7 @@ package com.example.navigationdrawerfromscratch.account;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +12,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
+import com.example.navigationdrawerfromscratch.MainActivity;
 import com.example.navigationdrawerfromscratch.R;
 import com.example.navigationdrawerfromscratch.ShoppingListFragment;
 import com.example.navigationdrawerfromscratch.lebensmittel.Food;
@@ -30,7 +32,9 @@ public class DeleteIngredientFromShoppingListPopUpFragment extends DialogFragmen
     View view;
     Button btnDeleteIngredient;
     DatabaseReference databaseFood;
+    DatabaseReference databaseUser;
     public static String foodName = null;
+    List<String> shoppingListStrings = new ArrayList<>();
 
     @Nullable
     @Override
@@ -41,29 +45,47 @@ public class DeleteIngredientFromShoppingListPopUpFragment extends DialogFragmen
 
         btnDeleteIngredient = (Button) view.findViewById(R.id.buttonDeleteIngredient);
         databaseFood = FirebaseDatabase.getInstance().getReference("Lebensmittel").child(foodName);
+        if (MainActivity.isAngemeldet == true) {
+            databaseUser = FirebaseDatabase.getInstance().getReference("User").child(AccountFragment.usernameString);
+        }
 
         btnDeleteIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                //foodName ist der Name der angeklickten Zutat (zu entfernenden)
                 databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot foodSnapshot : dataSnapshot.getChildren()) {
-                            Food food = foodSnapshot.getValue(Food.class);
-                            //ShoppingListFragment.foodList.remove(food);
-                            System.out.println(food.toString());
-                            System.out.println("SLF foodname1: " + ShoppingListFragment.foodNames.toString());
-                            System.out.println("SLF foodlist1: " + ShoppingListFragment.foodList.toString());
-                            if (food.getName().equals(foodName)) {
-                                System.out.println(food.toString());
-                                ShoppingListFragment.foodNames.remove(food);
-                                ShoppingListFragment.foodList.remove(food);
-                                System.out.println("SLF foodname2: " + ShoppingListFragment.foodNames.toString());
-                                System.out.println("SLF foodlist2: " + ShoppingListFragment.foodList.toString());
+                        final Food food = dataSnapshot.getValue(Food.class); //das angeklickte
+                        ShoppingListFragment.foodList.remove(food);
+                        ShoppingListFragment.vonDeleteIngredientPopUp = true;
+
+                        ShoppingListFragment shoppingListFragment = new ShoppingListFragment();
+                        FragmentManager manager = getFragmentManager();
+                        manager.beginTransaction().replace(R.id.fragment_container, shoppingListFragment, shoppingListFragment.getTag()).addToBackStack(null).commit();
+
+                        for (int i = 0; i < ShoppingListFragment.foodList.size(); i++){
+                            shoppingListStrings.add(ShoppingListFragment.foodList.get(i).getName());
+                        }
+                        //noch dem User die neue (verkürzte Shopping List abspeichern
+
+                        databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                User user = dataSnapshot.getValue(User.class);
+                                user.setShoppingList(shoppingListStrings);
+                                ShoppingListFragment.foodList.clear();
+                                ShoppingListFragment.upToDate = false;
+                                ShoppingListFragment.schonhinzugefügt = true;
+
+                                databaseUser.setValue(user);
                             }
 
-                        }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
 
                     }
 

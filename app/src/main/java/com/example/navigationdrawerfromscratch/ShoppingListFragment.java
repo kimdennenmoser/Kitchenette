@@ -2,6 +2,7 @@ package com.example.navigationdrawerfromscratch;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,10 +44,11 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
     public static List<Food> foodList = new ArrayList<>();
     public static ProductAdapter adapter;
     DatabaseReference databaseFood;
-    DatabaseReference databaseUser;
+    public static DatabaseReference databaseUser;
     Button buttonSaveShoppingListToUser;
     public static boolean upToDate = true;
     public static boolean schonhinzugefügt = false;
+    public static boolean vonDeleteIngredientPopUp = false;
 
     @Nullable
     @Override
@@ -77,10 +79,11 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
         });
 
 
-            buttonSaveShoppingListToUser.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        buttonSaveShoppingListToUser.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                if (MainActivity.isAngemeldet == true) {
                     if (foodNames.isEmpty()) {
                         Toast.makeText(getView().getContext(), "Einkaufsliste ist leer oder es wurde nichts Neues hinzugefügt", Toast.LENGTH_LONG).show();
                     } else if (!foodNames.isEmpty()) {
@@ -93,8 +96,11 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
                             Toast.makeText(getContext(), "Bitte anmelden", Toast.LENGTH_LONG).show();
                         }
                     }
+                } else {
+                    Toast.makeText(getContext(), "Bitte anmelden", Toast.LENGTH_LONG).show();
                 }
-            });
+            }
+        });
 
 
         return view;
@@ -105,89 +111,96 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
         super.onStart();
         adapter = new ProductAdapter(getView().getContext(), foodList, this);
 
-        if (schonhinzugefügt == false) {
-            if (upToDate == true) {
-                databaseUser.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
+        if (MainActivity.isAngemeldet == true) {
+            if (vonDeleteIngredientPopUp == false) {
+                if (schonhinzugefügt == false) {
+                    if (upToDate == true) {
+                        databaseUser.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
 
-                        if (user.getShoppingList() != null) {
-                            userShoppingList = user.getShoppingList();
-                            for (int i = 0; i < userShoppingList.size(); i++) {
-                                final String shoppingListIngredient = userShoppingList.get(i);
-                                databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                        for (DataSnapshot intoleranceSnapshot : dataSnapshot.getChildren()) {
-                                            Food food = intoleranceSnapshot.getValue(Food.class);
-                                            if (shoppingListIngredient.equals(food.getName())) {
-                                                foodList.add(food);
-                                                recyclerView.setAdapter(adapter);
+                                if (user.getShoppingList() != null) {
+                                    userShoppingList = user.getShoppingList();
+                                    for (int i = 0; i < userShoppingList.size(); i++) {
+                                        final String shoppingListIngredient = userShoppingList.get(i);
+                                        databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                                for (DataSnapshot intoleranceSnapshot : dataSnapshot.getChildren()) {
+                                                    Food food = intoleranceSnapshot.getValue(Food.class);
+                                                    if (shoppingListIngredient.equals(food.getName())) {
+                                                        foodList.add(food);
+                                                        recyclerView.setAdapter(adapter);
+                                                    }
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                                Food food = snapshot.getValue(Food.class);
+                                                for (int i = 0; i < foodNames.size(); i++) {
+                                                    if ((foodNames.get(i)).equals(food.getName())) {
+                                                        foodList.add(food);
+                                                        recyclerView.setAdapter(adapter);
+                                                    }
+                                                }
                                             }
                                         }
-                                    }
 
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                                    }
-                                });
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                                        }
+                                    });
+                                }
                             }
-                        } else {
-                            databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                        Food food = snapshot.getValue(Food.class);
-                                        for (int i = 0; i < foodNames.size(); i++) {
-                                            if ((foodNames.get(i)).equals(food.getName())) {
-                                                foodList.add(food);
-                                                recyclerView.setAdapter(adapter);
-                                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                            }
+                        });
+
+                    } else {
+                        databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                                    Food food = snapshot.getValue(Food.class);
+                                    for (int i = 0; i < foodNames.size(); i++) {
+                                        if ((foodNames.get(i)).equals(food.getName())) {
+                                            foodList.add(food);
+                                            recyclerView.setAdapter(adapter);
                                         }
                                     }
                                 }
-
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-                                }
-                            });
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
-                    }
-                });
-
-            } else {
-                databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            Food food = snapshot.getValue(Food.class);
-                            for (int i = 0; i < foodNames.size(); i++) {
-                                if ((foodNames.get(i)).equals(food.getName())) {
-                                    foodList.add(food);
-                                    recyclerView.setAdapter(adapter);
-                                }
+                                schonhinzugefügt = true;
                             }
-                        }
-                        schonhinzugefügt = true;
-                    }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                            }
+                        });
                     }
-                });
+                } else {
+                    recyclerView.setAdapter(adapter);
+                }
+            } else if (vonDeleteIngredientPopUp == true) {
+                recyclerView.setAdapter(adapter);
             }
         } else {
             recyclerView.setAdapter(adapter);
         }
     }
 
-
-    public void saveShoppinglistToUser() {
+    public static void saveShoppinglistToUser() {
         if (MainActivity.isAngemeldet == true) {
             foodNames.clear();
             databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -213,7 +226,7 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
                 }
             });
         } else {
-            Toast.makeText(getContext(), "Bitte anmelden", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Bitte anmelden", Toast.LENGTH_LONG).show();
         }
     }
 

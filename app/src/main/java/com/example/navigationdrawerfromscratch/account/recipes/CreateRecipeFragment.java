@@ -100,6 +100,13 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
 
         databaseRecipe = FirebaseDatabase.getInstance().getReference("Rezepte");
 
+        if (!(ingredientsMap.isEmpty())){
+            for (int i = 0; i < ingredientsMap.size(); i++) {
+                showAllIngredients.setText(ingredientsMap.toString());
+            }
+        }
+
+
         btncreateRecipe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -141,7 +148,7 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
         } else if (editTextAmount.getText().toString().trim().contains("/") == false){
             ingredientsMap.put(editTextAmount.getText().toString().trim(), textViewChangeIngredient.getText().toString().trim());
         }
-        System.out.println(ingredientsMap.toString());
+
         for (int i = 0; i < ingredientsMap.size(); i++) {
             showAllIngredients.setText(ingredientsMap.toString());
         }
@@ -150,6 +157,9 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (spinnerCategory.getItemAtPosition(position).toString()) {
+            case ("Kategorie auswählen"):
+                categoryString = "Kategorie auswählen";
+                break;
             case ("Vorspeise"):
                 categoryString = "Vorspeise";
                 break;
@@ -178,25 +188,30 @@ public class CreateRecipeFragment extends Fragment implements AdapterView.OnItem
         String instruction = editTextInstruction.getText().toString().trim();
         String rPortions = editTextPortions.getText().toString().trim();
         String creator = AccountFragment.usernameString;
+        String category = null;
+        if (categoryString.equals("Kategorie auswählen")){
+            Toast.makeText(context, "Bitte Kategorie auswählen", Toast.LENGTH_LONG).show();
+        } else {
+            category = categoryString;
+            final Recipe recipe = new Recipe(rId, rName, preparationTime, ingredientsMap, instruction, category, null, 0, rPortions, creator);
+            final Context context = this.getActivity();
 
+            databaseRecipe.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    databaseRecipe.child(recipe.getRecipeId()).setValue(recipe);
+                    Toast.makeText(context, "Rezept wurde erfolgreich angelegt", Toast.LENGTH_LONG).show();
 
-        final Recipe recipe = new Recipe(rId, rName, preparationTime, ingredientsMap, instruction, categoryString, null, 0, rPortions, creator);
-        final Context context = this.getActivity();
+                    MyRecipesFragment myRecipesFragment = new MyRecipesFragment();
+                    FragmentManager manager = getFragmentManager();
+                    manager.beginTransaction().replace(R.id.fragment_container, myRecipesFragment, myRecipesFragment.getTag()).addToBackStack(null).commit();
+                }
 
-        databaseRecipe.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                databaseRecipe.child(recipe.getRecipeId()).setValue(recipe);
-                Toast.makeText(context, "Rezept wurde erfolgreich angelegt", Toast.LENGTH_LONG).show();
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+                }
+            });
+        }
 
-                MyRecipesFragment myRecipesFragment = new MyRecipesFragment();
-                FragmentManager manager = getFragmentManager();
-                manager.beginTransaction().replace(R.id.fragment_container, myRecipesFragment, myRecipesFragment.getTag()).addToBackStack(null).commit();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
     }
 }
