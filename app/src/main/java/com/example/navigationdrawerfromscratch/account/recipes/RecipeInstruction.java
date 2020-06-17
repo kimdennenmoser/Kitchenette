@@ -1,8 +1,8 @@
 package com.example.navigationdrawerfromscratch.account.recipes;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +52,8 @@ public class RecipeInstruction extends Fragment {
     DatabaseReference databaseIngredients;
     DatabaseReference databaseUser;
     Button btnAddToShoppingList;
+    ImageView imageViewAddToFavorites;
+
 
     public static List<String> userFavorties = new ArrayList<>();
     public static List<String> ingredients = new ArrayList<>();
@@ -79,10 +81,19 @@ public class RecipeInstruction extends Fragment {
         databaseIngredients = FirebaseDatabase.getInstance().getReference("Rezepte").child(recipeString).child("ingredientsMap");
         databaseUser = FirebaseDatabase.getInstance().getReference("User");
 
-        buttonAddToFavorites = (ImageButton) view.findViewById(R.id.btnAddToFav);
         amoutPortions = (TextView) view.findViewById(R.id.textViewAmountPortions);
         btnAddToShoppingList = (Button) view.findViewById(R.id.buttonAddToShoppingList);
         enthalteneZutaten = RecipeGenerate.enthalteneZutaten;
+
+
+        imageViewAddToFavorites = view.findViewById(R.id.imageViewAddToFav);
+
+        imageViewAddToFavorites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addToFavorites();
+            }
+        });
 
 
         databaseRecipe.addValueEventListener(new ValueEventListener() {
@@ -103,13 +114,27 @@ public class RecipeInstruction extends Fragment {
             }
         });
 
-        buttonAddToFavorites.setOnClickListener(new View.OnClickListener() {
+        databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                addToFavorites();
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (MainActivity.isAngemeldet == true) {
+                    User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
+                    for (int i = 0; i < user.getFavorites().size(); i++) {
+                        userFavorties.add(user.getFavorites().get(i));
+                    }
+                    if (userFavorties.contains(recipeString)) {
+                        imageViewAddToFavorites.setImageResource(R.drawable.ic_added_favorites);
+                    }
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
             }
         });
-
 
         btnAddToShoppingList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -160,6 +185,9 @@ public class RecipeInstruction extends Fragment {
                             userFavorties.add(recipe.getRecipeId());
                             user.setFavorites(userFavorties);
                             databaseUser.child(user.getUsername()).setValue(user);
+                            Toast.makeText(getContext(), "Favorit hinzugefügt", Toast.LENGTH_LONG).show();
+                            imageViewAddToFavorites.setImageResource(R.drawable.ic_added_favorites);
+
                         }
 
                         @Override
