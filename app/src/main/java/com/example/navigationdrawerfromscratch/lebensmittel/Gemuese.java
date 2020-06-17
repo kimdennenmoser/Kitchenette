@@ -116,6 +116,7 @@ public class Gemuese extends Fragment implements ProductAdapter.OnNoteListener {
         if (vonWoher == "Search"){
             RecipeGenerate.productList.add(food);
 
+
             RecipeGenerate recipeGenerate = new RecipeGenerate();
             FragmentManager manager = getFragmentManager();
             manager.beginTransaction().replace(R.id.fragment_container, recipeGenerate, recipeGenerate.getTag()).addToBackStack(null).commit();
