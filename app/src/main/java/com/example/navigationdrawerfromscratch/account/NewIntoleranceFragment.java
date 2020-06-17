@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -54,6 +53,7 @@ public class NewIntoleranceFragment extends Fragment implements ProductAdapter.O
     public int i;
     public static ArrayList<Food> oldAllergies = new ArrayList<>();
     public static boolean upToDate = true;
+    public static boolean vonDeletePopUp = false;
 
 
     @Nullable
@@ -110,47 +110,47 @@ public class NewIntoleranceFragment extends Fragment implements ProductAdapter.O
 
 
         //wenn ein User angemeldet ist, prüfe, ob dieser Allergien/Unverträglichkeiten bereits abgespeichert hat und speichere sie in das RecyclerView
-        if (upToDate == true) {
-            databaseUser.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
-                    System.out.println(newObst);
-                    if (user.getAllergies() != null) {
-                        allergiesList = user.getAllergies();
-                        for (i = 0; i < allergiesList.size(); i++) {
-                            final String allergieName = allergiesList.get(i);
-                            databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                                    for (DataSnapshot intoleranceSnapshot : dataSnapshot.getChildren()) {
-                                        Food food = intoleranceSnapshot.getValue(Food.class);
-                                        if (allergieName.equals(food.getName())) {
-                                            oldAllergies.add(food);
-                                            mResultList.setAdapter(adapter);
+            if (upToDate == true) {
+                databaseUser.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
+                        System.out.println(newObst);
+                        if (user.getAllergies() != null) {
+                            allergiesList = user.getAllergies();
+                            for (i = 0; i < allergiesList.size(); i++) {
+                                final String allergieName = allergiesList.get(i);
+                                databaseFood.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot intoleranceSnapshot : dataSnapshot.getChildren()) {
+                                            Food food = intoleranceSnapshot.getValue(Food.class);
+                                            if (allergieName.equals(food.getName())) {
+                                                oldAllergies.add(food);
+                                                mResultList.setAdapter(adapter);
+                                            }
                                         }
                                     }
-                                }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError databaseError) {
-                                }
-                            });
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                                    }
+                                });
+                            }
+                        } else {
+                            mResultList.setAdapter(adapter);
                         }
-                    } else {
-                        mResultList.setAdapter(adapter);
+
                     }
 
-                }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+            } else {
+                mResultList.setAdapter(adapter);
+            }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                }
-            });
-        }
-        else {
-            mResultList.setAdapter(adapter);
-        }
     }
 
     public void saveAllergiesToUser() {
@@ -175,8 +175,7 @@ public class NewIntoleranceFragment extends Fragment implements ProductAdapter.O
 
     @Override
     public void onFoodClick(int position) {
-        Toast.makeText(getView().getContext(), "Wurde geklickt!", Toast.LENGTH_LONG).show();
-    }
+   }
 
     //View Holder Class
     public class FoodViewHolder extends RecyclerView.ViewHolder {

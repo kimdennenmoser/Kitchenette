@@ -181,13 +181,13 @@ public class RecipeInstruction extends Fragment {
                                 if (user.getFavorites() != null) {
                                     userFavorties = user.getFavorites();
                                 }
-                                userFavorties.add(recipe.getRecipeId());
-                                user.setFavorites(userFavorties);
-                                databaseUser.child(user.getUsername()).setValue(user);
-                                Toast.makeText(getContext(), "Favorit hinzugefügt", Toast.LENGTH_LONG).show();
-                                imageViewAddToFavorites.setImageResource(R.drawable.ic_added_favorites);
-
-
+                                if (!userFavorties.contains(recipeString)) {
+                                    userFavorties.add(recipe.getRecipeId());
+                                    user.setFavorites(userFavorties);
+                                    databaseUser.child(user.getUsername()).setValue(user);
+                                    Toast.makeText(getContext(), "Favorit hinzugefügt", Toast.LENGTH_LONG).show();
+                                    imageViewAddToFavorites.setImageResource(R.drawable.ic_added_favorites);
+                                }
                             }
 
                             @Override
@@ -225,13 +225,10 @@ public class RecipeInstruction extends Fragment {
                 databaseUser.child(user.getUsername()).setValue(user);
                 Toast.makeText(getContext(), "Favorit entfernt", Toast.LENGTH_LONG).show();
                 imageViewAddToFavorites.setImageResource(R.drawable.ic_favorites);
-
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
 
