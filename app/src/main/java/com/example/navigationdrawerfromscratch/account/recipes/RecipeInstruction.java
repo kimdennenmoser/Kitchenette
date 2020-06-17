@@ -53,6 +53,7 @@ public class RecipeInstruction extends Fragment {
     DatabaseReference databaseUser;
     Button btnAddToShoppingList;
     ImageView imageViewAddToFavorites;
+    Boolean addedToFavorites = false;
 
 
     public static List<String> userFavorties = new ArrayList<>();
@@ -61,7 +62,6 @@ public class RecipeInstruction extends Fragment {
     public static String shoppingList = null;
     public static String recipeString;
     IngredientsAdapter adapter;
-    ImageButton buttonAddToFavorites;
 
     @Nullable
     @Override
@@ -124,15 +124,13 @@ public class RecipeInstruction extends Fragment {
                     }
                     if (userFavorties.contains(recipeString)) {
                         imageViewAddToFavorites.setImageResource(R.drawable.ic_added_favorites);
+                        addedToFavorites = true;
                     }
-
                 }
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
 
@@ -171,38 +169,72 @@ public class RecipeInstruction extends Fragment {
     private void addToFavorites() {
         userFavorties.clear();
         if (MainActivity.isAngemeldet == true) {
-            databaseRecipe.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    final Recipe recipe = dataSnapshot.getValue(Recipe.class);
-                    databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
-                            if (user.getFavorites() != null) {
-                                userFavorties = user.getFavorites();
+            if (addedToFavorites == false) {
+                databaseRecipe.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        final Recipe recipe = dataSnapshot.getValue(Recipe.class);
+                        databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
+                                if (user.getFavorites() != null) {
+                                    userFavorties = user.getFavorites();
+                                }
+                                userFavorties.add(recipe.getRecipeId());
+                                user.setFavorites(userFavorties);
+                                databaseUser.child(user.getUsername()).setValue(user);
+                                Toast.makeText(getContext(), "Favorit hinzugefügt", Toast.LENGTH_LONG).show();
+                                imageViewAddToFavorites.setImageResource(R.drawable.ic_added_favorites);
+
+
                             }
-                            userFavorties.add(recipe.getRecipeId());
-                            user.setFavorites(userFavorties);
-                            databaseUser.child(user.getUsername()).setValue(user);
-                            Toast.makeText(getContext(), "Favorit hinzugefügt", Toast.LENGTH_LONG).show();
-                            imageViewAddToFavorites.setImageResource(R.drawable.ic_added_favorites);
 
-                        }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+                            }
+                        });
+                    }
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                        }
-                    });
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
-                }
-            });
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                    }
+                });
+            } else if (addedToFavorites == true) {
+                removeFromFavorites();
+            }
         } else {
             Toast.makeText(getContext(), "Bitte anmelden", Toast.LENGTH_LONG).show();
         }
+    }
+
+    private void removeFromFavorites() {
+        databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
+                if (user.getFavorites() != null) {
+                    for (int i = 0; i < user.getFavorites().size(); i++) {
+                        userFavorties.add(user.getFavorites().get(i));
+                    }
+                }
+                if (userFavorties.contains(recipeString)) {
+                    userFavorties.remove(recipeString);
+                }
+                user.setFavorites(userFavorties);
+                databaseUser.child(user.getUsername()).setValue(user);
+                Toast.makeText(getContext(), "Favorit entfernt", Toast.LENGTH_LONG).show();
+                imageViewAddToFavorites.setImageResource(R.drawable.ic_favorites);
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     private void addToShoppingList() {
