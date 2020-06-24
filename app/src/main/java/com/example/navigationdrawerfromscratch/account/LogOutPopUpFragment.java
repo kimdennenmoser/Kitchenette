@@ -26,7 +26,7 @@ import java.util.List;
 public class LogOutPopUpFragment extends DialogFragment {
 
     View view;
-    Button btnLogOut, btnLogoutCancel;
+    Button btnLogOut;
     DatabaseReference databaseUser;
 
     List<String> allergiesUserList = new ArrayList<>();
@@ -40,14 +40,6 @@ public class LogOutPopUpFragment extends DialogFragment {
 
         databaseUser = FirebaseDatabase.getInstance().getReference("User").child(AccountFragment.usernameString);
         btnLogOut = (Button) view.findViewById(R.id.buttonLogOutAccount);
-
-        btnLogoutCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
 
         btnLogOut.setOnClickListener(new View.OnClickListener() {
             @Override

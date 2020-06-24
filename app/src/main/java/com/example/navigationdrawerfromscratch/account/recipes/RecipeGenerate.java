@@ -17,7 +17,10 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.navigationdrawerfromscratch.MainActivity;
 import com.example.navigationdrawerfromscratch.R;
+import com.example.navigationdrawerfromscratch.account.AccountFragment;
+import com.example.navigationdrawerfromscratch.account.User;
 import com.example.navigationdrawerfromscratch.lebensmittel.FoodCategory;
 import com.example.navigationdrawerfromscratch.adapters.ProductAdapter;
 import com.example.navigationdrawerfromscratch.lebensmittel.Food;
@@ -44,6 +47,7 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
     RecyclerView recyclerViewIngredient;
     ProductAdapter adapter;
     DatabaseReference databaseRecipes;
+    DatabaseReference databaseUser;
 
     TextView showIngredients;
     public static ArrayList<Food> productList = new ArrayList<>();
@@ -52,6 +56,8 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
     public static List<Recipe> recipeList = new ArrayList<>();
     public static List<String> enthalteneZutaten = new ArrayList<>();
     public static List<String> productListNameString = new ArrayList<>();
+    List<String> userAllergies = new ArrayList<>();
+    public static Boolean allergicToRecipe = false;
 
     @Nullable
     @Override
@@ -60,8 +66,6 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
 
 
         View view = inflater.inflate(R.layout.fragment_search_alternative, container, false);
-
-
 
         /*recyclerViewIngredient = (RecyclerView) view.findViewById(R.id.recyclerViewIngredient);
         recyclerViewIngredient.setHasFixedSize(true);
@@ -79,12 +83,14 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
         btnStartSearch = (Button) view.findViewById(R.id.btnStartSearch);*/
 
 
-
         btnAddIngredient = (Button) view.findViewById(R.id.btnAddIngredientAlternative);
         btnStartSearch = (Button) view.findViewById(R.id.btnStartSearchAlternative);
         showIngredients = (TextView) view.findViewById(R.id.textViewShowSelectedIngredients);
 
         databaseRecipes = FirebaseDatabase.getInstance().getReference("Rezepte");
+
+        databaseUser = FirebaseDatabase.getInstance().getReference("User");
+
 
         btnAddIngredient.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,7 +103,6 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
                 Obst.vonWoher = "Search";
 
                 resultsDisplayed = false;
-
 
                 FoodCategory foodCategory = new FoodCategory();
                 FragmentManager manager = getFragmentManager();
@@ -116,22 +121,13 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
         return view;
     }
 
-
     @Override
     public void onStart() {
         super.onStart();
-
-
         adapter = new ProductAdapter(getView().getContext(), productList, this);
-
-
-
-
-        /*if (resultsDisplayed = true) {
+        if (resultsDisplayed = true) {
             recipeList.clear();
         }
-            recyclerViewIngredient.setAdapter(adapter);*/
-
 
         productListNameString.clear();
         for (int z = 0; z < productList.size(); z++) {
@@ -140,7 +136,7 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
         showIngredients.setText(productListNameString.toString());
     }
 
-   private void startSearch() {
+    private void startSearch() {
         RecipeResultFragment.recipeList.clear();
 
         databaseRecipes.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -150,34 +146,57 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
                 for (DataSnapshot recipeSnapshot : dataSnapshot.getChildren()) {
                     recipeList.clear();
                     enthalteneZutaten.clear();
-                    Recipe recipe = recipeSnapshot.getValue(Recipe.class);
+                    final Recipe recipe = recipeSnapshot.getValue(Recipe.class);
                     recipeList.add(recipe);
-                    List<String> zutaten = new ArrayList<>();
+                    final List<String> zutaten = new ArrayList<>();
                     for (int i = 0; i < recipeList.size(); i++) {
                         zutaten.clear();
                         HashMap<String, String> ingredientsHashMap = recipeList.get(i).getIngredientsMap();
                         for (String key : ingredientsHashMap.keySet()) {
-                            zutaten.add(ingredientsHashMap.get(key));
+                            zutaten.add(ingredientsHashMap.get(key)); //Ananas, Erdbeere, Orange, Pistazie
                         }
-                        for (int k = 0; k < productList.size(); k++) {
-                            for (int j = 0; j < zutaten.size(); j++) {
-                                if (zutaten.get(j).equals(productList.get(k).getName())) {
-                                    enthalteneZutaten.add(productList.get(k).getName());
-                                }
-                            }
-                        }
-                        productListNameString.clear();
-                        for (int z = 0; z < productList.size(); z++) {
-                            productListNameString.add(productList.get(z).getName());
-                        }
-                        // System.out.println("enthalten list" + enthalteneZutaten.toString());
-                        System.out.println("productListNameString: " + productListNameString.toString());
-                        if (enthalteneZutaten.equals(productListNameString)) {
-                            RecipeResultFragment.recipeList.add(recipe);
+                        //User Allergien abfragen
+                        if (MainActivity.isAngemeldet == true) {
+                            databaseUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                    User user = dataSnapshot.child(AccountFragment.usernameString).getValue(User.class);
+                                    for (int i = 0; i < user.getAllergies().size(); i++) {
+                                        userAllergies.add(user.getAllergies().get(i));
+                                    }
+                                    for (int j = 0; j < userAllergies.size(); j++) {
+                                        if (zutaten.contains(userAllergies.get(j))) {
+                                           allergicToRecipe = true;
+                                        } else{
+                                            allergicToRecipe = false;
+                                        }
+                                    }
+                                    for (int k = 0; k < productList.size(); k++) {
+                                        for (int j = 0; j < zutaten.size(); j++) {
+                                            if (zutaten.get(j).equals(productList.get(k).getName())) {
+                                                enthalteneZutaten.add(productList.get(k).getName()); //eingegebene(productList) in Zutaten enthalten
+                                            }
+                                        }
+                                    }
+                                    productListNameString.clear();
+                                    for (int z = 0; z < productList.size(); z++) {
+                                        productListNameString.add(productList.get(z).getName());
+                                    }
 
-                            RecipeResultFragment recipeResultFragment = new RecipeResultFragment();
-                            FragmentManager manager = getFragmentManager();
-                            manager.beginTransaction().replace(R.id.fragment_container, recipeResultFragment, recipeResultFragment.getTag()).addToBackStack(null).commit();
+                                    if (enthalteneZutaten.equals(productListNameString)) {
+                                        if (allergicToRecipe == false) {
+                                            RecipeResultFragment.recipeList.add(recipe);
+                                        }
+                                        RecipeResultFragment recipeResultFragment = new RecipeResultFragment();
+                                        FragmentManager manager = getFragmentManager();
+                                        manager.beginTransaction().replace(R.id.fragment_container, recipeResultFragment, recipeResultFragment.getTag()).addToBackStack(null).commit();
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError databaseError) {
+                                }
+                            });
                         }
                     }
                 }
@@ -191,7 +210,7 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
 
     @Override
     public void onFoodClick(int position) {
-        //Toast.makeText(getView().getContext(), "Wurde geklickt!", Toast.LENGTH_LONG).show();
+
     }
 
     public class FoodViewHolder extends RecyclerView.ViewHolder {
