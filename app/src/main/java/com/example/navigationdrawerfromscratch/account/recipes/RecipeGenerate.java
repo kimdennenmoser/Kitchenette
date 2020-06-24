@@ -127,10 +127,10 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
 
 
 
-        if (resultsDisplayed = true) {
+        /*if (resultsDisplayed = true) {
             recipeList.clear();
         }
- //           recyclerViewIngredient.setAdapter(adapter);
+            recyclerViewIngredient.setAdapter(adapter);*/
 
 
         productListNameString.clear();

@@ -53,7 +53,7 @@ public class BrowseFragment extends Fragment implements RecipeAdapter.OnRecipeLi
             public void onClick(View v) {
                 RecipeGenerate recipeGenerate = new RecipeGenerate();
                 FragmentManager manager = getFragmentManager();
-                manager.beginTransaction().replace(R.id.fragment_container, recipeGenerate, recipeGenerate.getTag()).commit();
+                manager.beginTransaction().replace(R.id.fragment_container, recipeGenerate, recipeGenerate.getTag()).addToBackStack(null).commit();
             }
         });
 
