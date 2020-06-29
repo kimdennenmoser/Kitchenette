@@ -126,7 +126,6 @@ public class RecipeResultFragment extends Fragment implements RecipeAdapter.OnRe
 
     @Override
     public void onRecipeClick(int position) {
-        String id = recipeList.get(position).getRecipeId();
         RecipeInstruction.shoppingList = "selective";
         RecipeInstruction recipeInstruction = new RecipeInstruction();
         FragmentManager recipeManager = getFragmentManager();

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -44,7 +45,6 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
 
     Button btnAddIngredient;
     Button btnStartSearch;
-    RecyclerView recyclerViewIngredient;
     ProductAdapter adapter;
     DatabaseReference databaseRecipes;
     DatabaseReference databaseUser;
@@ -58,29 +58,13 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
     public static List<String> productListNameString = new ArrayList<>();
     List<String> userAllergies = new ArrayList<>();
     public static Boolean allergicToRecipe = false;
+    public static Boolean recipesFound = false;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        //View view = inflater.inflate(R.layout.fragment_search, container, false);
-
 
         View view = inflater.inflate(R.layout.fragment_search_alternative, container, false);
-
-        /*recyclerViewIngredient = (RecyclerView) view.findViewById(R.id.recyclerViewIngredient);
-        recyclerViewIngredient.setHasFixedSize(true);
-        recyclerViewIngredient.setLayoutManager(new LinearLayoutManager(view.getContext()));
-
-        try {
-            Log.i("DEBUG", adapter.toString());
-        }catch(Exception e){
-            System.out.println("Adapter ist noch leer");
-        }
-
-
-
-        btnAddIngredient = (Button) view.findViewById(R.id.btnAddIngredient);
-        btnStartSearch = (Button) view.findViewById(R.id.btnStartSearch);*/
 
 
         btnAddIngredient = (Button) view.findViewById(R.id.btnAddIngredientAlternative);
@@ -153,7 +137,7 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
                         zutaten.clear();
                         HashMap<String, String> ingredientsHashMap = recipeList.get(i).getIngredientsMap();
                         for (String key : ingredientsHashMap.keySet()) {
-                            zutaten.add(ingredientsHashMap.get(key)); //Ananas, Erdbeere, Orange, Pistazie
+                            zutaten.add(ingredientsHashMap.get(key));
                         }
                         //User Allergien abfragen
                         if (MainActivity.isAngemeldet == true) {
@@ -164,17 +148,17 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
                                     for (int i = 0; i < user.getAllergies().size(); i++) {
                                         userAllergies.add(user.getAllergies().get(i));
                                     }
+
                                     for (int j = 0; j < userAllergies.size(); j++) {
                                         if (zutaten.contains(userAllergies.get(j))) {
-                                           allergicToRecipe = true;
-                                        } else{
-                                            allergicToRecipe = false;
+                                            zutaten.clear();
                                         }
                                     }
+                                    Log.d("zutaten", zutaten.toString());
                                     for (int k = 0; k < productList.size(); k++) {
                                         for (int j = 0; j < zutaten.size(); j++) {
                                             if (zutaten.get(j).equals(productList.get(k).getName())) {
-                                                enthalteneZutaten.add(productList.get(k).getName()); //eingegebene(productList) in Zutaten enthalten
+                                                enthalteneZutaten.add(productList.get(k).getName());
                                             }
                                         }
                                     }
@@ -184,9 +168,12 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
                                     }
 
                                     if (enthalteneZutaten.equals(productListNameString)) {
-                                        if (allergicToRecipe == false) {
+                                        if (!allergicToRecipe) {
                                             RecipeResultFragment.recipeList.add(recipe);
+                                            recipesFound = true;
                                         }
+                                        enthalteneZutaten.clear();
+
                                         RecipeResultFragment recipeResultFragment = new RecipeResultFragment();
                                         FragmentManager manager = getFragmentManager();
                                         manager.beginTransaction().replace(R.id.fragment_container, recipeResultFragment, recipeResultFragment.getTag()).addToBackStack(null).commit();
@@ -197,6 +184,26 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
                                 public void onCancelled(@NonNull DatabaseError databaseError) {
                                 }
                             });
+                        } else {
+                            for (int k = 0; k < productList.size(); k++) {
+                                for (int j = 0; j < zutaten.size(); j++) {
+                                    if (zutaten.get(j).equals(productList.get(k).getName())) {
+                                        enthalteneZutaten.add(productList.get(k).getName());
+                                    }
+                                }
+                            }
+                            productListNameString.clear();
+                            for (int z = 0; z < productList.size(); z++) {
+                                productListNameString.add(productList.get(z).getName());
+                            }
+
+                            if (enthalteneZutaten.equals(productListNameString)) {
+                                RecipeResultFragment.recipeList.add(recipe);
+                                recipesFound = true;
+                                RecipeResultFragment recipeResultFragment = new RecipeResultFragment();
+                                FragmentManager manager = getFragmentManager();
+                                manager.beginTransaction().replace(R.id.fragment_container, recipeResultFragment, recipeResultFragment.getTag()).addToBackStack(null).commit();
+                            }
                         }
                     }
                 }
@@ -210,7 +217,6 @@ public class RecipeGenerate extends Fragment implements ProductAdapter.OnNoteLis
 
     @Override
     public void onFoodClick(int position) {
-
     }
 
     public class FoodViewHolder extends RecyclerView.ViewHolder {
