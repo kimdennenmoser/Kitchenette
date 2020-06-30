@@ -26,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeleteAccountPopUpFragment extends DialogFragment {
+public class DeleteAccountPopUpFragment extends DialogFragment { //Quelle: https://www.youtube.com/watch?v=8OpTAW6wp84
 
     View view;
     Button btnDeleteAccount;

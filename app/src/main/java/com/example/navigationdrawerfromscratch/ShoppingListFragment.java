@@ -32,7 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShoppingListFragment extends Fragment implements ProductAdapter.OnNoteListener {
+public class ShoppingListFragment extends Fragment implements ProductAdapter.OnNoteListener { //Quelle: https://www.youtube.com/watch?v=8OpTAW6wp84
 
     View view;
     public static Context context;
@@ -70,8 +70,10 @@ public class ShoppingListFragment extends Fragment implements ProductAdapter.OnN
             public void onClick(View v) {
                 recyclerView.setAdapter(adapter);
                 if (MainActivity.isAngemeldet == true) {
+                    //Quelle: https://www.youtube.com/watch?v=8OpTAW6wp84
                     DeleteAllIngredientsFromShoppingListPopUpFragment deleteAllIngredientsFromShoppingListPopUpFragment = new DeleteAllIngredientsFromShoppingListPopUpFragment();
                     deleteAllIngredientsFromShoppingListPopUpFragment.show(getActivity().getSupportFragmentManager(), "DeleteAllIngredientsPopUpFragment");
+                    //Quelle Ende
                 } else {
                     Toast.makeText(getContext(), "Bitte anmelden", Toast.LENGTH_LONG).show();
                 }
