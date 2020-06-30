@@ -15,6 +15,8 @@ import com.example.navigationdrawerfromscratch.account.recipes.Zutat;
 import java.util.HashMap;
 import java.util.List;
 
+//Quelle: https://www.youtube.com/watch?v=a4o9zFfyIM4
+
 public class IngredientsAdapter extends RecyclerView.Adapter<IngredientsAdapter.IngredientViewHolder> {
 
 

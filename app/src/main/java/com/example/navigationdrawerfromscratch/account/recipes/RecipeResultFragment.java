@@ -26,6 +26,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+//Quelle: https://www.youtube.com/watch?v=OWwOSLfWboY
+
 public class RecipeResultFragment extends Fragment implements RecipeAdapter.OnRecipeListener, AdapterView.OnItemSelectedListener {
 
     View view;

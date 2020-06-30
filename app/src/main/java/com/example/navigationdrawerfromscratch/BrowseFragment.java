@@ -27,6 +27,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+//Quelle: https://www.youtube.com/watch?v=a4o9zFfyIM4
+
 public class BrowseFragment extends Fragment implements RecipeAdapter.OnRecipeListener  { //implements RecipeAdapter.OnRecipeListener
 
     RecyclerView recyclerView;
