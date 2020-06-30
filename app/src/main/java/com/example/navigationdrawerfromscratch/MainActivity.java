@@ -24,7 +24,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener { //Quellen: https://www.youtube.com/watch?v=fGcMLu1GJEc https://www.youtube.com/watch?v=zYVEMCiDcmY&t=6s https://www.youtube.com/watch?v=bjYstsO1PgI&t=9s
 
     private DrawerLayout drawer;
     ListView search_recipes;

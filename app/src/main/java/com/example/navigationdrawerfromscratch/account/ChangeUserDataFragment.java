@@ -66,8 +66,10 @@ public class ChangeUserDataFragment extends Fragment {
                 editTextChangePassword.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        //Quelle: https://www.youtube.com/watch?v=8OpTAW6wp84
                         ChangePasswordPopUpFragment changePasswordPopUpFragment = new ChangePasswordPopUpFragment();
                         changePasswordPopUpFragment.show(getActivity().getSupportFragmentManager(), "ChangePasswordPopUpFragment");
+                        //Quelle Ende
                     }
                 });
 
